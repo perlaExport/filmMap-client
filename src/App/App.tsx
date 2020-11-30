@@ -1,13 +1,15 @@
 import React from 'react';
 import './App.scss';
-import { Navbar } from "../components/layout";
+import { Navbar } from "components/layout";
+import Routes from "pages/Routes";
+import { BrowserRouter } from "react-router-dom";
 
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Navbar />
+      <Navbar username={undefined} />
         <section className="page-container">
-          jeden
+          <BrowserRouter><Routes isAuth={true} /></BrowserRouter>
         </section>
     </div>
   );

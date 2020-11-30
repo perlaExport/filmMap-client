@@ -1,0 +1,12 @@
+@import "../../../assets/styles/colors";
+
+.app-button {
+    background-color: $yellow-primary;
+    color: $mian-black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10rem;
+    padding: 0.2rem 0.4rem;
+    cursor: pointer;
+}
