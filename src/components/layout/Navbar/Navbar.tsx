@@ -1,12 +1,21 @@
 import React from 'react';
 import "./Navbar.scss";
-import { ReactComponent as Logo } from "../../../assets/images/filmMap-logo-full.svg";
+import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
+import { ReactComponent as UserIcon } from "assets/images/user-icon.svg";
+import Button from "components/general/Button/Button";
 
-const Navbar: React.FC = () => {
+interface NavbarProps {
+    username: string | undefined
+}
+
+const Navbar: React.FC<NavbarProps> = ({ username }) => {
     return (
-        <nav className="nav-bar">
-            <Logo />
-            navabr
+        <nav id="navbar">
+            <Logo className="app-logo" />
+            { !!username 
+            ? <Button className="user-button"><UserIcon />{username}</Button> 
+            : <Button className="log-in-button">logIn</Button> }
+            
         </nav>
     )
 }
