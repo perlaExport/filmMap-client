@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import "./Navbar.scss";
 import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 import { ReactComponent as UserIcon } from "assets/images/user-icon.svg";
@@ -10,6 +10,9 @@ interface NavbarProps {
 }
 
 const Navbar: React.FC<NavbarProps> = ({ username }) => {
+
+    const [sidebarShow, setSidebarShow] = useState<boolean>(false);
+
     return (
         <>
             <nav id="navbar">
@@ -19,7 +22,7 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
                 : <Button className="log-in-button">logIn</Button> }
                 
             </nav>
-            <Sidebar show={true} title="Login">
+            <Sidebar show={sidebarShow} closeHandler={() => setSidebarShow(show => !show)} title="Login">
                 <input type="text"/>
                 <input type="text"/>
                 <button>submit</button>
