@@ -1,0 +1,43 @@
+@import "../../../assets/styles/colors";
+$sidebar-width: 20rem;
+$header-hight: 3.5rem;
+$arrow-size: 2rem;
+
+.side-bar {
+    background-color: green;
+    width: $sidebar-width;
+    right: 0;
+    position: absolute;
+    height: 100%;
+    &.show {
+        .arrow-icon {
+            transform: rotate(180deg);
+        }
+    }
+    .sidebar-header {
+        font-family: 'Open Sans', sans-serif;
+        background-color: $yellow-primary;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        height: $header-hight;
+        .sidebar-title {
+        }
+        .arrow-icon {
+            height: $arrow-size;
+            width: $arrow-size;
+            position: absolute;
+            left: 1rem;
+            cursor: pointer;
+            transition: all ease-in-out 0.3s;
+        }
+    }
+    .sidebar-content {
+        box-sizing: border-box;
+        padding: 0.5rem 1rem;
+        display: flex;
+        flex-direction: column;
+    }
+
+}
