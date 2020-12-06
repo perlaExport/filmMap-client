@@ -4,6 +4,7 @@ import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 import { ReactComponent as UserIcon } from "assets/images/user-icon.svg";
 import Button from "components/general/Button/Button";
 import { Sidebar } from "components/layout"
+import {LoginForm } from "components/forms";
 
 interface NavbarProps {
     username: string | undefined
@@ -23,9 +24,7 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
                 
             </nav>
             <Sidebar show={sidebarShow} closeHandler={() => setSidebarShow(show => !show)} title="Login">
-                <input type="text"/>
-                <input type="text"/>
-                <button>submit</button>
+                <LoginForm />
             </Sidebar>
         </>
     )
