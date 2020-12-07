@@ -5,6 +5,7 @@
     justify-content: center;
     width: 8rem;
     overflow: hidden;
+    outline: none;
     & > .spinner.spinner-black {
         $spinner-height: 1.5rem;
         height: $spinner-height;

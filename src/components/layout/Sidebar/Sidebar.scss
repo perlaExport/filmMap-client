@@ -11,7 +11,7 @@ $transition: all ease-in-out 0.4s;
 }
 
 .side-bar {
-    background-color: green;
+    background-color: #222222;
     width: $sidebar-width;
     right: 0;
     position: absolute;
@@ -28,6 +28,7 @@ $transition: all ease-in-out 0.4s;
         justify-content: center;
         height: $header-hight;
         .sidebar-title {
+            color: #222222;
         }
         .arrow-icon {
             height: $arrow-size;
