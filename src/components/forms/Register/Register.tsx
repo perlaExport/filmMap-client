@@ -18,7 +18,11 @@ const fields = {
 	matchPassword: "",
 };
 
-const Register: React.FC = () => {
+interface RegisterProps {
+    changeFormScene: () => void
+}
+
+const Register: React.FC<RegisterProps> = ({ changeFormScene }) => {
     
     const handleRegister = (data: any, { setSubmitting }: {setSubmitting: any}) => {
         setSubmitting(true);
@@ -63,6 +67,9 @@ const Register: React.FC = () => {
                     <LoadingButton type="submit" isLoading={isSubmitting} >
                         Register
                     </LoadingButton>
+                    <button type="button" className="link-element login-nav-link" onClick={changeFormScene}>
+                        Login
+                    </button>
                 </Form>
             )}
 

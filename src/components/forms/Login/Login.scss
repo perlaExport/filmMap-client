@@ -8,4 +8,15 @@
     .submit-btn {
         margin-top: 2rem;
     }
+
+    .option-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .register-nav-link {
+        margin-top: 2rem;
+    }
 }

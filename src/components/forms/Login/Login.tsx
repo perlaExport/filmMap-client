@@ -2,6 +2,7 @@ import React from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
+import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
 import "./Login.scss";
 
@@ -14,7 +15,11 @@ const fields = {
 	password: "",
 };
 
-const Login: React.FC = () => {
+interface LoginProps {
+    changeFormScene: () => void
+}
+
+const Login: React.FC<LoginProps> = ({ changeFormScene }) => {
     
     const handleLogin = (data: any, { setSubmitting }: {setSubmitting: any}) => {
         setSubmitting(true);
@@ -48,9 +53,16 @@ const Login: React.FC = () => {
                         disabled={isSubmitting}
                         as={Input}
                      />
+                     <div className="option-group">
+                        <CheckBox label="remember me" />
+                        <button type="button" className="link-element">forgot password?</button>
+                     </div>
                     <LoadingButton type="submit" isLoading={isSubmitting} >
                         Login
                     </LoadingButton>
+                    <button type="button" className="link-element register-nav-link" onClick={changeFormScene}>
+                        Don't have an account ?
+                    </button>
                 </Form>
             )}
 

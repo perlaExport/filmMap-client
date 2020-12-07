@@ -5,7 +5,6 @@ import { ReactComponent as UserIcon } from "assets/images/user-icon.svg";
 import Button from "components/general/Button/Button";
 import { Sidebar } from "components/layout"
 import { RegisterForm, LoginForm } from "components/forms";
-import Input from "components/general/Input/Input";
 
 interface NavbarProps {
     username: string | undefined
@@ -14,10 +13,25 @@ interface NavbarProps {
 const Navbar: React.FC<NavbarProps> = ({ username }) => {
 
     const [sidebarShow, setSidebarShow] = useState<boolean>(true);
-    const [usernameInput, setUsername] = useState<string>("");
+    const [currentSidebarForm, setSidebarForms] = useState<"Login" | "Register">("Login");
 
-    const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setUsername(event.target.value);
+    const handleToggleSidebarOpen = () => {
+        setSidebarShow( isOpen => !isOpen);
+    }
+
+    const changeToRegister = () => {
+        setSidebarShow(false);
+        setTimeout(() => {
+            setSidebarForms("Register");
+            setSidebarShow(true);
+        }, 700);
+    }
+    const changeToLogin = () => {
+        setSidebarShow(false);
+        setTimeout(() => {
+            setSidebarForms("Login");
+            setSidebarShow(true);
+        }, 700);
     }
 
     return (
@@ -29,10 +43,9 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
                 : <Button className="log-in-button">logIn</Button> }
                 
             </nav>
-            <Sidebar show={sidebarShow} closeHandler={() => setSidebarShow(show => !show)} title="Login">
-                {/* <LoginForm /> */}
-                <RegisterForm />
-                {/* <Input name="username" value={usernameInput} error={usernameInput} onChange={onChangeHandler} /> */}
+            <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>
+                {currentSidebarForm === "Login" && <LoginForm changeFormScene={changeToRegister} />}
+                {currentSidebarForm === "Register" && <RegisterForm changeFormScene={changeToLogin} />}
             </Sidebar>
         </>
     )

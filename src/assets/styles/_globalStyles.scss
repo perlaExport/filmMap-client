@@ -27,3 +27,18 @@
         color: #FDBD73;
     }
 }
+
+
+.link-element {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: underline;
+    color: gray;
+    transition: color 0.3s ease-in-out;
+    outline: none;
+    &:hover {
+        color: #FDBD73;
+    }
+}
