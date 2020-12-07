@@ -2,21 +2,26 @@ import React from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
+import { LoadingButton } from "components/general/Button";
+import "./Login.scss";
 
 const validationSchema = Yup.object({
-	username: Yup.string().max(25, "username is too long").required("field is required"),
-	password: Yup.string().min(5, "must be at least 5 characters").required("field is required"),
+    email: Yup.string().email().required("field is required"),
+    password: Yup.string().required("field is required"),
 });
-
 const fields = {
-	username: "",
+	email: "",
 	password: "",
 };
 
 const Login: React.FC = () => {
-
-    const handleLogin = () => {
-        console.log("loggg");
+    
+    const handleLogin = (data: any, { setSubmitting }: {setSubmitting: any}) => {
+        setSubmitting(true);
+        setTimeout(() => {
+            console.log({ data });
+            setSubmitting(false);
+        }, 2000);
     }
 
     return (
@@ -25,13 +30,14 @@ const Login: React.FC = () => {
             validationSchema={validationSchema}
             onSubmit={handleLogin}
         >
-            {({ isSubmitting, isValid, errors }) => (
-                <Form>
+            {({ isSubmitting, errors }) => (
+                <Form className="login-form">
                     <Field
-                        error={errors["username"]}
-                        label="Username"
-                        name="username"
+                        error={errors["email"]}
+                        label="Email"
+                        name="email"
                         type="text"
+                        disabled={isSubmitting}
                         as={Input}
                          />
                     <Field
@@ -39,9 +45,12 @@ const Login: React.FC = () => {
                         label="Password"
                         name="password"
                         type="password"
+                        disabled={isSubmitting}
                         as={Input}
                      />
-                    <button type="submit">Login</button>
+                    <LoadingButton type="submit" isLoading={isSubmitting} >
+                        Login
+                    </LoadingButton>
                 </Form>
             )}
 
