@@ -1,21 +1,17 @@
 import React from 'react';
 import "./Input.scss";
 
-interface InputProps {
+interface InputProps extends React.ComponentProps<"input">{
     classes?: string,
-    type?: string,
     label?: string,
-    name: string,
-    value: string | number | undefined,
-    error?: string | null, 
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void | undefined
+    error?: string | null,
 }
 
-const Input: React.FC<InputProps> = ({ classes, type="text", name, label=name, value, error, onChange }) => {
+const Input: React.FC<InputProps> = ({ classes, error, label, ...props }) => {
     return (
-        <div className={`input-wrapper ${classes || ""} ${!!value ? "active" : ""} ${!!error ? "error" : ""}`}>
-            <input type={type} name={name} value={value} onChange={onChange} />
-            <label>{label}</label>
+        <div className={`input-wrapper ${classes || ""} ${!!props.value ? "active" : ""} ${!!error ? "error" : ""}`}>
+            <input {...props} />
+            <label>{label || props.name}</label>
             <span className="error-text">{error}</span>
         </div>
     )

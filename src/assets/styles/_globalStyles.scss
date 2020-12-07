@@ -1,0 +1,29 @@
+@import "./colors";
+%btn-main {
+    border: none;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 0.3rem 0.6rem;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+.btn-primary {
+    @extend %btn-main;
+    background-color: $yellow-primary;
+    color: #222222;
+    &:hover {
+        background-color: $yellow-secondary;
+        color: #6D5932;
+    }
+}
+.btn-secondary {
+    @extend %btn-main;
+    background-color: #383838;
+    color: $yellow-secondary;
+    &:hover {
+        background-color: #555555;
+        color: #FDBD73;
+    }
+}

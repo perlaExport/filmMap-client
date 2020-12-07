@@ -1,0 +1,11 @@
+.register-form {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    & > * {
+        margin: 0.25rem auto;
+    }
+    .submit-btn {
+        margin-top: 2rem;
+    }
+}
