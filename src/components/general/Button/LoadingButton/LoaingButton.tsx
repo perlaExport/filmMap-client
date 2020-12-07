@@ -2,20 +2,17 @@ import React from 'react';
 import {ReactComponent as DualRingSpinner} from "assets/spinners/DualRing-black.svg";
 import "./LoadingButton.scss";
 
-interface LoadingButtonProps {
+interface LoadingButtonProps extends React.ComponentProps<"button"> {
     classes?: string,
-    type?: "button" | "submit" | "reset",
-    clicked?: () => void,
     isLoading: boolean 
-}
+};
 
-const LoaingButton: React.FC<LoadingButtonProps> = ({ children, classes="", type="button", clicked, isLoading }) => {
+const LoaingButton: React.FC<LoadingButtonProps> = ({ children, classes="", isLoading, ...props }) => {
     return (
-        <button 
+        <button
+            {...props}
             disabled={isLoading}
             className={`loading-btn btn-primary submit-btn ${classes} ${isLoading ? "loading" : ""}`}
-            type={type}
-            onClick={clicked}
         >
             <span>{children}</span>
             <DualRingSpinner />
