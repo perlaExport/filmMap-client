@@ -2,30 +2,26 @@ import React from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
-import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
-import "./Login.scss";
 
 const validationSchema = Yup.object({
     email: Yup.string().email().required("field is required"),
-    password: Yup.string().required("field is required"),
 });
 const fields = {
 	email: "",
-	password: "",
 };
 
-interface LoginProps {
-    changeFormScene: () => void,
-    changeToForgotPass: () => void
+interface ForgotPasswordProps {
+    changeFormScene: () => void
 }
 
-const Login: React.FC<LoginProps> = ({ changeFormScene, changeToForgotPass }) => {
-    
-    const handleLogin = (data: any, { setSubmitting }: {setSubmitting: any}) => {
+const ForgotPassword: React.FC<ForgotPasswordProps> = ({ changeFormScene }) => {
+
+    const handleLogin = (data: any, { setSubmitting, setErrors }: {setSubmitting: any, setErrors: any}) => {
         setSubmitting(true);
         setTimeout(() => {
             console.log({ data });
+            setErrors({email: "No account with given email was found"})
             setSubmitting(false);
         }, 2000);
     }
@@ -46,23 +42,11 @@ const Login: React.FC<LoginProps> = ({ changeFormScene, changeToForgotPass }) =>
                         disabled={isSubmitting}
                         as={Input}
                          />
-                    <Field
-                        error={errors["password"]}
-                        label="Password"
-                        name="password"
-                        type="password"
-                        disabled={isSubmitting}
-                        as={Input}
-                     />
-                     <div className="option-group">
-                        <CheckBox label="remember me" />
-                        <button onClick={changeToForgotPass} type="button" className="link-element">forgot password?</button>
-                     </div>
                     <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
-                        Login
+                        Send
                     </LoadingButton>
-                    <button type="button" className="link-element register-nav-link" onClick={changeFormScene}>
-                        Don't have an account ?
+                    <button type="button" className="link-element login-nav-link" onClick={changeFormScene}>
+                        Login
                     </button>
                 </Form>
             )}
@@ -71,4 +55,4 @@ const Login: React.FC<LoginProps> = ({ changeFormScene, changeToForgotPass }) =>
     )
 }
 
-export default Login
+export default ForgotPassword
