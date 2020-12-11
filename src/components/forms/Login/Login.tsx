@@ -2,21 +2,31 @@ import React from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
+import CheckBox from "components/general/CheckBox/CheckBox";
+import { LoadingButton } from "components/general/Button";
+import "./Login.scss";
 
 const validationSchema = Yup.object({
-	username: Yup.string().max(25, "username is too long").required("field is required"),
-	password: Yup.string().min(5, "must be at least 5 characters").required("field is required"),
+    email: Yup.string().email().required("field is required"),
+    password: Yup.string().required("field is required"),
 });
-
 const fields = {
-	username: "",
+	email: "",
 	password: "",
 };
 
-const Login: React.FC = () => {
+interface LoginProps {
+    changeFormScene: () => void
+}
 
-    const handleLogin = () => {
-        console.log("loggg");
+const Login: React.FC<LoginProps> = ({ changeFormScene }) => {
+    
+    const handleLogin = (data: any, { setSubmitting }: {setSubmitting: any}) => {
+        setSubmitting(true);
+        setTimeout(() => {
+            console.log({ data });
+            setSubmitting(false);
+        }, 2000);
     }
 
     return (
@@ -25,13 +35,14 @@ const Login: React.FC = () => {
             validationSchema={validationSchema}
             onSubmit={handleLogin}
         >
-            {({ isSubmitting, isValid, errors }) => (
-                <Form>
+            {({ isSubmitting, errors, isValid }) => (
+                <Form className="login-form">
                     <Field
-                        error={errors["username"]}
-                        label="Username"
-                        name="username"
+                        error={errors["email"]}
+                        label="Email"
+                        name="email"
                         type="text"
+                        disabled={isSubmitting}
                         as={Input}
                          />
                     <Field
@@ -39,9 +50,19 @@ const Login: React.FC = () => {
                         label="Password"
                         name="password"
                         type="password"
+                        disabled={isSubmitting}
                         as={Input}
                      />
-                    <button type="submit">Login</button>
+                     <div className="option-group">
+                        <CheckBox label="remember me" />
+                        <button type="button" className="link-element">forgot password?</button>
+                     </div>
+                    <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
+                        Login
+                    </LoadingButton>
+                    <button type="button" className="link-element register-nav-link" onClick={changeFormScene}>
+                        Don't have an account ?
+                    </button>
                 </Form>
             )}
 

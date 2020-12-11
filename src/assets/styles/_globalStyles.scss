@@ -17,6 +17,11 @@
         background-color: $yellow-secondary;
         color: #6D5932;
     }
+    &:disabled:hover {
+        background-color: $yellow-primary;
+        color: #222222;
+        cursor: default;
+    }
 }
 .btn-secondary {
     @extend %btn-main;
@@ -24,6 +29,26 @@
     color: $yellow-secondary;
     &:hover {
         background-color: #555555;
+        color: #FDBD73;
+    }
+    &:disabled:hover {
+        background-color: #383838;
+        color: $yellow-secondary;
+        cursor: default;
+    }
+}
+
+
+.link-element {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: 'Open Sans', sans-serif;
+    text-decoration: underline;
+    color: gray;
+    transition: color 0.3s ease-in-out;
+    outline: none;
+    &:hover {
         color: #FDBD73;
     }
 }

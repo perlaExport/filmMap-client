@@ -1,0 +1,11 @@
+.checkbox-container{
+    display: flex;
+    align-items: center;
+    & > label {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: bold;
+        color: white;
+        font-size: 0.8rem;
+        margin-left: 3px;
+    }
+}

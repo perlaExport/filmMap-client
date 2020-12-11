@@ -1,11 +1,11 @@
 import React from "react";
-import "./Button.scss";
+import "./NavButton.scss";
 
-interface ButtonProps {
+interface NavButtonProps {
     className?: String
 }
 
-const Button: React.FC<ButtonProps> = ({ children, className}) => {
+const NavButton: React.FC<NavButtonProps> = ({ children, className}) => {
     return (
         <div className={`app-button ${className}`}>
             {children}
@@ -13,4 +13,4 @@ const Button: React.FC<ButtonProps> = ({ children, className}) => {
     )
 }
 
-export default Button
+export default NavButton

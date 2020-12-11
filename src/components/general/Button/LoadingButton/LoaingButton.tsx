@@ -11,7 +11,7 @@ const LoaingButton: React.FC<LoadingButtonProps> = ({ children, classes="", isLo
     return (
         <button
             {...props}
-            disabled={isLoading}
+            disabled={props.disabled || isLoading}
             className={`loading-btn btn-primary submit-btn ${classes} ${isLoading ? "loading" : ""}`}
         >
             <span>{children}</span>

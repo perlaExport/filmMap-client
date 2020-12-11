@@ -18,7 +18,11 @@ const fields = {
 	matchPassword: "",
 };
 
-const Register: React.FC = () => {
+interface RegisterProps {
+    changeFormScene: () => void
+}
+
+const Register: React.FC<RegisterProps> = ({ changeFormScene }) => {
     
     const handleRegister = (data: any, { setSubmitting }: {setSubmitting: any}) => {
         setSubmitting(true);
@@ -34,7 +38,7 @@ const Register: React.FC = () => {
             validationSchema={validationSchema}
             onSubmit={handleRegister}
         >
-            {({ isSubmitting, errors }) => (
+            {({ isSubmitting, errors, isValid}) => (
                 <Form className="register-form">
                     <Field
                         error={errors["email"]}
@@ -60,9 +64,12 @@ const Register: React.FC = () => {
                         disabled={isSubmitting}
                         as={Input}
                      />
-                    <LoadingButton type="submit" isLoading={isSubmitting} >
+                    <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                         Register
                     </LoadingButton>
+                    <button type="button" className="link-element login-nav-link" onClick={changeFormScene}>
+                        Login
+                    </button>
                 </Form>
             )}
 
