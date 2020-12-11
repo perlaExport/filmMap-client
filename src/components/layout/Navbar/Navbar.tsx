@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import "./Navbar.scss";
 import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 import { ReactComponent as UserIcon } from "assets/images/user-icon.svg";
-import Button from "components/general/Button/Button";
+import { NavButton } from "components/general/Button";
 import { Sidebar } from "components/layout"
 import { RegisterForm, LoginForm } from "components/forms";
 
@@ -39,8 +39,8 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
             <nav id="navbar">
                 <Logo className="app-logo" />
                 { !!username 
-                ? <Button className="user-button"><UserIcon />{username}</Button> 
-                : <Button className="log-in-button">logIn</Button> }
+                ? <NavButton className="user-button"><UserIcon />{username}</NavButton> 
+                : <NavButton className="log-in-button">logIn</NavButton> }
                 
             </nav>
             <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>

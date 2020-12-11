@@ -35,7 +35,7 @@ const Login: React.FC<LoginProps> = ({ changeFormScene }) => {
             validationSchema={validationSchema}
             onSubmit={handleLogin}
         >
-            {({ isSubmitting, errors }) => (
+            {({ isSubmitting, errors, isValid }) => (
                 <Form className="login-form">
                     <Field
                         error={errors["email"]}
@@ -57,7 +57,7 @@ const Login: React.FC<LoginProps> = ({ changeFormScene }) => {
                         <CheckBox label="remember me" />
                         <button type="button" className="link-element">forgot password?</button>
                      </div>
-                    <LoadingButton type="submit" isLoading={isSubmitting} >
+                    <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                         Login
                     </LoadingButton>
                     <button type="button" className="link-element register-nav-link" onClick={changeFormScene}>

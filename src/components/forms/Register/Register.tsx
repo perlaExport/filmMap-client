@@ -38,7 +38,7 @@ const Register: React.FC<RegisterProps> = ({ changeFormScene }) => {
             validationSchema={validationSchema}
             onSubmit={handleRegister}
         >
-            {({ isSubmitting, errors }) => (
+            {({ isSubmitting, errors, isValid}) => (
                 <Form className="register-form">
                     <Field
                         error={errors["email"]}
@@ -64,7 +64,7 @@ const Register: React.FC<RegisterProps> = ({ changeFormScene }) => {
                         disabled={isSubmitting}
                         as={Input}
                      />
-                    <LoadingButton type="submit" isLoading={isSubmitting} >
+                    <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                         Register
                     </LoadingButton>
                     <button type="button" className="link-element login-nav-link" onClick={changeFormScene}>

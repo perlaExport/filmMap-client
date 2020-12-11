@@ -17,6 +17,11 @@
         background-color: $yellow-secondary;
         color: #6D5932;
     }
+    &:disabled:hover {
+        background-color: $yellow-primary;
+        color: #222222;
+        cursor: default;
+    }
 }
 .btn-secondary {
     @extend %btn-main;
@@ -25,6 +30,11 @@
     &:hover {
         background-color: #555555;
         color: #FDBD73;
+    }
+    &:disabled:hover {
+        background-color: #383838;
+        color: $yellow-secondary;
+        cursor: default;
     }
 }
 
