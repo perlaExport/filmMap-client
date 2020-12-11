@@ -1,51 +1,51 @@
 import React, { useState } from 'react';
 import "./Navbar.scss";
 import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
-import { ReactComponent as UserIcon } from "assets/images/user-icon.svg";
 import { NavButton } from "components/general/Button";
 import { Sidebar } from "components/layout"
 import { RegisterForm, LoginForm } from "components/forms";
+import { Link, useHistory } from "react-router-dom"
 
 interface NavbarProps {
     username: string | undefined
 }
 
+type FormSceneNames = "Login" | "Register";
+
 const Navbar: React.FC<NavbarProps> = ({ username }) => {
 
-    const [sidebarShow, setSidebarShow] = useState<boolean>(true);
-    const [currentSidebarForm, setSidebarForms] = useState<"Login" | "Register">("Login");
+    const [sidebarShow, setSidebarShow] = useState<boolean>(false);
+    const [currentSidebarForm, setSidebarForms] = useState<FormSceneNames>("Login");
+
+    const hisotry = useHistory();
 
     const handleToggleSidebarOpen = () => {
         setSidebarShow( isOpen => !isOpen);
     }
 
-    const changeToRegister = () => {
+    const changeScene = (scene: FormSceneNames, delay: number) => {
         setSidebarShow(false);
         setTimeout(() => {
-            setSidebarForms("Register");
+            setSidebarForms(scene);
             setSidebarShow(true);
-        }, 700);
+        }, delay);
     }
-    const changeToLogin = () => {
-        setSidebarShow(false);
-        setTimeout(() => {
-            setSidebarForms("Login");
-            setSidebarShow(true);
-        }, 700);
-    }
+
+    const changeToRegisterWithDelay = () => changeScene("Register", 700)
+    const changeToLoginWithDelay = () => changeScene("Login", 700)
+    const changeToLogin = () => changeScene("Login", 0)
+
+    const goToProfile = () => hisotry.push("/profile");
 
     return (
         <>
             <nav id="navbar">
-                <Logo className="app-logo" />
-                { !!username 
-                ? <NavButton className="user-button"><UserIcon />{username}</NavButton> 
-                : <NavButton className="log-in-button">logIn</NavButton> }
-                
+                <Link to="/"><Logo className="app-logo" /></Link>
+                <NavButton username={username} onClick={!!username ? goToProfile : changeToLogin} classes="user-button" />
             </nav>
             <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>
-                {currentSidebarForm === "Login" && <LoginForm changeFormScene={changeToRegister} />}
-                {currentSidebarForm === "Register" && <RegisterForm changeFormScene={changeToLogin} />}
+                {currentSidebarForm === "Login" && <LoginForm changeFormScene={changeToRegisterWithDelay} />}
+                {currentSidebarForm === "Register" && <RegisterForm changeFormScene={changeToLoginWithDelay} />}
             </Sidebar>
         </>
     )

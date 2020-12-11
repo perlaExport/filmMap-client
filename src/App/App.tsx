@@ -7,10 +7,12 @@ import { BrowserRouter } from "react-router-dom";
 const App: React.FC = () => {
   return (
     <div className="App">
-      <Navbar username={undefined} />
-        <section className="page-container">
-          <BrowserRouter><Routes isAuth={true} /></BrowserRouter>
-        </section>
+      <BrowserRouter>
+        <Navbar username={undefined} />
+          <section className="page-container">
+            <Routes isAuth={true} />
+          </section>
+        </BrowserRouter>
     </div>
   );
 }

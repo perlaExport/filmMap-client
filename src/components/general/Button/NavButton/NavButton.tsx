@@ -1,15 +1,31 @@
 import React from "react";
 import "./NavButton.scss";
+import {ReactComponent as LogInIcon } from "assets/images/login-icon.svg";
+import {ReactComponent as UserIcon } from "assets/images/user-icon.svg";
 
-interface NavButtonProps {
-    className?: String
+interface NavButtonProps extends React.ComponentProps<"button"> {
+    classes?: string,
+    username?: string
 }
 
-const NavButton: React.FC<NavButtonProps> = ({ children, className}) => {
+const NavButton: React.FC<NavButtonProps> = ({ classes, username, ...props}) => {
+
+
     return (
-        <div className={`app-button ${className}`}>
-            {children}
-        </div>
+        <button {...props} className={`app-button ${classes}`}>
+            {
+                !!username ?
+                <>
+                    <UserIcon />
+                    <span>{username}</span>
+                </> :
+                <>
+                    <LogInIcon />
+                    <span>LogIn</span>
+                </>
+            }
+         
+        </button>
     )
 }
 
