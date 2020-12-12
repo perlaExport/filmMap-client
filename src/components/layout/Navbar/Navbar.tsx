@@ -3,14 +3,14 @@ import "./Navbar.scss";
 import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 import { NavButton } from "components/general/Button";
 import { Sidebar } from "components/layout"
-import { RegisterForm, LoginForm } from "components/forms";
+import { RegisterForm, LoginForm, ForgotPassword } from "components/forms";
 import { Link, useHistory } from "react-router-dom"
 
 interface NavbarProps {
     username: string | undefined
 }
 
-type FormSceneNames = "Login" | "Register";
+type FormSceneNames = "Login" | "Register" | "Forgot Password";
 
 const Navbar: React.FC<NavbarProps> = ({ username }) => {
 
@@ -33,6 +33,7 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
 
     const changeToRegisterWithDelay = () => changeScene("Register", 700)
     const changeToLoginWithDelay = () => changeScene("Login", 700)
+    const changeToForgotPasswordWithDelay = () => changeScene("Forgot Password", 700)
     const changeToLogin = () => changeScene("Login", 0)
 
     const goToProfile = () => hisotry.push("/profile");
@@ -44,8 +45,9 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
                 <NavButton username={username} onClick={!!username ? goToProfile : changeToLogin} classes="user-button" />
             </nav>
             <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>
-                {currentSidebarForm === "Login" && <LoginForm changeFormScene={changeToRegisterWithDelay} />}
+                {currentSidebarForm === "Login" && <LoginForm changeFormScene={changeToRegisterWithDelay} changeToForgotPass={changeToForgotPasswordWithDelay} />}
                 {currentSidebarForm === "Register" && <RegisterForm changeFormScene={changeToLoginWithDelay} />}
+                {currentSidebarForm === "Forgot Password" && <ForgotPassword changeFormScene={changeToLoginWithDelay} />}
             </Sidebar>
         </>
     )

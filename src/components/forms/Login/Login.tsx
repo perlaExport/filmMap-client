@@ -17,10 +17,11 @@ const fields = {
 };
 
 interface LoginProps {
-    changeFormScene: () => void
+    changeFormScene: () => void,
+    changeToForgotPass: () => void
 }
 
-const Login: React.FC<LoginProps> = ({ changeFormScene }) => {
+const Login: React.FC<LoginProps> = ({ changeFormScene, changeToForgotPass }) => {
     
     const handleLogin = async (data: any, { setSubmitting }: {setSubmitting: any}) => {
         // setSubmitting(true);
@@ -68,7 +69,7 @@ const Login: React.FC<LoginProps> = ({ changeFormScene }) => {
                      />
                      <div className="option-group">
                         <CheckBox label="remember me" />
-                        <button type="button" className="link-element">forgot password?</button>
+                        <button onClick={changeToForgotPass} type="button" className="link-element">forgot password?</button>
                      </div>
                     <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                         Login
