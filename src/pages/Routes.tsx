@@ -26,7 +26,7 @@ const Routes: React.FC<{isAuth: boolean}> = ({ isAuth }) => {
 			<ProtectedRoute auth={isAuth} path="/recommendations" component={Recommendations} />
 			<ProtectedRoute auth={isAuth} path="/questionnaire" component={Questionnaire} />
 			<ProtectedRoute auth={isAuth} path="/profile" component={Profile} />
-			<Route render={() => <Redirect to="/" />} />
+			{/* <Route render={() => <Redirect to="/" />} /> */}
 		</Switch>
     )
 }

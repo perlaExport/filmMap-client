@@ -5,6 +5,7 @@ import Input from "components/general/Input/Input";
 import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
 import "./Login.scss";
+import axios from "axios";
 
 const validationSchema = Yup.object({
     email: Yup.string().email().required("field is required"),
@@ -21,12 +22,24 @@ interface LoginProps {
 
 const Login: React.FC<LoginProps> = ({ changeFormScene }) => {
     
-    const handleLogin = (data: any, { setSubmitting }: {setSubmitting: any}) => {
-        setSubmitting(true);
-        setTimeout(() => {
-            console.log({ data });
+    const handleLogin = async (data: any, { setSubmitting }: {setSubmitting: any}) => {
+        // setSubmitting(true);
+        // setTimeout(() => {
+        //     console.log({ data });
+        //     setSubmitting(false);
+        // }, 2000);
+        try {
+            setSubmitting(true);
+            const res = await axios.post("http://localhost:8181/login", data)
+            console.log(res);
             setSubmitting(false);
-        }, 2000);
+        } catch (error) {
+            console.log(error);
+            setSubmitting(false);
+
+        }
+        
+
     }
 
     return (

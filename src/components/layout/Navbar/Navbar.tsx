@@ -14,8 +14,8 @@ type FormSceneNames = "Login" | "Register";
 
 const Navbar: React.FC<NavbarProps> = ({ username }) => {
 
-    const [sidebarShow, setSidebarShow] = useState<boolean>(false);
-    const [currentSidebarForm, setSidebarForms] = useState<FormSceneNames>("Login");
+    const [sidebarShow, setSidebarShow] = useState<boolean>(true);
+    const [currentSidebarForm, setSidebarForms] = useState<FormSceneNames>("Register");
 
     const hisotry = useHistory();
 
