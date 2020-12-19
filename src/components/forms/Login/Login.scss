@@ -1,3 +1,5 @@
+@import "../../../assets/styles/colors";
+
 .login-form {
     display: flex;
     flex-direction: column;
@@ -15,6 +17,34 @@
         justify-content: space-between;
         align-items: center;
         width: 15rem;
+        margin-top: 1rem;
+    }
+    .oath-options-group {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-top: 2rem;
+        background: transparent;
+        border: none;
+        outline: none;
+        & > .google-logo {
+            $logo-size: 1rem;
+            width: $logo-size;
+            height: $logo-size;
+            fill: gray;
+            margin-right: 5px;
+        }
+        & > span {
+            font-family: 'Open Sans', sans-serif;
+            color:gray;
+            transition: color 0.3s ease-in-out;
+            &:hover {
+                color:rgb(175, 175, 175);
+            }
+            
+        }
     }
 
     .register-nav-link {

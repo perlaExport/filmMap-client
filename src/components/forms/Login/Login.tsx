@@ -8,6 +8,7 @@ import "./Login.scss";
 import callAPI from "helper/apiCall";
 import { UserContext } from "context/userContext"
 import { FormSceneNames } from "types";
+import {ReactComponent as GoogleLogo} from "assets/images/google-logo-color.svg"; 
 
 
 
@@ -57,6 +58,12 @@ const Login: React.FC<LoginProps> = ({ changeSceneHandler }) => {
 
     }
 
+    const redirectToOAuth = () => {
+        const { REACT_APP_SERVER_URL } = process.env;
+        const BASE_URL = REACT_APP_SERVER_URL || "http://localhost:8181";
+        window.location.href=`${BASE_URL}/oauth2/authorize/google`;
+    }
+
     const changeToRegister = () => changeSceneHandler("Register", 700)
     const changeToForgotPass = () => changeSceneHandler("Forgot Password", 700)
 
@@ -91,6 +98,10 @@ const Login: React.FC<LoginProps> = ({ changeSceneHandler }) => {
                     <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                         Login
                     </LoadingButton>
+                    <button type="button" onClick={redirectToOAuth} className="oath-options-group">
+                        <GoogleLogo />
+                        <span>Login with Google</span>
+                    </button>
                     <button type="button" className="link-element register-nav-link" onClick={changeToRegister}>
                         Don't have an account ?
                     </button>
