@@ -3,6 +3,8 @@ import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
 import { LoadingButton } from "components/general/Button";
+import { FormSceneNames } from "types";
+
 
 const validationSchema = Yup.object({
     email: Yup.string().email().required("field is required"),
@@ -12,12 +14,12 @@ const fields = {
 };
 
 interface ForgotPasswordProps {
-    changeFormScene: () => void
+    changeSceneHandler: (type: FormSceneNames, delay: number) => void,
 }
 
-const ForgotPassword: React.FC<ForgotPasswordProps> = ({ changeFormScene }) => {
+const ForgotPassword: React.FC<ForgotPasswordProps> = ({ changeSceneHandler }) => {
 
-    const handleLogin = (data: any, { setSubmitting, setErrors }: {setSubmitting: any, setErrors: any}) => {
+    const handleChangePasswordRequest = (data: any, { setSubmitting, setErrors }: {setSubmitting: any, setErrors: any}) => {
         setSubmitting(true);
         setTimeout(() => {
             console.log({ data });
@@ -26,11 +28,15 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ changeFormScene }) => {
         }, 2000);
     }
 
+    const changeSceneToLogin = () => {
+        changeSceneHandler("Login", 700);
+    }
+
     return (
         <Formik
             initialValues={fields}
             validationSchema={validationSchema}
-            onSubmit={handleLogin}
+            onSubmit={handleChangePasswordRequest}
         >
             {({ isSubmitting, errors, isValid }) => (
                 <Form className="login-form">
@@ -45,7 +51,7 @@ const ForgotPassword: React.FC<ForgotPasswordProps> = ({ changeFormScene }) => {
                     <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                         Send
                     </LoadingButton>
-                    <button type="button" className="link-element login-nav-link" onClick={changeFormScene}>
+                    <button type="button" className="link-element login-nav-link" onClick={changeSceneToLogin}>
                         Login
                     </button>
                 </Form>

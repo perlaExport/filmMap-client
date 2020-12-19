@@ -5,17 +5,16 @@ import { NavButton } from "components/general/Button";
 import { Sidebar } from "components/layout"
 import { RegisterForm, LoginForm, ForgotPassword } from "components/forms";
 import { Link, useHistory } from "react-router-dom"
+import { FormSceneNames } from "types";
 
 interface NavbarProps {
     username: string | undefined
 }
 
-type FormSceneNames = "Login" | "Register" | "Forgot Password";
-
 const Navbar: React.FC<NavbarProps> = ({ username }) => {
 
-    const [sidebarShow, setSidebarShow] = useState<boolean>(true);
-    const [currentSidebarForm, setSidebarForms] = useState<FormSceneNames>("Register");
+    const [sidebarShow, setSidebarShow] = useState<boolean>(false);
+    const [currentSidebarForm, setSidebarForms] = useState<FormSceneNames>("Login");
 
     const hisotry = useHistory();
 
@@ -25,15 +24,14 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
 
     const changeScene = (scene: FormSceneNames, delay: number) => {
         setSidebarShow(false);
-        setTimeout(() => {
-            setSidebarForms(scene);
-            setSidebarShow(true);
-        }, delay);
+        if(scene !== "Close") {
+            setTimeout(() => {
+                setSidebarForms(scene);
+                setSidebarShow(true);
+            }, delay);
+        }
     }
 
-    const changeToRegisterWithDelay = () => changeScene("Register", 700)
-    const changeToLoginWithDelay = () => changeScene("Login", 700)
-    const changeToForgotPasswordWithDelay = () => changeScene("Forgot Password", 700)
     const changeToLogin = () => changeScene("Login", 0)
 
     const goToProfile = () => hisotry.push("/profile");
@@ -45,9 +43,12 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
                 <NavButton username={username} onClick={!!username ? goToProfile : changeToLogin} classes="user-button" />
             </nav>
             <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>
-                {currentSidebarForm === "Login" && <LoginForm changeFormScene={changeToRegisterWithDelay} changeToForgotPass={changeToForgotPasswordWithDelay} />}
-                {currentSidebarForm === "Register" && <RegisterForm changeFormScene={changeToLoginWithDelay} />}
-                {currentSidebarForm === "Forgot Password" && <ForgotPassword changeFormScene={changeToLoginWithDelay} />}
+                {currentSidebarForm === "Login" && 
+                    <LoginForm changeSceneHandler={changeScene} />}
+                {currentSidebarForm === "Register" && 
+                    <RegisterForm  changeSceneHandler={changeScene} />}
+                {currentSidebarForm === "Forgot Password" && 
+                    <ForgotPassword  changeSceneHandler={changeScene} />}
             </Sidebar>
         </>
     )

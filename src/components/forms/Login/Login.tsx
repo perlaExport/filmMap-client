@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
 import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
 import "./Login.scss";
-import axios from "axios";
+import callAPI from "helper/apiCall";
+import { UserContext } from "context/userContext"
+import { FormSceneNames } from "types";
+
+
 
 const validationSchema = Yup.object({
     email: Yup.string().email().required("field is required"),
@@ -17,31 +21,44 @@ const fields = {
 };
 
 interface LoginProps {
-    changeFormScene: () => void,
-    changeToForgotPass: () => void
+    changeSceneHandler: (type: FormSceneNames, delay: number) => void,
 }
 
-const Login: React.FC<LoginProps> = ({ changeFormScene, changeToForgotPass }) => {
-    
-    const handleLogin = async (data: any, { setSubmitting }: {setSubmitting: any}) => {
-        // setSubmitting(true);
-        // setTimeout(() => {
-        //     console.log({ data });
-        //     setSubmitting(false);
-        // }, 2000);
-        try {
-            setSubmitting(true);
-            const res = await axios.post("http://localhost:8181/login", data)
-            console.log(res);
-            setSubmitting(false);
-        } catch (error) {
-            console.log(error);
-            setSubmitting(false);
+const Login: React.FC<LoginProps> = ({ changeSceneHandler }) => {
 
+    const [,dispatchUser] = useContext(UserContext);
+    
+    const handleLogin = async (payload: any, { setSubmitting, setErrors }: {setSubmitting: any, setErrors: any }) => {
+        const { data, status, error } = await callAPI({
+            url: "/login",
+            method: "POST",
+            setLoading: setSubmitting,
+            payload
+        });
+        if(status === 200 && !!data) {
+            const {token, user} = data;
+            if(!!data.token) {
+                dispatchUser({type: "LOGIN_SUCCESS", payload: { token: token, user: user.name }})
+                changeSceneHandler("Close", 0)
+            }
+            let errorMessages: any = {};
+
+            for (const [key] of Object.entries(fields)) {
+                errorMessages[key] = data[key];
+              }
+            setErrors(errorMessages)
+        } else {
+            let errorMessages: any = {};
+            for (const [key] of Object.entries(fields)) {
+                errorMessages[key] = error[key];
+              }
+            setErrors(errorMessages)
         }
-        
 
     }
+
+    const changeToRegister = () => changeSceneHandler("Register", 700)
+    const changeToForgotPass = () => changeSceneHandler("Forgot Password", 700)
 
     return (
         <Formik
@@ -74,7 +91,7 @@ const Login: React.FC<LoginProps> = ({ changeFormScene, changeToForgotPass }) =>
                     <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                         Login
                     </LoadingButton>
-                    <button type="button" className="link-element register-nav-link" onClick={changeFormScene}>
+                    <button type="button" className="link-element register-nav-link" onClick={changeToRegister}>
                         Don't have an account ?
                     </button>
                 </Form>

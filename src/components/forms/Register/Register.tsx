@@ -6,6 +6,8 @@ import "./Register.scss";
 import {LoadingButton} from "components/general/Button";
 import callAPI from "helper/apiCall";
 import RegistrationSuccess from "./RegistrationSuccess";
+import { FormSceneNames } from "types";
+
 
 const validationSchema = Yup.object({
     email: Yup.string().email().required("field is required"),
@@ -23,30 +25,33 @@ const fields = {
 };
 
 interface RegisterProps {
-    changeFormScene: () => void
+    changeSceneHandler: (type: FormSceneNames, delay: number) => void,
 }
 
-const Register: React.FC<RegisterProps> = ({ changeFormScene }) => {
+const Register: React.FC<RegisterProps> = ({ changeSceneHandler }) => {
 
     const [registartionEmail, setRegistartionEmail] = useState<string>("");
     
     const handleRegister = async (payload: any, { setSubmitting, setErrors }: {setSubmitting: any, setErrors: any}) => {
         const { data ,status, error } = await callAPI({
-            url: "http://localhost:8181/register",
+            url: "/register",
             method: "POST",
             setLoading: setSubmitting,
             payload
         });
         if(status === 200) {
-            console.log("successfuly registered");
             setRegistartionEmail(data.email);
         }
         else if(!!error) setErrors({ email: error});
         
     }
+
+    const changeSceneToLogin = () => {
+        changeSceneHandler("Login", 700);
+    }
     if(!!registartionEmail) {
         return(
-            <RegistrationSuccess email={registartionEmail} changeFormSceneToLogin={changeFormScene} />
+            <RegistrationSuccess email={registartionEmail} changeFormSceneToLogin={changeSceneToLogin} />
         )
     } else{
         return (
@@ -92,7 +97,7 @@ const Register: React.FC<RegisterProps> = ({ changeFormScene }) => {
                         <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting} >
                             Register
                         </LoadingButton>
-                        <button type="button" className="link-element login-nav-link" onClick={changeFormScene}>
+                        <button type="button" className="link-element login-nav-link" onClick={changeSceneToLogin}>
                             Login
                         </button>
                     </Form>

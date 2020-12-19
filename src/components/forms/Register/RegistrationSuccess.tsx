@@ -15,7 +15,7 @@ const RegistrationSuccess: React.FC<RegistrationSuccessProps> = ({ email, change
             <span className="instructions">
                 {`Activate your account using the link sent to `}
             </span>
-            <strong className="email">"DRodzewicz@gmail.com"</strong>
+            <strong className="email">{`"${email}"`}</strong>
             <button type="button" className="link-element login-nav-link" onClick={changeFormSceneToLogin}>
                 go to Login
             </button>

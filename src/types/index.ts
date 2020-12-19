@@ -1,0 +1,1 @@
+export type FormSceneNames = "Login" | "Register" | "Forgot Password" | "Close";
