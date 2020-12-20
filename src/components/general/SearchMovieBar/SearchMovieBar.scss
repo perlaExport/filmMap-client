@@ -37,6 +37,30 @@ $search-bar-width: 30rem;
         font-family: 'Open Sans', sans-serif;
         font-size: 1.2rem;
     }
+    .spinner {
+        $spinner-size: 2rem;
+        height: $spinner-size;
+        width: $spinner-size;
+        align-self: center;
+        margin-right: -$spinner-size + 0.2rem;
+        transition: all 0.2s ease-in-out;
+        &.loading {
+            margin-right: 0.2rem;
+        }
+    }
+    .x-icon {
+        $x-size: 0.8rem;
+        height: $x-size;
+        width: $x-size;
+        align-self: center;
+        margin-right: 0.5rem;
+        display: none;
+        fill: rgb(204, 204, 204);
+        cursor: pointer;
+        &.show {
+            display: block;
+        }
+    }
 }
 .search-bar-wrapper {
     position: relative;
