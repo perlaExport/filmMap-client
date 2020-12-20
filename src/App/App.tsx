@@ -6,13 +6,13 @@ import {  UserContext } from "context/userContext"
 
 const App: React.FC = () => {
 
-  const [{user}] = useContext(UserContext);
+  const [{user, authStatus}] = useContext(UserContext);
 
   return (
     <div className="App">
         <Navbar username={user} />
           <section className="page-container">
-            <Routes isAuth={true} />
+            <Routes isAuth={authStatus === "success"} />
           </section>
     </div>
   );

@@ -17,4 +17,8 @@ body, html {
     background-image: url("../assets/images/icon-bg.svg");
     background-size: auto;
     // background-position: 50% 50%;
+
+    .page-container {
+        height: 100%;
+    }
 }
