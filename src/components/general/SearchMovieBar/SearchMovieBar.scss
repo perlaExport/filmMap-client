@@ -1,4 +1,5 @@
 @import "../../../assets/styles/colors";
+@import "../../../assets/styles/mediaQueries";
 $search-bar-height: 3rem;
 $search-bar-width: 30rem;
 
@@ -12,6 +13,15 @@ $search-bar-width: 30rem;
     overflow: hidden;
     border: solid 2px $yellow-primary;
     background-color: rgba(189, 189, 189, 0.080);
+    transition: all 0.2s ease-in-out;
+
+    @include mobile {
+        width: 20rem;
+    }
+    &.focused {
+        background-color: rgba($yellow-primary, 0.2);
+        box-shadow: 0 0 3px 1px rgba($yellow-primary, 0.3);
+    }
 
     .search-icon-btn {
         background-color: $yellow-primary;

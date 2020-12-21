@@ -1,11 +1,15 @@
 import React from "react";
 import "./Home.scss";
 import SearchMovieBar from "components/general/SearchMovieBar/SearchMovieBar";
+import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 
 const Home: React.FC = () => {
     return (
         <div className="home-page">
-            <SearchMovieBar />
+            <div className="search-bar-logo-wrapper">
+                <Logo />
+                <SearchMovieBar />
+            </div>
         </div>
     )
 }

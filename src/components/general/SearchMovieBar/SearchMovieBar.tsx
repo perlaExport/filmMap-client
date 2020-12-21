@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
 import "./SearchMovieBar.scss";
+import { useHistory } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "assets/images/search-icon.svg"; 
 import callTMDBAPI from "helper/apiCallTMDB";
 import {ReactComponent as DualRingSpinner} from "assets/spinners/DualRing-yellow.svg";
@@ -15,7 +16,9 @@ const SearchMovieBar: React.FC = () => {
 
     const inputEl = useRef<HTMLInputElement>(null);
     const [searchResults, setSearchResults] = useState<searchResult[]>([]);
+    const history = useHistory();
     const [isLoading, setLoading] = useState<boolean>(false);
+    const [isFocused, setFocus] = useState<boolean>(false);
 
     let watingTimeout: ReturnType<typeof setTimeout> | null = null;
 
@@ -43,20 +46,31 @@ const SearchMovieBar: React.FC = () => {
     }
 
     const clearResults = () => setSearchResults([])
-    
+
     const clickResultHandler = (title: string) => {
         clearResults()
-        if (!!inputEl.current) inputEl.current.value = title
+        if (!!inputEl.current) {
+            inputEl.current.value = title;
+            inputEl.current.focus();
+        }
+    }
+
+    const redirectToMovieSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
+        if (!!inputEl.current) {
+            const parsedSpaces = inputEl.current.value.replace("","%20");
+            history.push(`movie?title=${parsedSpaces}`)
+        }
     }
 
     return (
         <div className="search-bar-wrapper">
-            <div className="search-movie-bar">
-                <button className="search-icon-btn"><SearchIcon /></button>
-                <input ref={inputEl} type="text" onChange={handlerOnChange} />
-                <XIcon onClick={() => clickResultHandler("")} className={`x-icon ${searchResults.length > 0 && !isLoading? "show" : ""}`} />
+            <form className={`search-movie-bar ${isFocused ? "focused" : ""}`}>
+                <button type="submit" onClick={redirectToMovieSearch} className="search-icon-btn"><SearchIcon /></button>
+                <input onFocus={() => setFocus(true)} onBlur={() => setFocus(false)} ref={inputEl} type="text" onChange={handlerOnChange} />
+                <XIcon onClick={() => clickResultHandler("")} className={`x-icon ${searchResults.length > 0 && !isLoading ? "show" : ""}`} />
                 <DualRingSpinner className={`spinner ${isLoading ? "loading" : ""}`} />
-            </div>
+            </form>
             <div className="search-results">
                 {
                     searchResults.map(({id, title}) => (

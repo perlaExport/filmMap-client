@@ -5,4 +5,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    .search-bar-logo-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: -6rem;
+    }
 }
