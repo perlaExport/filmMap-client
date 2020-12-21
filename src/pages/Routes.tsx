@@ -6,6 +6,7 @@ import Recommendations from "./Recommendations/Recommendations";
 import MovieDetails from "./MovieDetails/MovieDetails";
 import Questionnaire from "./Questionnaire/Questionnaire";
 import Profile from "./Profile/Profile";
+import SearchedMovies from "./SearchedMovies/SearchedMovies";
 
 interface ProtectedRouteProps {
     auth: boolean,
@@ -22,6 +23,7 @@ const Routes: React.FC<{isAuth: boolean}> = ({ isAuth }) => {
     return (
         <Switch>
 			<Route exact path="/" component={Home} />
+			<Route exact path="/movie" component={SearchedMovies} />
 			<Route exact path="/movie/:movieId" component={MovieDetails} />
 			<ProtectedRoute auth={isAuth} path="/recommendations" component={Recommendations} />
 			<ProtectedRoute auth={isAuth} path="/questionnaire" component={Questionnaire} />

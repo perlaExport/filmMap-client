@@ -1,0 +1,11 @@
+.searched-movies-page {
+    .movie-container {
+        margin-top: 6rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        padding: 1rem;
+        & > * {
+            margin: 0.2rem 0;
+        }
+    }
+}
