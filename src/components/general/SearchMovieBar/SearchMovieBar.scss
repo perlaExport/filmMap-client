@@ -1,0 +1,109 @@
+@import "../../../assets/styles/colors";
+@import "../../../assets/styles/mediaQueries";
+$search-bar-height: 3rem;
+$search-bar-width: 30rem;
+
+.search-movie-bar {
+    display: flex;
+    flex-direction: row;
+    box-sizing: border-box;
+    height: $search-bar-height;
+    width: $search-bar-width;
+    border-radius: 5px;
+    overflow: hidden;
+    border: solid 2px $yellow-primary;
+    background-color: rgba(189, 189, 189, 0.080);
+    transition: all 0.2s ease-in-out;
+
+    @include mobile {
+        width: 20rem;
+    }
+    &.focused {
+        background-color: rgba($yellow-primary, 0.2);
+        box-shadow: 0 0 3px 1px rgba($yellow-primary, 0.3);
+    }
+
+    .search-icon-btn {
+        background-color: $yellow-primary;
+        border: none;
+        width: $search-bar-height;
+        height: $search-bar-height;
+        height: 100%;
+        outline: none;
+        cursor: pointer;
+        svg {
+            fill: black;
+            height: 1.2rem;
+            width:  1.2rem;
+        }
+    }
+    & > input {
+        flex-grow: 1;
+        outline: none;
+        border: none;
+        background-color: transparent;
+        color: white;
+        margin-left: 0.5rem;
+        font-family: 'Open Sans', sans-serif;
+        font-size: 1.2rem;
+    }
+    .spinner {
+        $spinner-size: 2rem;
+        height: $spinner-size;
+        width: $spinner-size;
+        align-self: center;
+        margin-right: -$spinner-size + 0.2rem;
+        transition: all 0.2s ease-in-out;
+        &.loading {
+            margin-right: 0.2rem;
+        }
+    }
+    .x-icon {
+        $x-size: 0.8rem;
+        height: $x-size;
+        width: $x-size;
+        align-self: center;
+        margin-right: 0.5rem;
+        display: none;
+        fill: rgb(204, 204, 204);
+        cursor: pointer;
+        &.show {
+            display: block;
+        }
+    }
+}
+.search-bar-wrapper {
+    position: relative;
+    .search-results {
+        position: absolute;
+        width: 100%;
+        overflow-y: auto;
+        max-height: 10rem;
+        &::-webkit-scrollbar {
+            height: 0.5em;
+            width: 8px;
+        }
+        &::-webkit-scrollbar-track {
+            background: rgb(63, 63, 63);
+            border-radius: 5px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: gray;
+            border-radius: 10px;
+        }
+        .result {
+            font-family: 'Open Sans', sans-serif;
+            height: 2rem;
+            display: flex;
+            place-items: center;
+            background-color: rgba(255, 255, 255, 0.068);
+            box-sizing: border-box;
+            padding: 0.2rem 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.15s ease-in-out;
+            &:hover {
+                background-color: rgba(255, 255, 255, 0.3);
+            }
+        }
+    }
+}
