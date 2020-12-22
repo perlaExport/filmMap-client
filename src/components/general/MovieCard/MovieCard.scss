@@ -1,9 +1,12 @@
+@import "../../../assets/styles/colors";
 $card-width: 20rem;
 $card-height: 5rem;
 
 $poster-width: 10rem;
 
-$default-color: rgb(219, 219, 219);
+$default-color: #1b1b1b;
+
+$yellow-mix: mix($default-color, $yellow-primary, 80%);
 
 .movie-card {
     display: flex;
@@ -14,6 +17,8 @@ $default-color: rgb(219, 219, 219);
     overflow: hidden;
     box-sizing: border-box;
     position: relative;
+    cursor: pointer;
+
     .image-container {
         height: $card-height;
         width: $poster-width;
@@ -34,10 +39,19 @@ $default-color: rgb(219, 219, 219);
             z-index: 1;
         }
     }
-
     .movie-title {
-        color: #222222;
+        color: #d6d6d6;
         font-family: 'Open Sans', sans-serif;
-        font-size: 1rem;
+        font-size: 0.9rem;
+        transition: color 0.2s ease-in-out;
+    }
+    &:hover {
+        background-color: $yellow-mix;
+        .movie-title {
+            color: $yellow-primary;
+        }
+        .image-container > .gradient{ 
+            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, $yellow-mix 100%);
+        }
     }
 }

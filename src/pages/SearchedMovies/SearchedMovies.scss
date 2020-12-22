@@ -1,11 +1,44 @@
+@import "../../assets/styles/mediaQueries";
+@import "../../assets/styles/colors";
+
 .searched-movies-page {
-    .movie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .searched-movies-query-title {
         margin-top: 6rem;
+        font-family: 'Open Sans', sans-serif;
+        color: white;
+        .results {
+            text-decoration: underline;
+            color: $yellow-primary;
+        }
+        .searched-query {
+            text-align: center;
+            font-style: italic;
+            display: block;
+            margin-top: 0.5rem;
+        }
+    }
+    .movie-container {
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-columns: repeat(4, 1fr);
         padding: 1rem;
+        width: 85rem;
         & > * {
             margin: 0.2rem 0;
+        }
+        @include mq-3 {
+            grid-template-columns: repeat(3, 1fr);
+            width: 63rem;
+        }
+        @include mq-2 {
+            grid-template-columns: repeat(2, 1fr);
+            width: 42rem;
+        }
+        @include mq-1 {
+            grid-template-columns: repeat(1, 1fr);
+            width: auto;
         }
     }
 }
