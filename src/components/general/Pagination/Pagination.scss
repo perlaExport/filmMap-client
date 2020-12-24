@@ -1,0 +1,54 @@
+@import "../../../assets/styles/colors";
+.pagination-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    $pagination-item-size: 1.5rem;
+    .pagination-item {
+      font-family: 'Secular One', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: transparent;
+      color: $yellow-primary;
+      border: none;
+      margin: 0.5rem;
+      width: $pagination-item-size;
+      height: $pagination-item-size;
+      border-radius: 5px;
+      font-family: 'Open Sans', sans-serif;
+      cursor: pointer;
+      &.current-page {
+        background-color: $yellow-primary;
+        color: white;
+      }
+      &.arrow {
+          outline: none;
+        svg {
+            fill: rgb(143, 143, 143);
+            height: 1rem;
+            width: 1rem;
+        }
+        .arrow-left{
+          transform: rotate(180deg);;
+        }
+      }
+    }
+    .three-dots {
+      width: 0.8rem;
+      transition: all 0.3s ease-in-out;
+      overflow: hidden;
+      color: rgb(255, 255, 255);
+      cursor: default;
+      user-select: none;
+      &.hide {
+        width: 0;
+      }
+    }
+    .empty {
+      width: $pagination-item-size + $pagination-item-size + 2rem;
+      height: $pagination-item-size;
+    }
+  }
+  
