@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import "./SearchMovieBar.scss";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "assets/images/search-icon.svg"; 
@@ -14,6 +14,7 @@ interface searchResult {
 
 const SearchMovieBar: React.FC = () => {
 
+    const mounted = useRef<boolean>(false);
     const inputEl = useRef<HTMLInputElement>(null);
     const [searchResults, setSearchResults] = useState<searchResult[]>([]);
     const history = useHistory();
@@ -22,16 +23,27 @@ const SearchMovieBar: React.FC = () => {
 
     let watingTimeout: ReturnType<typeof setTimeout> | null = null;
 
+    useEffect(() => {
+        mounted.current = true;
+        return () => {
+            mounted.current = false
+        }
+    }, [])
+
+    const setLoadingMounted = (state: boolean) => {
+        if(mounted.current) setLoading(state);
+    }
+
     const doSearch = async (query: string) => {
         const { data, status, error } = await callTMDBAPI({
             url: "/search/movie",
             method: "GET",
             queryParams: { query },
-            setLoading
+            setLoading: setLoadingMounted
         });
-        if(status === 200 && !!data) {
+        if(status === 200 && !!data && mounted.current) {
             const { results } = data;
-            setSearchResults(results.map(({id, title}: searchResult) => ({id, title})))
+            setSearchResults(results.map(({ id, title }: searchResult) => ({ id, title })))
         }
         console.log(data, status, error)
     }
