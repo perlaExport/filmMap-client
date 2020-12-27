@@ -1,3 +1,43 @@
+
+$movie-poster-height: 278px;
+$movie-poster-width: 185px;
+
 .movie-details-page {
     position: relative;
+    font-family: 'Open Sans', sans-serif;
+
+    .main-movie-details {
+        padding: 0 4rem;
+        z-index: 1;
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        // align-items: center;
+        justify-content: center;
+        .poster-wrapper {
+            .movie-poster {
+                height: $movie-poster-height;
+                width: $movie-poster-width;
+                object-fit: cover;
+            }
+        }
+        .movie-info {
+            margin-left: 4rem;
+            color: white;
+            .movie-title {
+                height: 190px;
+                font-size: 3rem;
+                margin: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .movie-overview {
+                margin: 0;
+            }
+        }
+    }
 }

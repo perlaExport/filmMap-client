@@ -3,7 +3,8 @@ $gradient-height: 25rem;
 $default-main-color: rgb(0, 0, 0);
 
 .poster-backdrop {
-    // position: absolute;
+    position: absolute;
+    z-index: 0;
     margin-top: -6rem;
     width: 100%;
 
