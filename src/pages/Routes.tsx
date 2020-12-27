@@ -24,7 +24,7 @@ const Routes: React.FC<{isAuth: boolean}> = ({ isAuth }) => {
         <Switch>
 			<Route exact path="/" component={Home} />
 			<Route exact path="/movie" component={SearchedMovies} />
-			<Route exact path="/movie/:movieId" component={MovieDetails} />
+			<Route exact path="/movie/:movieId" render={({match}) => <MovieDetails movieId={match.params.movieId} />} />
 			<ProtectedRoute auth={isAuth} path="/recommendations" component={Recommendations} />
 			<ProtectedRoute auth={isAuth} path="/questionnaire" component={Questionnaire} />
 			<ProtectedRoute auth={isAuth} path="/profile" component={Profile} />

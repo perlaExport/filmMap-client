@@ -46,6 +46,15 @@
 .searched-movie-wrapper {
     min-height: 90%;
     .spinner.spinner-yellow {
-        height: 36rem;
+        height: 36.12rem;
+        @include mq-3 {
+            height: 750.64px;
+        }
+        @include mq-2 {
+            height: 1009.72px;
+        }
+        @include mq-1 {
+            height: 1873.35px;
+        }
     }
 }

@@ -29,12 +29,13 @@ const SearchedMovies: React.FC = () => {
 
     useEffect(() => {
         const getMatchedMovies = async (query: string) => {
-            const { data, status } = await callTMDBAPI({
+            const { data, error, status } = await callTMDBAPI({
                 url: "/search/movie",
                 method: "GET",
                 queryParams: { query, page: page.currentPage },
                 setLoading
             });
+            console.log(data, error, status);
             if(status === 200) {
                 const { results, total_results, total_pages } = data;
                 setResultMovies(results.map(({id, title, poster_path}: MovieType) => ( {id, title, poster_path} )))
@@ -65,6 +66,7 @@ const SearchedMovies: React.FC = () => {
                     {resultMovies.map(({ id, title, poster_path}) => 
                     <MovieCard
                         key={id}
+                        movieId={id}
                         posterImageURL={!!poster_path ? `http://image.tmdb.org/t/p/w185${poster_path}` : ""}
                         title={title}
                     />
