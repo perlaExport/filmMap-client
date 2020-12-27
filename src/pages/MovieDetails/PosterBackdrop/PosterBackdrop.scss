@@ -1,0 +1,31 @@
+$poster-height: 18rem;
+$gradient-height: 25rem;
+$default-main-color: rgb(0, 0, 0);
+
+.poster-backdrop {
+    // position: absolute;
+    margin-top: -6rem;
+    width: 100%;
+
+    .poster {
+        object-fit: cover;
+        width: 100%;
+        height: $poster-height;
+        position: absolute;
+        z-index: 0;
+
+    }
+    .poster-overlay {
+        width: 100%;
+        height: $poster-height;
+        background-color: $default-main-color;
+        opacity: 0.7;
+
+    }
+    .gradient {
+        height: $gradient-height;
+        width: 100%;
+        background: linear-gradient(0, rgba(2,0,36,0) 0%, $default-main-color 100%);
+        // margin-top: -1rem;
+    }
+}
