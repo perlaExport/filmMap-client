@@ -5,7 +5,7 @@ import Image from "components/general/Image/Image";
 import PosterBackdrop from "./PosterBackdrop/PosterBackdrop";
 import LoadingWrapper from "components/layout/LoadingWrapper/LoadingWrapper";
 import GenreList from "./GenreList/GenreList";
-
+import StarRating from "components/general/StarRating/StarRating";
 
 interface MovieDetailProps {
     movieId: number
@@ -27,6 +27,8 @@ interface MovieDetails {
 
 const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
 
+    const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
+
     const [movieDetails, setMoviedetails] = useState<MovieDetails>({
         id: 0,
         posterPath: "",
@@ -35,6 +37,8 @@ const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
         overview: "",
         title: ""
     })
+
+    const [score, setScore] = useState<number>(-1);
 
     useEffect(() => {
 
@@ -58,11 +62,19 @@ const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
     return (
             <LoadingWrapper className="movie-details-page" isLoading={movieDetails.title === ""}>
                 {movieDetails.backdropPath !== "" && <PosterBackdrop
-                                                        posterImageLink={`http://image.tmdb.org/t/p/w1280${movieDetails.posterPath}`}
-                                                        backdropImageLink={`http://image.tmdb.org/t/p/w1280${movieDetails.backdropPath}`} />}
+                                                        posterImageLink={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${movieDetails.posterPath}`}
+                                                        backdropImageLink={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${movieDetails.backdropPath}`} />}
                 <section className="main-movie-details">
                     <div className="poster-wrapper">
-                        <Image imageURL={`http://image.tmdb.org/t/p/w185${movieDetails.posterPath}`} className="movie-poster" />
+                        <Image imageURL={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${movieDetails.posterPath}`} className="movie-poster" />
+                        <StarRating 
+                            setScore={setScore}
+                            score={score}
+                            submitRating={(score) =>  {
+                                console.log(`scored: ${score}`)
+                            }}
+                        />
+                        <button onClick={() => setScore(-1)} className="link-element">remove rating</button>
                     </div>
                     <div className="movie-info">
                         <h1 className="movie-title">{movieDetails.title}</h1>

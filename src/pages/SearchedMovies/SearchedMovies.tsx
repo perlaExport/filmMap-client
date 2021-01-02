@@ -22,6 +22,8 @@ interface PageProps {
 
 const SearchedMovies: React.FC = () => {
 
+    const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
+
     const [resultMovies, setResultMovies] = useState<MovieType[]>([])
     const [isLoading, setLoading] = useState<boolean>(false)
     const [reslutsInfo, setResultInfo] = useState<ResultInfo>({ resCount: 0, searchedTitle: "None"})
@@ -67,7 +69,7 @@ const SearchedMovies: React.FC = () => {
                     <MovieCard
                         key={id}
                         movieId={id}
-                        posterImageURL={!!poster_path ? `http://image.tmdb.org/t/p/w185${poster_path}` : ""}
+                        posterImageURL={!!poster_path ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${poster_path}` : ""}
                         title={title}
                     />
                     )}

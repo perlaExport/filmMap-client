@@ -1,6 +1,6 @@
 
-$movie-poster-height: 278px;
-$movie-poster-width: 185px;
+$movie-poster-height: 290px;
+$movie-poster-width: 197px;
 
 .movie-details-page {
     position: relative;
@@ -22,6 +22,8 @@ $movie-poster-width: 185px;
                 height: $movie-poster-height;
                 width: $movie-poster-width;
                 object-fit: cover;
+                position: relative;
+                
             }
         }
         .movie-info {
