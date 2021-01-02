@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import "./MovieDetails.scss";
+import { UserContext } from "context/userContext";
 import callTMDBAPI from "helper/apiCallTMDB";
 import Image from "components/general/Image/Image";
 import PosterBackdrop from "./PosterBackdrop/PosterBackdrop";
 import LoadingWrapper from "components/layout/LoadingWrapper/LoadingWrapper";
 import GenreList from "./GenreList/GenreList";
-import StarRating from "components/general/StarRating/StarRating";
+import UserMovieManager from './UserMovieManager/UserMovieManager';
 
 interface MovieDetailProps {
     movieId: number
@@ -28,6 +29,8 @@ interface MovieDetails {
 const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
 
     const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
+
+    const [{authStatus}] = useContext(UserContext);
 
     const [movieDetails, setMoviedetails] = useState<MovieDetails>({
         id: 0,
@@ -66,15 +69,10 @@ const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
                                                         backdropImageLink={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${movieDetails.backdropPath}`} />}
                 <section className="main-movie-details">
                     <div className="poster-wrapper">
+                        <h1 className="movie-title">{movieDetails.title}</h1>
                         <Image imageURL={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${movieDetails.posterPath}`} className="movie-poster" />
-                        <StarRating 
-                            setScore={setScore}
-                            score={score}
-                            submitRating={(score) =>  {
-                                console.log(`scored: ${score}`)
-                            }}
-                        />
-                        <button onClick={() => setScore(-1)} className="link-element">remove rating</button>
+                        {authStatus === "success" && <UserMovieManager setScore={setScore} score={score} />}
+                      
                     </div>
                     <div className="movie-info">
                         <h1 className="movie-title">{movieDetails.title}</h1>
