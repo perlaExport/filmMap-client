@@ -1,20 +1,8 @@
-@import "../../../../assets/styles/colors";
-
 .app-button {
-    background-color: $yellow-primary;
-    color: $mian-black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     border-radius: 10rem;
     padding: 0.5rem 1rem;
-    cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
     font-weight: 700;
     font-size: 1.5rem;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
     & > svg {
         margin-right: 0.4rem;
         height: 1.4rem;

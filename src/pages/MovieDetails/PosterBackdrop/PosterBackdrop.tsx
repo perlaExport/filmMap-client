@@ -4,14 +4,15 @@ import Image from "components/general/Image/Image";
 import { usePalette } from 'react-palette'
 
 interface PosterBackdropProps {
-    posterPath: string
+    backdropImageLink: string,
+    posterImageLink: string
 }
 
-const PosterBackdrop: React.FC<PosterBackdropProps> = ({ posterPath }) => {
-    const { data } = usePalette(posterPath);
+const PosterBackdrop: React.FC<PosterBackdropProps> = ({ backdropImageLink, posterImageLink }) => {
+    const { data, loading } = usePalette(posterImageLink);
     return (
-        <div role="presentation" className="poster-backdrop" >
-            <Image className="poster" draggable={false} imageURL={posterPath}  />
+        <div role="presentation" className={`poster-backdrop ${loading ? "hide" : ""}`} >
+            <Image className="poster" draggable={false} imageURL={backdropImageLink}  />
             <div style={{backgroundColor: data.darkVibrant}} className="poster-overlay"></div>
             <div style={{background: `linear-gradient(0, rgba(2,0,36,0) 0%, ${data.darkVibrant} 100%)`}} className="gradient"></div>
         </div>
