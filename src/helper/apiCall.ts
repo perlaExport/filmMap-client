@@ -3,7 +3,7 @@ import axios from "axios";
 interface callAPIParams {
     url: string, 
     method: "GET" | "POST" | "PUT" | "DELETE", 
-    token?: "string", 
+    token?: boolean, 
 	payload?: any, 
 	headers?: any,
 	queryParams?: object,
@@ -25,7 +25,7 @@ const callAPI = async ({ url, method, token, payload, setLoading, headers: passe
 	let requestURL = url;
 
 	if(!!passedHeaders) headers = passedHeaders;
-	if (!!token) headers = { ...headers, Authorization: localStorage.getItem("token") };
+	if (!!token) headers = { ...headers, Authorization: `Bearer ${localStorage.getItem("token")}` };
 
 	if(!!queryParams && queryParams !== {}) requestURL += convertObjToQueryString(queryParams);
 

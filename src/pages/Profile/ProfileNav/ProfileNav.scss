@@ -1,0 +1,43 @@
+@import "../../../assets/styles/colors";
+.profile-nav {
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    background-color: rgb(36, 36, 36);
+    padding: 1rem 0;
+    border-radius: 10px;
+    & > .nav-link {
+        margin: 0 0.5rem;
+    }
+    .nav-link {
+        text-decoration: none;
+        .icon-button {
+            background-color: #474747;
+            color: white;
+            padding: 0.5rem 0.8rem;
+            svg {
+                fill: white;
+            }
+        }
+        &:hover {
+            .icon-button {
+                background-color: #3a3a3a;
+                color: white;
+                padding: 0.5rem 0.8rem;
+                svg {
+                    fill: white;
+                }
+            }   
+        }
+        &.active {
+            .icon-button {
+                background-color: $yellow-primary;
+                color: #222222;
+                svg {
+                    fill: #222222;
+                }
+            }
+        }
+    }
+}
