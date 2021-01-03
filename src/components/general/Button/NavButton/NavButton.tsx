@@ -1,13 +1,10 @@
 import React from "react";
 import "./NavButton.scss";
+import { NavButtonProps } from "./INavButton";
 import IconButton from "../IconButton/IconButton";
 import {ReactComponent as LogInIcon } from "assets/images/login-icon.svg";
 import {ReactComponent as UserIcon } from "assets/images/user-icon.svg";
 
-interface NavButtonProps extends React.ComponentProps<"button"> {
-    classes?: string,
-    username?: string
-}
 
 const NavButton: React.FC<NavButtonProps> = ({ username, classes, ...props}) => {
     if(!!username)

@@ -1,11 +1,6 @@
 import React from 'react';
 import "./Input.scss";
-
-interface InputProps extends React.ComponentProps<"input">{
-    classes?: string,
-    label?: string,
-    error?: string | null,
-}
+import { InputProps } from "./IInput";
 
 const Input: React.FC<InputProps> = ({ classes, error, label, ...props }) => {
     return (

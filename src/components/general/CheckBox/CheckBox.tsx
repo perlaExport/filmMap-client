@@ -5,7 +5,7 @@ interface CheckBoxProps extends React.ComponentProps<"input"> {
     label?: string 
 }
 
-const CheckBox: React.FC<CheckBoxProps> = ({label, ...props}) => {
+const CheckBox: React.FC<CheckBoxProps> = ({ label, ...props }) => {
     return (
     <div className="checkbox-container">
         <input {...props} type="checkbox" />

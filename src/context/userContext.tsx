@@ -1,7 +1,9 @@
 import React, { useReducer, createContext } from "react";
 
+export type authenticationStatus = "failed" | "success" | null;
+
 type userAuthType = {
-    authStatus: "failed" | "success" | null,
+    authStatus: authenticationStatus,
     user: string | undefined
 }
 const initialState = { authStatus: null, user: undefined };

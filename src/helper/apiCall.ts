@@ -1,14 +1,5 @@
 import axios from "axios";
-
-interface callAPIParams {
-    url: string, 
-    method: "GET" | "POST" | "PUT" | "DELETE", 
-    token?: boolean, 
-	payload?: any, 
-	headers?: any,
-	queryParams?: object,
-    setLoading?: (loadingState: boolean) => void
-}
+import { callAPIParams } from "./IAPICall";
 
 const convertObjToQueryString = (objectQuery: object) => {
 	if (objectQuery === {} ) return "";

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import MovieCard from "components/general/MovieCard/MovieCard";
 import Pagination from "components/general/Pagination/Pagination";
-import LoadingWrapper from "components/layout/LoadingWrapper/LoadingWrapper";
+import { PageProps } from "components/general/Pagination/IPagination";
+import { LoadingWrapper } from "components/layout";
 
 
 const testMovies = [
@@ -17,10 +18,6 @@ const testMovies = [
     {id: 10, title: "title 10", imageURL: "test"},
 ]
 
-interface PageProps {
-    currentPage: number,
-    amountOfPages: number
-}
 
 const MyRatings: React.FC = () => {
     const [page, setPage] = useState<PageProps>({ currentPage: 1, amountOfPages: 1});

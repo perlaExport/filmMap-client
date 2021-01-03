@@ -1,11 +1,8 @@
 import React from 'react';
-import {ReactComponent as DualRingSpinner} from "assets/spinners/DualRing-black.svg";
 import "./LoadingButton.scss";
+import { LoadingButtonProps } from "./ILoaingButton";
+import {ReactComponent as DualRingSpinner} from "assets/spinners/DualRing-black.svg";
 
-interface LoadingButtonProps extends React.ComponentProps<"button"> {
-    classes?: string,
-    isLoading: boolean 
-};
 
 const LoaingButton: React.FC<LoadingButtonProps> = ({ children, classes="", isLoading, ...props }) => {
     return (

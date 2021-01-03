@@ -1,7 +1,7 @@
 import React, { useContext }  from 'react';
-import { UserContext } from "context/userContext";
+import { UserContext } from "context/UserContext";
 import "./Profile.scss";
-import LoadingWrapper from "components/layout/LoadingWrapper/LoadingWrapper";
+import { LoadingWrapper } from "components/layout";
 import { ReactComponent as LogOutIcon } from "assets/images/exit.svg";
 import { ReactComponent as EditIcon } from "assets/images/edit-user.svg";
 import { IconButton } from "components/general/Button"
@@ -11,6 +11,7 @@ import { Favourites, WatchLater, MyRatings } from "./ProfileSubPages";
 
 
 const Profile: React.FC = () => {
+    
     const [{user, authStatus}] = useContext(UserContext);
 
     return (

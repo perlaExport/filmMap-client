@@ -5,11 +5,11 @@ import Input from "components/general/Input/Input";
 import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
 import "./Login.scss";
-import callAPI from "helper/apiCall";
-import { UserContext } from "context/userContext"
-import { FormSceneNames } from "types";
-import {ReactComponent as GoogleLogo} from "assets/images/google-logo-color.svg"; 
+import callAPI from "helper/APICall";
+import { UserContext } from "context/UserContext"
+import { FormProps } from "../Iforms";
 
+import {ReactComponent as GoogleLogo} from "assets/images/google-logo-color.svg"; 
 
 
 const validationSchema = Yup.object({
@@ -21,11 +21,7 @@ const fields = {
 	password: "",
 };
 
-interface LoginProps {
-    changeSceneHandler: (type: FormSceneNames, delay: number) => void,
-}
-
-const Login: React.FC<LoginProps> = ({ changeSceneHandler }) => {
+const Login: React.FC<FormProps> = ({ changeSceneHandler }) => {
 
     const [,dispatchUser] = useContext(UserContext);
     

@@ -1,16 +1,9 @@
 import React from 'react';
 import "./GenreList.scss"
+import { GenreProps } from "../IMovieDetails";
 
-interface Genre {
-    id: number,
-    name: string
-}
 
-interface GenreListProps {
-    genres: Genre[]
-}
-
-const GenreList: React.FC<GenreListProps> = ({ genres }) => {
+const GenreList: React.FC<{ genres: GenreProps[] }> = ({ genres }) => {
     return (
         <div className="genre-list-container">
             <h3 className="genre-title">Genres:</h3>

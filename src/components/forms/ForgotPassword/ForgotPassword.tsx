@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
 import { LoadingButton } from "components/general/Button";
-import { FormSceneNames } from "types";
+import { FormProps } from "../Iforms";
 
 
 const validationSchema = Yup.object({
@@ -13,11 +13,7 @@ const fields = {
 	email: "",
 };
 
-interface ForgotPasswordProps {
-    changeSceneHandler: (type: FormSceneNames, delay: number) => void,
-}
-
-const ForgotPassword: React.FC<ForgotPasswordProps> = ({ changeSceneHandler }) => {
+const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
 
     const handleChangePasswordRequest = (data: any, { setSubmitting, setErrors }: {setSubmitting: any, setErrors: any}) => {
         setSubmitting(true);

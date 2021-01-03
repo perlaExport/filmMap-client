@@ -1,11 +1,7 @@
 import React from 'react';
 import "./RegistrationSuccess.scss";
 import SuccessCheck from "components/general/SuccessCheck/SuccessCheck";
-
-interface RegistrationSuccessProps {
-    email: string,
-    changeFormSceneToLogin: () => void
-}
+import { RegistrationSuccessProps } from "../Iforms";
 
 const RegistrationSuccess: React.FC<RegistrationSuccessProps> = ({ email, changeFormSceneToLogin }) => {
     return (

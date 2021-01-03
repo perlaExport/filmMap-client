@@ -1,38 +1,22 @@
 import React, { useEffect, useState, useContext } from 'react';
 import "./MovieDetails.scss";
-import { UserContext } from "context/userContext";
-import callTMDBAPI from "helper/apiCallTMDB";
+import { RouteComponentProps } from "react-router-dom";
+import { UserContext } from "context/UserContext";
+import callTMDBAPI from "helper/APICallTMDB";
 import Image from "components/general/Image/Image";
 import PosterBackdrop from "./PosterBackdrop/PosterBackdrop";
-import LoadingWrapper from "components/layout/LoadingWrapper/LoadingWrapper";
+import { LoadingWrapper } from "components/layout";
 import GenreList from "./GenreList/GenreList";
 import UserMovieManager from './UserMovieManager/UserMovieManager';
+import { MovieProps } from "./IMovieDetails";
 
-interface MovieDetailProps {
-    movieId: number
-}
-
-interface Genres {
-    id: number,
-    name: string
-}
-
-interface MovieDetails {
-    id: number,
-    posterPath?: string,
-    backdropPath?: string,
-    genres: Genres[],
-    overview: string,
-    title: string
-}
-
-const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
+const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined }>> = (props) => {
 
     const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
 
     const [{authStatus}] = useContext(UserContext);
 
-    const [movieDetails, setMoviedetails] = useState<MovieDetails>({
+    const [movieDetails, setMoviedetails] = useState<MovieProps>({
         id: 0,
         posterPath: "",
         backdropPath: "",
@@ -44,7 +28,7 @@ const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
     const [score, setScore] = useState<number>(-1);
 
     useEffect(() => {
-
+        const { movieId } = props.match.params;
         const getMovieDetailsBydId = async () => {
             const { data, status, error } = await callTMDBAPI({
                 url: `/movie/${movieId}`,
@@ -60,7 +44,7 @@ const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
         
         return () => { 
         }
-    }, [movieId])
+    }, [props.match.params])
 
     return (
             <LoadingWrapper className="movie-details-page" isLoading={movieDetails.title === ""}>
@@ -70,7 +54,7 @@ const MovieDetails: React.FC<MovieDetailProps> = ({ movieId }) => {
                 <section className="main-movie-details">
                     <div className="poster-wrapper">
                         <h1 className="movie-title">{movieDetails.title}</h1>
-                        <Image imageURL={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${movieDetails.posterPath}`} className="movie-poster" />
+                        <Image src={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${movieDetails.posterPath}`} className="movie-poster" />
                         {authStatus === "success" && <UserMovieManager setScore={setScore} score={score} />}
                       
                     </div>

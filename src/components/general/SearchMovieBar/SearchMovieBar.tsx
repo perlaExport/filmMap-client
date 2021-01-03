@@ -1,16 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import "./SearchMovieBar.scss";
+import { searchResult } from "./ISearchMovieBar";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "assets/images/search-icon.svg"; 
-import callTMDBAPI from "helper/apiCallTMDB";
+import callTMDBAPI from "helper/APICallTMDB";
 import {ReactComponent as DualRingSpinner} from "assets/spinners/DualRing-yellow.svg";
 import {ReactComponent as XIcon} from "assets/images/x-icon.svg";
-
-
-interface searchResult {
-    id: number,
-    title: string
-}
 
 const SearchMovieBar: React.FC = () => {
 
