@@ -1,9 +1,9 @@
+@import "../../assets/styles/mediaQueries";
 .profile-page {
     color: white;
     margin: 0 10%;
     .user-control-container {
         display: flex;
-
         .btn-secondary {
             svg {
                 fill: white;
@@ -21,4 +21,22 @@
             }
         }
     }
+    .movie-list-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 1rem;
+        .movies {
+            display: grid;
+            gap: 0.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: 1fr;
+            @include mq-2 {
+                grid-template-columns: repeat(2, 1fr)
+            }
+            @include mq-1 {
+                grid-template-columns: repeat(1, 1fr)
+            }
+        }
+    } 
 }

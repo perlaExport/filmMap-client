@@ -1,4 +1,6 @@
 @import "../../../assets/styles/colors";
+@import "../../../assets/styles/mediaQueries";
+
 .profile-nav {
     margin-top: 1rem;
     display: flex;
@@ -10,7 +12,16 @@
     & > .nav-link {
         margin: 0 0.5rem;
     }
+    @include mobile{
+        flex-direction: column;
+        & > .nav-link {
+            margin: 0.5rem 0;
+        }
+    }
     .nav-link {
+        display: flex;
+        align-items: center;
+        justify-content: center;
         text-decoration: none;
         .icon-button {
             background-color: #474747;
