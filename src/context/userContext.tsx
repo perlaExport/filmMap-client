@@ -1,13 +1,14 @@
 import React, { useReducer, createContext } from "react";
 
+export type authenticationStatus = "failed" | "success" | null;
+
 type userAuthType = {
-    authStatus: "failed" | "success" | null,
-    user: string | null
+    authStatus: authenticationStatus,
+    user: string | undefined
 }
+const initialState = { authStatus: null, user: undefined };
 
-export const UserContext = createContext<undefined | any>(undefined);
-
-const initialState = { authStatus: null, user: null };
+export const UserContext = createContext<[ userAuthType, React.Dispatch<any>]>([initialState, () => null]);
 
 const reducer = (state: any, { type, payload }: {type: string, payload: any}) => {
 	switch (type) {

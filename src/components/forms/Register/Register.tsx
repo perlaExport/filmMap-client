@@ -4,9 +4,9 @@ import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input/Input";
 import "./Register.scss";
 import {LoadingButton} from "components/general/Button";
-import callAPI from "helper/apiCall";
+import callAPI from "helper/APICall";
 import RegistrationSuccess from "./RegistrationSuccess";
-import { FormSceneNames } from "types";
+import { FormProps } from "../Iforms";
 
 
 const validationSchema = Yup.object({
@@ -24,11 +24,8 @@ const fields = {
 	matchingPassword: "",
 };
 
-interface RegisterProps {
-    changeSceneHandler: (type: FormSceneNames, delay: number) => void,
-}
 
-const Register: React.FC<RegisterProps> = ({ changeSceneHandler }) => {
+const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
 
     const [registartionEmail, setRegistartionEmail] = useState<string>("");
     

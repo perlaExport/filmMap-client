@@ -1,12 +1,8 @@
 import React, { useState } from 'react'
 import "./StarRating.scss";
 import { ReactComponent as Star } from "assets/images/star-outline.svg";
+import { StarRatingProps } from "./IStarRating";
 
-interface StarRatingProps {
-    setScore: (score: number) => void,
-    score: number,
-    submitRating: (score: number) => void
-}
 
 const StarRating: React.FC<StarRatingProps> = ({ setScore, score, submitRating }) => {
 

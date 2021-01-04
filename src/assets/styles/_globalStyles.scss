@@ -27,14 +27,14 @@
 .btn-secondary {
     @extend %btn-main;
     background-color: #383838;
-    color: $yellow-secondary;
+    color: white;
     &:hover {
         background-color: #555555;
-        color: #FDBD73;
+        color: white;
     }
     &:disabled:hover {
         background-color: #383838;
-        color: $yellow-secondary;
+        color: white;
         cursor: default;
     }
 }

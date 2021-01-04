@@ -1,10 +1,6 @@
 import React from 'react';
 import "./IconButton.scss";
-
-interface IconButtonProps extends React.ComponentProps<"button"> {
-    icon: React.ReactNode,
-    classes?: string
-}
+import { IconButtonProps } from "./IIconButton";
 
 const IconButton: React.FC<IconButtonProps> = ({ classes, icon, ...props }) => {
     return (

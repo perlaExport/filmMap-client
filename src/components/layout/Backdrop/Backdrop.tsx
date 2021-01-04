@@ -1,12 +1,8 @@
 import React from 'react';
 import "./Backdrop.scss";
+import { BackdropProps } from "./IBackdrop";
 
-interface BackdropProps {
-    clicked: () => void,
-    show: boolean
-}
-
-const Backdrop: React.FC<BackdropProps> = ({clicked, show}) => {
+const Backdrop: React.FC<BackdropProps> = ({ clicked, show }) => {
     return (
         <div
             onClick={clicked}

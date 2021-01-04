@@ -5,7 +5,7 @@ import { NavButton } from "components/general/Button";
 import { Sidebar } from "components/layout"
 import { RegisterForm, LoginForm, ForgotPassword } from "components/forms";
 import { Link, useHistory } from "react-router-dom"
-import { FormSceneNames } from "types";
+import { FormSceneNames } from "components/forms/Iforms";
 
 interface NavbarProps {
     username: string | undefined

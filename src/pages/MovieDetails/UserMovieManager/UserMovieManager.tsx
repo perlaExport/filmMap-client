@@ -3,11 +3,8 @@ import StarRating from "components/general/StarRating/StarRating";
 import { IconButton } from "components/general/Button"
 import {ReactComponent as FavouriteIcon } from "assets/images/star-outline.svg";
 import {ReactComponent as WatchLaterIcon } from "assets/images/clock-icon.svg";
+import { StarRatingProps } from "./IUserMovieManager";
 
-interface StarRatingProps {
-    setScore: (score: number) => void,
-    score: number
-}
 
 const UserMovieManager: React.FC<StarRatingProps> = ({ setScore, score }) => {
     return (

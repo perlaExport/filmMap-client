@@ -1,5 +1,6 @@
 import Navbar from "./Navbar/Navbar";
-import ContentBox from "./ContentBox/ContentBox";
 import Sidebar from "./Sidebar/Sidebar";
+import LoadingWrapper from "./LoadingWrapper/LoadingWrapper";
+import Backdrop from "./Backdrop/Backdrop";
 
-export { Navbar, ContentBox, Sidebar };
+export { Navbar, Sidebar, LoadingWrapper, Backdrop };

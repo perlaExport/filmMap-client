@@ -1,14 +1,5 @@
 import axios from "axios";
-
-interface callAPIParams {
-    url: string, 
-    method: "GET" | "POST" | "PUT" | "DELETE", 
-    token?: "string", 
-	payload?: any, 
-	headers?: any,
-	queryParams?: object,
-    setLoading?: (loadingState: boolean) => void
-}
+import { callAPIParams } from "./IAPICall";
 
 const convertObjToQueryString = (objectQuery: object) => {
 	if (objectQuery === {} ) return "";
@@ -25,7 +16,7 @@ const callAPI = async ({ url, method, token, payload, setLoading, headers: passe
 	let requestURL = url;
 
 	if(!!passedHeaders) headers = passedHeaders;
-	if (!!token) headers = { ...headers, Authorization: localStorage.getItem("token") };
+	if (!!token) headers = { ...headers, Authorization: `Bearer ${localStorage.getItem("token")}` };
 
 	if(!!queryParams && queryParams !== {}) requestURL += convertObjToQueryString(queryParams);
 

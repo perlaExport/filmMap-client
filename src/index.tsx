@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App/App';
 import * as serviceWorker from './serviceWorker';
-import { UserProvider } from "context/userContext"
+import { UserProvider } from "context/UserContext"
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 
