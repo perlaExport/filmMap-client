@@ -16,9 +16,8 @@ const App: React.FC = () => {
         method: "GET",
         token: true
       });
-      if(status === 200) {
-        dispatchUser({ type: "LOGIN_SUCCESS", payload: { user: data.name } })
-      }
+      if(status === 200) dispatchUser({ type: "LOGIN_SUCCESS", payload: { user: data.name } })
+      else dispatchUser({ type: "LOGIN_FAIL" })
     }
     isUserAuthenticated(); 
     

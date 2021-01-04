@@ -6,20 +6,26 @@ import { ReactComponent as LogOutIcon } from "assets/images/exit.svg";
 import { ReactComponent as EditIcon } from "assets/images/edit-user.svg";
 import { IconButton } from "components/general/Button"
 import ProfileNav from "./ProfileNav/ProfileNav";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import { Favourites, WatchLater, MyRatings } from "./ProfileSubPages";
 
 
 const Profile: React.FC = () => {
     
-    const [{user, authStatus}] = useContext(UserContext);
+    const history = useHistory();
+    const [{user, authStatus}, dispatchUser] = useContext(UserContext);
+
+    const userLogOut = () => {
+        dispatchUser({type: "LOGOUT"});
+        history.replace("/");
+    }
 
     return (
         <LoadingWrapper isLoading={authStatus !== "success"} className="profile-page">
             <h2 className="username">{`@${user}`}</h2>
             <div className="user-control-container">
                 <IconButton icon={<EditIcon />}>Edit Profile</IconButton>
-                <IconButton classes="btn-secondary" icon={<LogOutIcon />}>Logout</IconButton>
+                <IconButton onClick={userLogOut} classes="btn-secondary" icon={<LogOutIcon />}>Logout</IconButton>
             </div>
             <ProfileNav />
             <Switch>

@@ -6,6 +6,10 @@
     width: 8rem;
     overflow: hidden;
     outline: none;
+    &:disabled {
+        color: #794305;
+        background-color: #ffaa48;
+    }
     & > .spinner.spinner-black {
         $spinner-height: 1.5rem;
         height: $spinner-height;
