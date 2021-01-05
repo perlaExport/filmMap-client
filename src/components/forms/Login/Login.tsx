@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
-import Input from "components/general/Input/Input";
+import Input from "components/general/Input";
 import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
 import "./Login.scss";

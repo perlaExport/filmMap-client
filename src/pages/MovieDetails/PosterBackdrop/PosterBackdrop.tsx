@@ -1,8 +1,8 @@
 import React from 'react'
 import "./PosterBackdrop.scss";
-import Image from "components/general/Image/Image";
+import Image from "components/general/Image";
 import { usePalette } from 'react-palette';
-import { PosterBackdropProps } from "./IPosterBackdrop";
+import { PosterBackdropProps } from "../";
 
 const PosterBackdrop: React.FC<PosterBackdropProps> = ({ backdropImageLink, posterImageLink }) => {
     const { data, loading } = usePalette(posterImageLink);

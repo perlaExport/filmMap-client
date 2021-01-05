@@ -20,7 +20,6 @@ $transition: all ease-in-out 0.4s;
     transition: $transition;
     transform: translateX(100%);
     .sidebar-header {
-        font-family: 'Open Sans', sans-serif;
         background-color: $yellow-primary;
         display: flex;
         flex-direction: row;

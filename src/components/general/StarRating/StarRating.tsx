@@ -1,8 +1,7 @@
 import React, { useState } from 'react'
 import "./StarRating.scss";
 import { ReactComponent as Star } from "assets/images/star-outline.svg";
-import { StarRatingProps } from "./IStarRating";
-
+import { StarRatingProps } from "./";
 
 const StarRating: React.FC<StarRatingProps> = ({ setScore, score, submitRating }) => {
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "./NavButton.scss";
-import { NavButtonProps } from "./INavButton";
+import { NavButtonProps } from "../";
 import IconButton from "../IconButton/IconButton";
 import {ReactComponent as LogInIcon } from "assets/images/login-icon.svg";
 import {ReactComponent as UserIcon } from "assets/images/user-icon.svg";

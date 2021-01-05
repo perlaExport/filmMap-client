@@ -1,6 +1,6 @@
 import React from 'react';
 import "./LoadingButton.scss";
-import { LoadingButtonProps } from "./ILoaingButton";
+import { LoadingButtonProps } from "../";
 import {ReactComponent as DualRingSpinner} from "assets/spinners/DualRing-black.svg";
 
 

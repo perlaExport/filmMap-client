@@ -2,12 +2,12 @@ import React from "react";
 import { Switch, Route, Redirect, RouteProps } from "react-router-dom";
 
 // PAGES
-import Home from "./Home/Home";
+import Home from "./Home";
 import Recommendations from "./Recommendations/Recommendations";
-import MovieDetails from "./MovieDetails/MovieDetails";
+import MovieDetails from "./MovieDetails";
 import Questionnaire from "./Questionnaire/Questionnaire";
 import Profile from "./Profile/Profile";
-import SearchedMovies from "./SearchedMovies/SearchedMovies";
+import SearchedMovies from "./SearchedMovies";
 import { authenticationStatus } from "context/UserContext";
 
 

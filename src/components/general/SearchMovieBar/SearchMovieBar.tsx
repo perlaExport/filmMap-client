@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react';
 import "./SearchMovieBar.scss";
-import { searchResult } from "./ISearchMovieBar";
+import { searchResult } from "./";
 import { useHistory } from "react-router-dom";
 import { ReactComponent as SearchIcon } from "assets/images/search-icon.svg"; 
 import callTMDBAPI from "helper/APICallTMDB";

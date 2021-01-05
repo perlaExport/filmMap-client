@@ -1,6 +1,6 @@
 import React from 'react';
 import "./IconButton.scss";
-import { IconButtonProps } from "./IIconButton";
+import { IconButtonProps } from "../";
 
 const IconButton: React.FC<IconButtonProps> = ({ classes, icon, ...props }) => {
     return (

@@ -1,7 +1,6 @@
 @import "./colors";
 %btn-main {
     border: none;
-    font-family: 'Open Sans', sans-serif;
     font-weight: bold;
     font-size: 1rem;
     padding: 0.3rem 0.6rem;
@@ -44,7 +43,6 @@
     background-color: transparent;
     border: none;
     cursor: pointer;
-    font-family: 'Open Sans', sans-serif;
     text-decoration: underline;
     color: gray;
     transition: color 0.3s ease-in-out;

@@ -1,6 +1,6 @@
 import React from "react";
 import "./Home.scss";
-import SearchMovieBar from "components/general/SearchMovieBar/SearchMovieBar";
+import SearchMovieBar from "components/general/SearchMovieBar";
 import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 
 const Home: React.FC = () => {

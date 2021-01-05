@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import "./SearchedMovies.scss";
-import MovieCard from "components/general/MovieCard/MovieCard";
-import { MovieCardProps } from "components/general/MovieCard/IMovieCard";
+import MovieCard, { MovieCardProps } from "components/general/MovieCard";
 import callTMDBAPI from "helper/APICallTMDB";
 import queryString from "query-string";
 import { LoadingWrapper } from "components/layout";
-import Pagination from "components/general/Pagination/Pagination";
-import { PageProps } from "components/general/Pagination/IPagination";
-import { MovieResponse, ResultInfo} from "./ISearchedMovies";
+import Pagination, { PageProps }  from "components/general/Pagination";
+import { MovieResponse, ResultInfo } from "./";
 
 const SearchedMovies: React.FC = () => {
 

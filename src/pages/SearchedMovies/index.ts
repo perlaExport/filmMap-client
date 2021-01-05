@@ -1,3 +1,5 @@
+import SearchedMovies from "./SearchedMovies";
+
 export interface MovieResponse {
     id: number,
     title: string,
@@ -8,3 +10,5 @@ export interface ResultInfo {
     resCount: number,
     searchedTitle: string | string[]
 }
+
+export default SearchedMovies;

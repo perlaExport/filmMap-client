@@ -1,7 +1,7 @@
 import React from "react";
 import "./Pagination.scss";
 import { ReactComponent as Arrow } from "assets/images/arrow-icon.svg";
-import { PaginationProps } from "./IPagination";
+import { PaginationProps } from "./";
 
 const Pagination: React.FC<PaginationProps> = ({ currentPage, amountOfPages, handleChange }) => {
 	const previousePage = () => {

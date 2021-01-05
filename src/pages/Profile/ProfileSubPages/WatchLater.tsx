@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import MovieCard from "components/general/MovieCard/MovieCard";
-import Pagination from "components/general/Pagination/Pagination";
-import { PageProps } from "components/general/Pagination/IPagination";
+import Pagination, { PageProps }  from "components/general/Pagination";
 import { LoadingWrapper } from "components/layout";
 
 

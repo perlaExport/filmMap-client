@@ -1,6 +1,6 @@
 import React from 'react';
 import "./Input.scss";
-import { InputProps } from "./IInput";
+import { InputProps } from "./";
 
 const Input: React.FC<InputProps> = ({ classes, error, label, ...props }) => {
     return (

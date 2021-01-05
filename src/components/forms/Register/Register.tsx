@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
-import Input from "components/general/Input/Input";
+import Input from "components/general/Input";
 import "./Register.scss";
 import {LoadingButton} from "components/general/Button";
 import callAPI from "helper/APICall";

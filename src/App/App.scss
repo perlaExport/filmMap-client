@@ -1,10 +1,12 @@
 @import "../assets/styles/globalStyles";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap');
+
 
 body, html {
     margin: 0%;
     height: 100%;
     background: #0A0909;
-
+    font-family: 'Open Sans', sans-serif;
 }
 
 #root {

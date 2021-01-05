@@ -1,3 +1,5 @@
+import Pagination from "./Pagination";
+
 export interface PaginationProps {
     currentPage: number,
     amountOfPages: number,
@@ -8,3 +10,5 @@ export interface PageProps {
     currentPage: number,
     amountOfPages: number
 }
+
+export default Pagination;

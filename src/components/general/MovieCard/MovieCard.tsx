@@ -1,8 +1,8 @@
 import React from 'react';
 import "./MovieCard.scss";
-import Image from "components/general/Image/Image";
+import Image from "components/general/Image";
 import { Link } from "react-router-dom";
-import { MovieCardProps } from "./IMovieCard";
+import { MovieCardProps } from "./";
 
 
 const MovieCard: React.FC<MovieCardProps> = ({ movieId, posterImageURL, title }) => {

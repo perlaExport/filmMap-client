@@ -1,42 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import MovieCard from "components/general/MovieCard/MovieCard";
-import { MovieCardProps } from "components/general/MovieCard/IMovieCard";
-import Pagination from "components/general/Pagination/Pagination";
-import { PageProps } from "components/general/Pagination/IPagination";
+import MovieCard, { MovieCardProps }from "components/general/MovieCard";
+import Pagination, { PageProps }  from "components/general/Pagination";
 import { LoadingWrapper } from "components/layout";
 import callAPI from "helper/APICall";
-import { createTypePredicateNodeWithModifier, toEditorSettings } from 'typescript';
-
-
-const testMovies = [
-    {movieId: 1, title: "title 1", posterImageURL: "test"},
-    {movieId: 2, title: "title 2", posterImageURL: "test"},
-    {movieId: 3, title: "title 3", posterImageURL: "test"},
-    {movieId: 4, title: "title 4", posterImageURL: "test"},
-    {movieId: 5, title: "title 5", posterImageURL: "test"},
-    {movieId: 6, title: "title 6", posterImageURL: "test"},
-    {movieId: 7, title: "title 7", posterImageURL: "test"},
-    {movieId: 8, title: "title 8", posterImageURL: "test"},
-    {movieId: 9, title: "title 9", posterImageURL: "test"},
-    {movieId: 10, title: "title 10", posterImageURL: "test"},
-]
 
 
 const MyRatings: React.FC = () => {
 
-    const [page, setPage] = useState<PageProps>({ currentPage: 1, amountOfPages: 1});
-    const [movies, setMovies] = useState<MovieCardProps[]>(testMovies);
+    const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
+
+
+    const [page, setPage] = useState<PageProps>({ currentPage: 0, amountOfPages: 1});
+    const [movies, setMovies] = useState<MovieCardProps[]>([]);
+    const [isLoading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         const getMyRatedMovies = async () => {
             const { data, status, error } = await callAPI({
-                url: "/get_current_user",
+                url: "/movie/rated",
                 method: "GET",
-                token: true
+                token: true,
+                setLoading,
+                queryParams: {
+                    limit: 8,
+                    page: 0
+                }
               });
+              if(status === 200) {
+                setMovies(data.movies.map(({ id, title, imgPath }: {id: number , title: string, imgPath?: string}) => ({movieId: id, title, posterImageURL: imgPath })));
+                setPage(page => ({ ...page, amountOfPages: data.amountOfPages }))
+              }
+
               console.log(data, status, error)
         } 
-        // getMyRatedMovies();
+        getMyRatedMovies();
         return () => {
         }
     }, [])
@@ -47,9 +44,14 @@ const MyRatings: React.FC = () => {
 
     return (
         <div  className="my-ratings-subpage-container movie-list-container">
-            <LoadingWrapper isLoading={false} className="movies">
+            <LoadingWrapper isLoading={isLoading} className="movies">
                 {movies.map(({ movieId, title, posterImageURL}) => (
-                    <MovieCard key={movieId} movieId={movieId} posterImageURL={posterImageURL} title={title}  />
+                    <MovieCard
+                        key={movieId}
+                        movieId={movieId}
+                        title={title}
+                        posterImageURL={!!posterImageURL ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}` : ""}
+                    />
                 ))}
             </LoadingWrapper>
             <Pagination currentPage={page.currentPage} handleChange={handleChangePage} amountOfPages={page.amountOfPages} />

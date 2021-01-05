@@ -1,7 +1,7 @@
 import React from 'react';
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
-import Input from "components/general/Input/Input";
+import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
 import { FormProps } from "../Iforms";
 
