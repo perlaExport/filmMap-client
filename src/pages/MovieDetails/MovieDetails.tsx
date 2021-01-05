@@ -21,7 +21,9 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         genres: [],
         overview: "",
         title: ""
-    })
+    });
+    type favAndWatchlaterType = { favourite: boolean, watchlater: boolean };
+    const [isFavandWatchLater, setIsFavAndWatchLater] = useState<favAndWatchlaterType>({ favourite: false, watchlater: false });
 
     const [score, setScore] = useState<number>(-1);
 
@@ -43,7 +45,10 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
                 method: "GET",
                 token: true,
             });
-            if(status === 200) setScore(data.userRate - 1)
+            if(status === 200) {
+                setIsFavAndWatchLater({ favourite: data.favourite, watchlater: data.watchLater});
+                setScore(data.userRate - 1)
+            }
         } 
         if(!!movieId && (authStatus === "failed" || authStatus === "success")) {
             getMovieDetailsBydId();
@@ -54,6 +59,14 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         return () => { 
         }
     }, [props.match.params, authStatus])
+
+    const toggleMovieToFavourite = (shouldAdd: boolean) => {
+        setIsFavAndWatchLater(state => ({ ...state, favourite: shouldAdd }))
+    }
+    const toggleMovieToWatchLater = (shouldAdd: boolean) => {
+        setIsFavAndWatchLater(state => ({ ...state, watchlater: shouldAdd }))
+    }
+
 
     return (
             <LoadingWrapper className="movie-details-page" isLoading={movieDetails.title === ""}>
@@ -68,6 +81,10 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
                             authStatus === "success" && 
                             <UserMovieManager
                                 movieDetails={movieDetails}
+                                isFavourite={isFavandWatchLater.favourite}
+                                toggleAddToWatchLater={toggleMovieToWatchLater}
+                                toggleAddToFavourite={toggleMovieToFavourite}
+                                isWatchLater={isFavandWatchLater.watchlater}
                                 setScore={setScore}
                                 score={score}
                             />

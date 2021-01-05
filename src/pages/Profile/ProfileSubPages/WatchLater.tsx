@@ -1,35 +1,68 @@
-import React, { useState } from 'react';
-import MovieCard from "components/general/MovieCard/MovieCard";
+import React, { useState, useEffect } from 'react';
+import { MovieCardDeleteProps, MovieCardDelete }from "components/general/MovieCard";
 import Pagination, { PageProps }  from "components/general/Pagination";
 import { LoadingWrapper } from "components/layout";
-
-
-const testMovies = [
-    {id: 1, title: "title 1", imageURL: "test"},
-    {id: 2, title: "title 2", imageURL: "test"},
-    {id: 3, title: "title 3", imageURL: "test"},
-    {id: 4, title: "title 4", imageURL: "test"},
-    {id: 5, title: "title 5", imageURL: "test"},
-    {id: 6, title: "title 6", imageURL: "test"},
-    {id: 7, title: "title 7", imageURL: "test"},
-    {id: 8, title: "title 8", imageURL: "test"},
-    {id: 9, title: "title 9", imageURL: "test"},
-    {id: 10, title: "title 10", imageURL: "test"},
-]
+import callAPI from "helper/APICall";
 
 
 const WatchLater: React.FC = () => {
+
+    const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
+
+
     const [page, setPage] = useState<PageProps>({ currentPage: 1, amountOfPages: 1});
+    const [movies, setMovies] = useState<MovieCardDeleteProps[]>([]);
+    const [isLoading, setLoading] = useState<boolean>(true);
+
+    useEffect(() => {
+        const getMyRatedMovies = async () => {
+            const { data, status, error } = await callAPI({
+                url: "/movie/watch_later",
+                method: "GET",
+                token: true,
+                setLoading,
+                queryParams: {
+                    limit: 8,
+                    page: page.currentPage - 1
+                }
+              });
+              if(status === 200) {
+                setMovies(data.movies.map(({ id, title, imgPath}: {id: number , title: string, imgPath?: string}) => ({movieId: id, title, posterImageURL: imgPath})));
+                setPage(page => ({ ...page, amountOfPages: data.amountOfPages }))
+              }
+
+              console.log(data, status, error)
+        } 
+        getMyRatedMovies();
+        return () => {
+        }
+    }, [page.currentPage])
 
     const handleChangePage = (newPage: number) => {
         setPage({...page, currentPage: newPage})
     }
 
+    const handleRemoveFromFavouriteList = async (movieIdToBeDeleted: number) => {
+        const { status } = await callAPI({
+                url: `/movie/watch_later/delete/${movieIdToBeDeleted}`,
+                method: "DELETE",
+                token: true,
+            });
+            if (status === 200)
+                setMovies( movies => movies.filter(({movieId}) => movieId !== movieIdToBeDeleted))
+    }
+
     return (
         <div  className="watch-later-subpage-container movie-list-container">
-            <LoadingWrapper isLoading={false} className="movies">
-                {testMovies.map(({ id, title, imageURL}) => (
-                    <MovieCard key={id} movieId={id} posterImageURL={imageURL} title={title}  />
+            <LoadingWrapper isLoading={isLoading} className="movies">
+                {movies.map(({ movieId, title, posterImageURL }) => (
+                    <MovieCardDelete
+                        key={movieId}
+                        movieId={movieId}
+                        title={title}
+                        posterImageURL={!!posterImageURL ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}` : ""}
+                        removeHandler={() => handleRemoveFromFavouriteList(movieId)}
+                    />
                 ))}
             </LoadingWrapper>
             <Pagination currentPage={page.currentPage} handleChange={handleChangePage} amountOfPages={page.amountOfPages} />

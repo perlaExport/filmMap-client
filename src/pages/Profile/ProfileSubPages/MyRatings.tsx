@@ -10,7 +10,7 @@ const MyRatings: React.FC = () => {
     const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
 
 
-    const [page, setPage] = useState<PageProps>({ currentPage: 0, amountOfPages: 1});
+    const [page, setPage] = useState<PageProps>({ currentPage: 1, amountOfPages: 1});
     const [movies, setMovies] = useState<MovieCardScoreProps[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true);
 
@@ -23,7 +23,7 @@ const MyRatings: React.FC = () => {
                 setLoading,
                 queryParams: {
                     limit: 8,
-                    page: 0
+                    page: page.currentPage - 1
                 }
               });
               if(status === 200) {
@@ -36,7 +36,7 @@ const MyRatings: React.FC = () => {
         getMyRatedMovies();
         return () => {
         }
-    }, [])
+    }, [page.currentPage])
 
     const handleChangePage = (newPage: number) => {
         setPage({...page, currentPage: newPage})
