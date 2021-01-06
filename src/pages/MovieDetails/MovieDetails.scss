@@ -47,6 +47,17 @@ $movie-poster-width: 197px;
                 .button-icon {
                     height: 0.75rem;;
                     width: 0.75rem;;
+                    margin-right: 0.2rem;
+                }
+                &.btn-secondary {
+                    svg {
+                        fill: white;
+                    }
+                    .star-icon {
+                        fill: white;
+                        stroke: white;
+                        stroke-width: 4px;
+                    }
                 }
             }
         }

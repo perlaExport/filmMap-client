@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import MovieCard, { MovieCardProps }from "components/general/MovieCard";
+import { MovieCardScore, MovieCardScoreProps }from "components/general/MovieCard";
 import Pagination, { PageProps }  from "components/general/Pagination";
 import { LoadingWrapper } from "components/layout";
 import callAPI from "helper/APICall";
@@ -10,8 +10,8 @@ const MyRatings: React.FC = () => {
     const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
 
 
-    const [page, setPage] = useState<PageProps>({ currentPage: 0, amountOfPages: 1});
-    const [movies, setMovies] = useState<MovieCardProps[]>([]);
+    const [page, setPage] = useState<PageProps>({ currentPage: 1, amountOfPages: 1});
+    const [movies, setMovies] = useState<MovieCardScoreProps[]>([]);
     const [isLoading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
@@ -23,11 +23,11 @@ const MyRatings: React.FC = () => {
                 setLoading,
                 queryParams: {
                     limit: 8,
-                    page: 0
+                    page: page.currentPage - 1
                 }
               });
               if(status === 200) {
-                setMovies(data.movies.map(({ id, title, imgPath }: {id: number , title: string, imgPath?: string}) => ({movieId: id, title, posterImageURL: imgPath })));
+                setMovies(data.movies.map(({ id, title, imgPath, rating}: {id: number , title: string, imgPath?: string, rating: number}) => ({movieId: id, title, posterImageURL: imgPath, score: rating})));
                 setPage(page => ({ ...page, amountOfPages: data.amountOfPages }))
               }
 
@@ -36,7 +36,7 @@ const MyRatings: React.FC = () => {
         getMyRatedMovies();
         return () => {
         }
-    }, [])
+    }, [page.currentPage])
 
     const handleChangePage = (newPage: number) => {
         setPage({...page, currentPage: newPage})
@@ -45,8 +45,9 @@ const MyRatings: React.FC = () => {
     return (
         <div  className="my-ratings-subpage-container movie-list-container">
             <LoadingWrapper isLoading={isLoading} className="movies">
-                {movies.map(({ movieId, title, posterImageURL}) => (
-                    <MovieCard
+                {movies.map(({ movieId, title, posterImageURL, score }) => (
+                    <MovieCardScore
+                        score={score}
                         key={movieId}
                         movieId={movieId}
                         title={title}

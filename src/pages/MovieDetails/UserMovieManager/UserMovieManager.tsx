@@ -7,7 +7,7 @@ import { UserMovieManagerProps } from "../";
 import callAPI from "helper/APICall";
 
 
-const UserMovieManager: React.FC<UserMovieManagerProps> = ({ setScore, score, movieDetails }) => {
+const UserMovieManager: React.FC<UserMovieManagerProps> = ({ setScore, score, movieDetails, isFavourite, isWatchLater, toggleAddToFavourite, toggleAddToWatchLater }) => {
 
     const rateMovie = async (movieScore: number) => {
         return await callAPI({
@@ -38,12 +38,14 @@ const UserMovieManager: React.FC<UserMovieManagerProps> = ({ setScore, score, mo
             url: `movie/favourites/add/${movieDetails.id}`,
             method: "POST",
             token: true,
-            payload: {
-                id: movieDetails.id,
-                title: movieDetails.title,
-                categories: movieDetails.genres.map(({ name }) => name),
-                imgPath: movieDetails.posterPath || ""
-            }
+      
+        });
+    } 
+    const addMovieToWatchLaterList = async () => {
+        return await callAPI({
+            url: `movie/watch_later/add/${movieDetails.id}`,
+            method: "POST",
+            token: true,
         });
     } 
     const rateMovieHandler = async (score: number) => {
@@ -58,12 +60,49 @@ const UserMovieManager: React.FC<UserMovieManagerProps> = ({ setScore, score, mo
     }
     const addMovieToFavoriteHandler = async () => {
         const { status: rateStatus } = await addMovieToFavoriteList();
-        if(rateStatus === 404) {
+        if(rateStatus === 200) toggleAddToFavourite(true);
+        else if(rateStatus === 404) {
             const { status: addedMovieStatus } = await addMovieToDataBase();
             if(addedMovieStatus === 200) {
-                const { status, error, data } = await addMovieToFavoriteList();
-                console.log(status, error, data);
+                const { status } = await addMovieToFavoriteList();
+                if(status === 200) toggleAddToFavourite(true);
             }
+        }
+    }
+    const addMovieToWatchLaterHandler = async () => {
+        const { status: rateStatus } = await addMovieToWatchLaterList();
+        if(rateStatus === 200) toggleAddToWatchLater(true);
+        else if(rateStatus === 404) {
+            const { status: addedMovieStatus } = await addMovieToDataBase();
+            if(addedMovieStatus === 200) {
+                const { status } = await addMovieToWatchLaterList();
+                if(status === 200) toggleAddToWatchLater(true);
+            }
+        }
+    }
+
+    const removeMovieFromFavourites = async () => {
+        const shouldRemoveFromFavourites = window.confirm("Are you sure you want to remove this movie from favourites?");
+        if(shouldRemoveFromFavourites) {
+            const { status } = await callAPI({
+                url: `/movie/favourites/delete/${movieDetails.id}`,
+                method: "DELETE",
+                token: true,
+            });
+            console.log(status);
+            if(status === 200) toggleAddToFavourite(false);
+        }
+    }
+    const removeMovieFromWatchLater = async () => {
+        const shouldRemoveFromFavourites = window.confirm("Are you sure you want to remove this movie from watch later?");
+        if(shouldRemoveFromFavourites) {
+            const { status } = await callAPI({
+                url: `/movie/watch_later/delete/${movieDetails.id}`,
+                method: "DELETE",
+                token: true,
+            });
+            console.log(status);
+            if(status === 200) toggleAddToWatchLater(false);
         }
     }
 
@@ -89,11 +128,19 @@ const UserMovieManager: React.FC<UserMovieManagerProps> = ({ setScore, score, mo
                 ?
                 <div className="score-option-container">
                     <button onClick={removeMovieRating} className="link-element">remove rating</button>
-                    <IconButton onClick={addMovieToFavoriteHandler} icon={<FavouriteIcon />}>Favourite</IconButton>
+                    <IconButton
+                        icon={<FavouriteIcon/>}
+                        classes={isFavourite ? "" : "btn-secondary"}
+                        onClick={isFavourite ? removeMovieFromFavourites : addMovieToFavoriteHandler}
+                    >Favourite</IconButton>
                 </div>
                 :
                 <div className="score-option-container">
-                    <IconButton icon={<WatchLaterIcon />}>Watch Later</IconButton>
+                    <IconButton
+                        icon={<WatchLaterIcon />}
+                        classes={isWatchLater ? "" : "btn-secondary"}
+                        onClick={isWatchLater ?  removeMovieFromWatchLater : addMovieToWatchLaterHandler}
+                    >Watch Later</IconButton>
                 </div>
             }
         </div>

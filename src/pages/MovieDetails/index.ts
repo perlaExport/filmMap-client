@@ -25,7 +25,11 @@ export interface PosterBackdropProps {
 export interface UserMovieManagerProps {
     setScore: (score: number) => void,
     score: number,
-    movieDetails: MovieProps
+    movieDetails: MovieProps,
+    isFavourite?: boolean,
+    isWatchLater?: boolean,
+    toggleAddToWatchLater: (shouldAdd: boolean) => void,
+    toggleAddToFavourite: (shouldAdd: boolean) => void
 }
 
 export { GenreList, PosterBackdrop, UserMovieManager };
