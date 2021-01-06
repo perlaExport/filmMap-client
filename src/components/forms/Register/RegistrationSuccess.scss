@@ -1,43 +1,47 @@
 @import "../../../assets/styles/colors";
 .registration-success {
-    color: rgb(202, 202, 202);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+  color: rgb(202, 202, 202);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 2rem;
+  font-size: 1rem;
+
+  @keyframes appear {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  .successfull {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+    font-weight: bold;
+    opacity: 0;
+    animation: appear 0.5s forwards 1s;
+  }
+
+  .instructions {
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    opacity: 0;
+    animation: appear 0.5s forwards 2s;
+  }
+  .email {
+    font-weight: bold;
+    color: $yellow-primary;
+    opacity: 0;
+    animation: appear 0.5s forwards 2s;
+  }
+
+  .login-nav-link {
     margin-top: 2rem;
-    font-size: 1rem;
-
-    @keyframes appear {
-        from { opacity: 0; }
-        to { opacity: 1;}
-    }
-
-    .successfull {
-        font-size: 1.1rem;
-        margin: 1rem 0;
-        font-weight: bold;
-        opacity: 0;
-        animation: appear 0.5s forwards 1s;
-    }
-
-    .instructions {
-        font-style: italic;
-        font-size: 0.9rem;
-        margin-bottom: 0.3rem;
-        opacity: 0;
-        animation: appear 0.5s forwards 2s;
-    }
-    .email {
-        font-weight: bold;
-        color: $yellow-primary;
-        opacity: 0;
-        animation: appear 0.5s forwards 2s;
-    }
-
-    .login-nav-link {
-        margin-top: 2rem;
-        opacity: 0;
-        animation: appear 0.5s forwards 2s;
-    }
+    opacity: 0;
+    animation: appear 0.5s forwards 2s;
+  }
 }

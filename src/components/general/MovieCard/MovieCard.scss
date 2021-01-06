@@ -9,49 +9,57 @@ $default-color: #1b1b1b;
 $yellow-mix: mix($default-color, $yellow-primary, 80%);
 
 .movie-card {
-    display: flex;
-    flex-direction: row;
-    background-color: $default-color;
-    width: $card-width;
-    border-radius: 2px;
-    overflow: hidden;
-    box-sizing: border-box;
-    position: relative;
-    cursor: pointer;
-    text-decoration: none;
+  display: flex;
+  flex-direction: row;
+  background-color: $default-color;
+  width: $card-width;
+  border-radius: 2px;
+  overflow: hidden;
+  box-sizing: border-box;
+  position: relative;
+  cursor: pointer;
+  text-decoration: none;
 
-    .image-container {
-        height: $card-height;
-        width: $poster-width;
-        position: relative;
-        .poster-image {
-            height: $card-height;
-            width: $poster-width;
-            object-fit: cover;
-        }
-        .gradient {
-            display: block;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, $default-color 100%);
-            position: absolute;
-            z-index: 1;
-        }
+  .image-container {
+    height: $card-height;
+    width: $poster-width;
+    position: relative;
+    .poster-image {
+      height: $card-height;
+      width: $poster-width;
+      object-fit: cover;
     }
+    .gradient {
+      display: block;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        rgba(2, 0, 36, 0) 0%,
+        $default-color 100%
+      );
+      position: absolute;
+      z-index: 1;
+    }
+  }
+  .movie-title {
+    color: #d6d6d6;
+    font-size: 0.9rem;
+    transition: color 0.2s ease-in-out;
+  }
+  &:hover {
+    background-color: $yellow-mix;
     .movie-title {
-        color: #d6d6d6;
-        font-size: 0.9rem;
-        transition: color 0.2s ease-in-out;
+      color: $yellow-primary;
     }
-    &:hover {
-        background-color: $yellow-mix;
-        .movie-title {
-            color: $yellow-primary;
-        }
-        .image-container > .gradient{ 
-            background: linear-gradient(90deg, rgba(2,0,36,0) 0%, $yellow-mix 100%);
-        }
+    .image-container > .gradient {
+      background: linear-gradient(
+        90deg,
+        rgba(2, 0, 36, 0) 0%,
+        $yellow-mix 100%
+      );
     }
+  }
 }

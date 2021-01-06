@@ -3,67 +3,68 @@
 $input-height: 2.5rem;
 
 .input-wrapper {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  & > input {
+    margin-top: 1.5rem;
+    background-color: #1e1e1e;
+    border: none;
+    font-size: 1.2rem;
+    padding: 0.3rem 0.4rem;
+    outline: none;
+    color: rgb(221, 221, 221);
+    border-bottom: 2px solid rgba(0, 0, 0, 0);
+    height: $input-height;
+    box-sizing: border-box;
+    transition: all 0.2s ease-in-out;
+    &:focus {
+      border-bottom: 2px solid $yellow-primary;
+
+      & + label {
+        transform: translate(-9%, -80%) scale(0.8);
+        margin-left: 0;
+      }
+    }
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: $yellow-primary;
+      transition: background-color 5000s ease-in-out 0s;
+    }
+  }
+
+  &.active {
+    label {
+      transform: translate(-9%, -80%) scale(0.8);
+      margin-left: 0;
+    }
+  }
+  & > label {
+    margin-top: -$input-height;
+    margin-left: 0.5rem;
     display: flex;
-    flex-direction: column;
-    position: relative;
-    & > input {
-        margin-top: 1.5rem;
-        background-color: #1E1E1E;
-        border: none;
-        font-size: 1.2rem;
-        padding: 0.3rem 0.4rem;
-        outline: none;
-        color: rgb(221, 221, 221);
-        border-bottom: 2px solid rgba(0, 0, 0, 0);
-        height: $input-height;
-        box-sizing: border-box;
-        transition: all 0.2s ease-in-out;
-        &:focus {
-            border-bottom: 2px solid $yellow-primary;
+    place-items: center;
+    color: $yellow-primary;
+    z-index: 2;
+    font-size: 1rem;
+    height: $input-height;
+    transition: all 0.3s ease-in-out;
+    pointer-events: none;
+  }
+  & > .error-text {
+    margin-top: 5px;
+    font-size: 0.8rem;
+    height: 0.9rem;
+  }
 
-            & + label {
-                transform: translate(-9%,-80%) scale(0.8);
-                margin-left: 0;
-            }
-        }
-        &:-webkit-autofill,
-        &:-webkit-autofill:hover, 
-        &:-webkit-autofill:focus{
-        -webkit-text-fill-color: $yellow-primary;
-        transition: background-color 5000s ease-in-out 0s;
-        }
+  &.error {
+    & > .error-text,
+    label {
+      color: $hl-red;
     }
-
-    &.active {
-        label {
-            transform: translate(-9%,-80%) scale(0.8);
-            margin-left: 0;
-        }
+    & > input:focus {
+      border-bottom-color: $hl-red;
     }
-    & > label {
-        margin-top: -$input-height;
-        margin-left: 0.5rem;
-        display: flex;
-        place-items: center;
-        color: $yellow-primary;
-        z-index: 2;
-        font-size: 1rem;
-        height: $input-height;
-        transition: all 0.3s ease-in-out;
-        pointer-events: none
-    }
-    & > .error-text {
-        margin-top: 5px;
-        font-size: 0.8rem;
-        height: 0.9rem;
-    }
-
-    &.error {
-        & > .error-text, label  {
-            color: $hl-red;
-        }
-        & > input:focus {
-            border-bottom-color: $hl-red;
-        }
-    }
+  }
 }

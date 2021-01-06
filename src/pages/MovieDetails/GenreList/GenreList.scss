@@ -1,19 +1,19 @@
 .genre-list-container {
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    align-items: center;
-    .genre-title {
-        margin-right: 0.4rem;
-    }
-    .genre-item {
-        background: rgba(255, 255, 255, 0.25);
-        padding: 0.2rem 0.6rem;
-        font-size: 0.7rem;
-        color: #d4d4d4;
-        font-weight: bold;
-        border-radius: 10px;
-        margin: 0 0.2rem;
-        cursor: default;
-    }
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  .genre-title {
+    margin-right: 0.4rem;
+  }
+  .genre-item {
+    background: rgba(255, 255, 255, 0.25);
+    padding: 0.2rem 0.6rem;
+    font-size: 0.7rem;
+    color: #d4d4d4;
+    font-weight: bold;
+    border-radius: 10px;
+    margin: 0 0.2rem;
+    cursor: default;
+  }
 }

@@ -3,28 +3,28 @@
 $font-size: 0.8rem;
 
 .scored-movie-card-wrapper {
-    position: relative;
+  position: relative;
 
-    .score {
-        background-color: $yellow-primary;
-        position: absolute;
-        z-index: 1;
-        font-weight: bold;
-        color: #222222;
-        padding: 0.1rem 0.4rem;
-        bottom: 0.5rem;
-        left: 0.5rem;
-        border-radius: 2px;
-        font-size: $font-size;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        svg {
-            fill: #222222;
-            height: $font-size;
-            width: $font-size;
-            margin-right: 0.2rem;
-        }
+  .score {
+    background-color: $yellow-primary;
+    position: absolute;
+    z-index: 1;
+    font-weight: bold;
+    color: #222222;
+    padding: 0.1rem 0.4rem;
+    bottom: 0.5rem;
+    left: 0.5rem;
+    border-radius: 2px;
+    font-size: $font-size;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    svg {
+      fill: #222222;
+      height: $font-size;
+      width: $font-size;
+      margin-right: 0.2rem;
     }
+  }
 }

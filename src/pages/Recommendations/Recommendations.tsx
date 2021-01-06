@@ -1,12 +1,8 @@
-import React from 'react';
+import React from "react";
 import "./Recommendations.scss";
 
 const Recommendations: React.FC = () => {
-    return (
-        <div className="recommendations-page">
-            Recommendations
-        </div>
-    )
-}
+  return <div className="recommendations-page">Recommendations</div>;
+};
 
-export default Recommendations
+export default Recommendations;

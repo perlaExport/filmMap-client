@@ -1,19 +1,19 @@
 import MovieCard from "./MovieCard";
-import MovieCardScore from "./MovieCardScore/MovieCardScore"
-import MovieCardDelete from "./MovieCardDelete/MovieCardDelete"
+import MovieCardScore from "./MovieCardScore/MovieCardScore";
+import MovieCardDelete from "./MovieCardDelete/MovieCardDelete";
 
 export interface MovieCardProps {
-    movieId: number,
-    posterImageURL: string,
-    title: string
+  movieId: number;
+  posterImageURL: string;
+  title: string;
 }
 
 export interface MovieCardScoreProps extends MovieCardProps {
-    score: number
+  score: number;
 }
 
 export interface MovieCardDeleteProps extends MovieCardProps {
-    removeHandler: () => void
+  removeHandler: () => void;
 }
 
 export { MovieCardScore, MovieCardDelete };

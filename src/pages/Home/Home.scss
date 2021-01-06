@@ -1,14 +1,14 @@
 .home-page {
-    color: white;
-    height: 100%;
+  color: white;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .search-bar-logo-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    .search-bar-logo-wrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: -15rem;
-    }
+    margin-top: -15rem;
+  }
 }

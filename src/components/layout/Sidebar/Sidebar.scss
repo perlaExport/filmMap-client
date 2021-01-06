@@ -5,51 +5,50 @@ $arrow-size: 2rem;
 $transition: all ease-in-out 0.4s;
 
 .sidebar-wrapper {
-    max-width: 100%;
-    overflow-x: hidden;
-    display: relative;
+  max-width: 100%;
+  overflow-x: hidden;
+  display: relative;
 }
 
 .side-bar {
-    background-color: #222222;
-    width: $sidebar-width;
-    right: 0;
-    position: absolute;
-    height: 100%;
-    z-index: 901;
-    transition: $transition;
-    transform: translateX(100%);
-    .sidebar-header {
-        background-color: $yellow-primary;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        height: $header-hight;
-        .sidebar-title {
-            color: #222222;
-        }
-        .arrow-icon {
-            height: $arrow-size;
-            width: $arrow-size;
-            position: absolute;
-            left: 1rem;
-            cursor: pointer;
-            transition: $transition;
-            transform: rotate(180deg);
-        }
+  background-color: #222222;
+  width: $sidebar-width;
+  right: 0;
+  position: absolute;
+  height: 100%;
+  z-index: 901;
+  transition: $transition;
+  transform: translateX(100%);
+  .sidebar-header {
+    background-color: $yellow-primary;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: $header-hight;
+    .sidebar-title {
+      color: #222222;
     }
-    .sidebar-content {
-        box-sizing: border-box;
-        padding: 0.5rem 1rem;
-        display: flex;
-        flex-direction: column;
+    .arrow-icon {
+      height: $arrow-size;
+      width: $arrow-size;
+      position: absolute;
+      left: 1rem;
+      cursor: pointer;
+      transition: $transition;
+      transform: rotate(180deg);
     }
-    &.show {
-        transform: translateX(0);
-        .arrow-icon {
-            transform: rotate(0);
-        }
+  }
+  .sidebar-content {
+    box-sizing: border-box;
+    padding: 0.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+  }
+  &.show {
+    transform: translateX(0);
+    .arrow-icon {
+      transform: rotate(0);
     }
-
+  }
 }

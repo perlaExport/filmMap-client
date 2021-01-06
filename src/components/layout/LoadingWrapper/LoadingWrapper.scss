@@ -1,12 +1,12 @@
 $spinner-size: 5rem;
 
 .loading-wrapper {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    .spinner {
-        height: $spinner-size;
-        width: $spinner-size;
-        margin: auto;
-    }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  .spinner {
+    height: $spinner-size;
+    width: $spinner-size;
+    margin: auto;
+  }
 }

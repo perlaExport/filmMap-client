@@ -1,53 +1,52 @@
 @import "./colors";
 %btn-main {
-    border: none;
-    font-weight: bold;
-    font-size: 1rem;
-    padding: 0.3rem 0.6rem;
-    border-radius: 3px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
-    outline: none
+  border: none;
+  font-weight: bold;
+  font-size: 1rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  outline: none;
 }
 .btn-primary {
-    @extend %btn-main;
+  @extend %btn-main;
+  background-color: $yellow-primary;
+  color: #222222;
+  &:hover {
+    background-color: $yellow-secondary;
+    color: #6d5932;
+  }
+  &:disabled:hover {
     background-color: $yellow-primary;
     color: #222222;
-    &:hover {
-        background-color: $yellow-secondary;
-        color: #6D5932;
-    }
-    &:disabled:hover {
-        background-color: $yellow-primary;
-        color: #222222;
-        cursor: default;
-    }
+    cursor: default;
+  }
 }
 .btn-secondary {
-    @extend %btn-main;
+  @extend %btn-main;
+  background-color: #383838;
+  color: white;
+  &:hover {
+    background-color: #555555;
+    color: white;
+  }
+  &:disabled:hover {
     background-color: #383838;
     color: white;
-    &:hover {
-        background-color: #555555;
-        color: white;
-    }
-    &:disabled:hover {
-        background-color: #383838;
-        color: white;
-        cursor: default;
-    }
+    cursor: default;
+  }
 }
 
-
 .link-element {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    text-decoration: underline;
-    color: gray;
-    transition: color 0.3s ease-in-out;
-    outline: none;
-    &:hover {
-        color: #FDBD73;
-    }
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  color: gray;
+  transition: color 0.3s ease-in-out;
+  outline: none;
+  &:hover {
+    color: #fdbd73;
+  }
 }

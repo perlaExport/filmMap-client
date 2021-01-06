@@ -1,14 +1,14 @@
 import SearchedMovies from "./SearchedMovies";
 
 export interface MovieResponse {
-    id: number,
-    title: string,
-    poster_path: string,
-    lox: boolean
+  id: number;
+  title: string;
+  poster_path: string;
+  lox: boolean;
 }
 export interface ResultInfo {
-    resCount: number,
-    searchedTitle: string | string[]
+  resCount: number;
+  searchedTitle: string | string[];
 }
 
 export default SearchedMovies;

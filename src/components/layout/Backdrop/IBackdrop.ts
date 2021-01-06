@@ -1,4 +1,4 @@
 export interface BackdropProps {
-    clicked: () => void,
-    show: boolean
+  clicked: () => void;
+  show: boolean;
 }

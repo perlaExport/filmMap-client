@@ -3,18 +3,18 @@
 $star-size: 2rem;
 
 .star-rating-container {
-    display: flex;
-    flex-direction: row;
-    .star > svg {
-        height: $star-size;
-        width: $star-size;
-        fill: none;
-        stroke: $yellow-primary;
-        stroke-width: 3px;
-        cursor: pointer;
-        margin: 0 0.2rem;
-        &.filled{
-            fill: $yellow-primary;
-        }
+  display: flex;
+  flex-direction: row;
+  .star > svg {
+    height: $star-size;
+    width: $star-size;
+    fill: none;
+    stroke: $yellow-primary;
+    stroke-width: 3px;
+    cursor: pointer;
+    margin: 0 0.2rem;
+    &.filled {
+      fill: $yellow-primary;
     }
+  }
 }

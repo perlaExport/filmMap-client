@@ -1,34 +1,34 @@
 .submit-btn.loading-btn {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    width: 8rem;
-    overflow: hidden;
-    outline: none;
-    &:disabled {
-        color: #794305;
-        background-color: #ffaa48;
-    }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  width: 8rem;
+  overflow: hidden;
+  outline: none;
+  &:disabled {
+    color: #794305;
+    background-color: #ffaa48;
+  }
+  & > .spinner.spinner-black {
+    $spinner-height: 1.5rem;
+    height: $spinner-height;
+    width: $spinner-height;
+    margin: 0;
+    margin-right: -5.5rem;
+    transition: margin ease-in-out 0.3s;
+  }
+  & > span {
+    transition: margin ease-in-out 0.3s;
+    margin-right: 4rem;
+  }
+
+  &.loading {
     & > .spinner.spinner-black {
-        $spinner-height: 1.5rem;
-        height: $spinner-height;
-        width: $spinner-height;
-        margin: 0;
-        margin-right: -5.5rem;
-        transition: margin ease-in-out 0.3s;
+      margin-right: -1.1rem;
     }
     & > span {
-        transition: margin ease-in-out 0.3s;
-        margin-right: 4rem;
+      margin-right: 0.6rem;
     }
-
-    &.loading {
-        & > .spinner.spinner-black {
-            margin-right: -1.1rem;
-        }
-        & > span {
-            margin-right: 0.6rem;
-        }
-    }
+  }
 }

@@ -4,108 +4,106 @@ $movie-poster-height: 290px;
 $movie-poster-width: 197px;
 
 .movie-details-page {
+  position: relative;
+
+  .main-movie-details {
+    padding: 0 4rem;
+    z-index: 1;
     position: relative;
-
-    .main-movie-details {
-        padding: 0 4rem;
-        z-index: 1;
-        position: relative;
-        width: 100%;
-        box-sizing: border-box;
-        display: flex;
-        flex-direction: row;
-        flex-grow: 1;
-        // align-items: center;
-        justify-content: center;
-        @include mq-1 {
-            padding: 0 2rem;
-            flex-direction: column;
-        }
-        .user-movie-manager {
-            margin-top: 1rem;
-            display: flex;
-            flex-direction: column;
-            @include mq-1 {
-                align-items: center;
-                margin-bottom: 1rem;
-                .score-option-container {
-                    width: 15rem;
-                }
-            }
-        }
-
-        .score-option-container {
-            margin-top: 1rem;
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: space-around;
-            .icon-button {
-                .button-name{
-                    font-size: 0.75rem;
-                }
-                .button-icon {
-                    height: 0.75rem;;
-                    width: 0.75rem;;
-                    margin-right: 0.2rem;
-                }
-                &.btn-secondary {
-                    svg {
-                        fill: white;
-                    }
-                    .star-icon {
-                        fill: white;
-                        stroke: white;
-                        stroke-width: 4px;
-                    }
-                }
-            }
-        }
-        .poster-wrapper {
-            .movie-title {
-                display: none;
-                @include mq-1 {
-                    display: block;
-                }
-            }
-            .movie-poster {
-                height: $movie-poster-height;
-                width: $movie-poster-width;
-                object-fit: cover;
-                position: relative;
-                @include mq-1 {
-                    display: none;
-                }
-                
-            }
-        }
-        .movie-title {
-            height: 190px;
-            font-size: 3rem;
-            margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: white;
-            text-align: center;
-
-        }
-        .movie-info {
-            margin-left: 4rem;
-            color: white;
-            @include mq-1 {
-                margin: 0;
-            }
-            .movie-title {
-                display: block;
-                @include mq-1 {
-                    display: none;
-                }
-            }
-
-            .movie-overview {
-                margin: 0;
-            }
-        }
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    // align-items: center;
+    justify-content: center;
+    @include mq-1 {
+      padding: 0 2rem;
+      flex-direction: column;
     }
+    .user-movie-manager {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      @include mq-1 {
+        align-items: center;
+        margin-bottom: 1rem;
+        .score-option-container {
+          width: 15rem;
+        }
+      }
+    }
+
+    .score-option-container {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-around;
+      .icon-button {
+        .button-name {
+          font-size: 0.75rem;
+        }
+        .button-icon {
+          height: 0.75rem;
+          width: 0.75rem;
+          margin-right: 0.2rem;
+        }
+        &.btn-secondary {
+          svg {
+            fill: white;
+          }
+          .star-icon {
+            fill: white;
+            stroke: white;
+            stroke-width: 4px;
+          }
+        }
+      }
+    }
+    .poster-wrapper {
+      .movie-title {
+        display: none;
+        @include mq-1 {
+          display: block;
+        }
+      }
+      .movie-poster {
+        height: $movie-poster-height;
+        width: $movie-poster-width;
+        object-fit: cover;
+        position: relative;
+        @include mq-1 {
+          display: none;
+        }
+      }
+    }
+    .movie-title {
+      height: 190px;
+      font-size: 3rem;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      text-align: center;
+    }
+    .movie-info {
+      margin-left: 4rem;
+      color: white;
+      @include mq-1 {
+        margin: 0;
+      }
+      .movie-title {
+        display: block;
+        @include mq-1 {
+          display: none;
+        }
+      }
+
+      .movie-overview {
+        margin: 0;
+      }
+    }
+  }
 }
