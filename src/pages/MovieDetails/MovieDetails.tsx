@@ -2,15 +2,12 @@ import React, { useEffect, useState, useContext } from "react";
 import "./MovieDetails.scss";
 import { RouteComponentProps } from "react-router-dom";
 import { UserContext } from "context/UserContext";
-import callAPI from "helper/APICall";
-import callTMDBAPI from "helper/APICallTMDB";
+import callAPI, { callTMDBAPI } from "helper/api";
 import Image from "components/general/Image";
-import { LoadingWrapper } from "components/layout";
-import { GenreList, PosterBackdrop, UserMovieManager, MovieProps } from "./";
+import LoadingWrapper from "components/layout/LoadingWrapper";
+import { GenreList, PosterBackdrop, UserMovieManager, MovieProps, favAndWatchlaterType } from "./";
 
-const MovieDetails: React.FC<
-  RouteComponentProps<{ movieId?: string | undefined }>
-> = (props) => {
+const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined }>> = (props) => {
   const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
 
   const [{ authStatus }] = useContext(UserContext);
@@ -23,11 +20,11 @@ const MovieDetails: React.FC<
     overview: "",
     title: "",
   });
-  type favAndWatchlaterType = { favourite: boolean; watchlater: boolean };
-  const [
-    isFavandWatchLater,
-    setIsFavAndWatchLater,
-  ] = useState<favAndWatchlaterType>({ favourite: false, watchlater: false });
+
+  const [isFavandWatchLater, setIsFavAndWatchLater] = useState<favAndWatchlaterType>({
+    favourite: false,
+    watchlater: false,
+  });
 
   const [score, setScore] = useState<number>(-1);
 
@@ -39,14 +36,7 @@ const MovieDetails: React.FC<
         method: "GET",
       });
       if (status === 200) {
-        const {
-          id,
-          poster_path,
-          backdrop_path,
-          genres,
-          overview,
-          title,
-        } = data;
+        const { id, poster_path, backdrop_path, genres, overview, title } = data;
         setMoviedetails({
           id,
           posterPath: poster_path,
@@ -87,10 +77,7 @@ const MovieDetails: React.FC<
   };
 
   return (
-    <LoadingWrapper
-      className="movie-details-page"
-      isLoading={movieDetails.title === ""}
-    >
+    <LoadingWrapper className="movie-details-page" isLoading={movieDetails.title === ""}>
       {movieDetails.backdropPath !== "" && (
         <PosterBackdrop
           posterImageLink={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${movieDetails.posterPath}`}

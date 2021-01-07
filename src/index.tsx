@@ -6,8 +6,7 @@ import { UserProvider } from "context/UserContext";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
 
-const BASE_API_URI =
-  process.env.REACT_APP_SERVER_URL || "http://localhost:8181";
+const BASE_API_URI = process.env.REACT_APP_SERVER_URL || "http://localhost:8181";
 const API_URI = process.env.NODE_ENV === "production" ? "/" : BASE_API_URI;
 axios.defaults.baseURL = API_URI;
 

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  MovieCardScore,
-  MovieCardScoreProps,
-} from "components/general/MovieCard";
+import { MovieCardScore, MovieCardScoreProps } from "components/general/MovieCard";
 import Pagination, { PageProps } from "components/general/Pagination";
-import { LoadingWrapper } from "components/layout";
-import callAPI from "helper/APICall";
+import LoadingWrapper from "components/layout/LoadingWrapper";
+import callAPI from "helper/api";
+import { movieResponseType } from "./";
 
 const MyRatings: React.FC = () => {
   const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
@@ -19,7 +17,7 @@ const MyRatings: React.FC = () => {
 
   useEffect(() => {
     const getMyRatedMovies = async () => {
-      const { data, status, error } = await callAPI({
+      const { data, status } = await callAPI({
         url: "/movie/rated",
         method: "GET",
         token: true,
@@ -31,29 +29,15 @@ const MyRatings: React.FC = () => {
       });
       if (status === 200) {
         setMovies(
-          data.movies.map(
-            ({
-              id,
-              title,
-              imgPath,
-              rating,
-            }: {
-              id: number;
-              title: string;
-              imgPath?: string;
-              rating: number;
-            }) => ({
-              movieId: id,
-              title,
-              posterImageURL: imgPath,
-              score: rating,
-            })
-          )
+          data.movies.map((movie: movieResponseType) => ({
+            movieId: movie.id,
+            title: movie.title,
+            posterImageURL: movie.imgPath,
+            score: movie.rating,
+          }))
         );
         setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));
       }
-
-      console.log(data, status, error);
     };
     getMyRatedMovies();
     return () => {};
@@ -73,9 +57,7 @@ const MyRatings: React.FC = () => {
             movieId={movieId}
             title={title}
             posterImageURL={
-              !!posterImageURL
-                ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}`
-                : ""
+              !!posterImageURL ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}` : ""
             }
           />
         ))}

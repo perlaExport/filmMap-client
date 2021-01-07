@@ -1,9 +1,9 @@
 import React, { useContext, useEffect } from "react";
 import "./App.scss";
-import { Navbar } from "components/layout";
+import Navbar from "components/layout/Navbar";
 import Routes from "pages/Routes";
 import { UserContext } from "context/UserContext";
-import callAPI from "helper/APICall";
+import callAPI from "helper/api";
 
 const App: React.FC = () => {
   const [{ user, authStatus }, dispatchUser] = useContext(UserContext);
@@ -15,11 +15,7 @@ const App: React.FC = () => {
         method: "GET",
         token: true,
       });
-      if (status === 200)
-        dispatchUser({
-          type: "LOGIN_SUCCESS",
-          payload: { user: data.name },
-        });
+      if (status === 200) dispatchUser({ type: "LOGIN_SUCCESS", payload: { user: data.name } });
       else dispatchUser({ type: "LOGIN_FAIL" });
     };
     isUserAuthenticated();

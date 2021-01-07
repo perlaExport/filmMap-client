@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import {
-  MovieCardDeleteProps,
-  MovieCardDelete,
-} from "components/general/MovieCard";
+import { MovieCardDeleteProps, MovieCardDelete } from "components/general/MovieCard";
 import Pagination, { PageProps } from "components/general/Pagination";
-import { LoadingWrapper } from "components/layout";
-import callAPI from "helper/APICall";
+import LoadingWrapper from "components/layout/LoadingWrapper";
+import callAPI from "helper/api";
+import { movieResponseType } from "./";
 
 const Favourites: React.FC = () => {
   const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
@@ -19,7 +17,7 @@ const Favourites: React.FC = () => {
 
   useEffect(() => {
     const getMyRatedMovies = async () => {
-      const { data, status, error } = await callAPI({
+      const { data, status } = await callAPI({
         url: "/movie/favourites",
         method: "GET",
         token: true,
@@ -31,22 +29,14 @@ const Favourites: React.FC = () => {
       });
       if (status === 200) {
         setMovies(
-          data.movies.map(
-            ({
-              id,
-              title,
-              imgPath,
-            }: {
-              id: number;
-              title: string;
-              imgPath?: string;
-            }) => ({ movieId: id, title, posterImageURL: imgPath })
-          )
+          data.movies.map(({ id, title, imgPath }: movieResponseType) => ({
+            movieId: id,
+            title,
+            posterImageURL: imgPath,
+          }))
         );
         setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));
       }
-
-      console.log(data, status, error);
     };
     getMyRatedMovies();
     return () => {};
@@ -67,9 +57,7 @@ const Favourites: React.FC = () => {
         token: true,
       });
       if (status === 200)
-        setMovies((movies) =>
-          movies.filter(({ movieId }) => movieId !== movieIdToBeDeleted)
-        );
+        setMovies((movies) => movies.filter(({ movieId }) => movieId !== movieIdToBeDeleted));
     }
   };
 
@@ -82,9 +70,7 @@ const Favourites: React.FC = () => {
             movieId={movieId}
             title={title}
             posterImageURL={
-              !!posterImageURL
-                ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}`
-                : ""
+              !!posterImageURL ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}` : ""
             }
             removeHandler={() => handleRemoveFromFavouriteList(movieId)}
           />

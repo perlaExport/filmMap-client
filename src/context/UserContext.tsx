@@ -13,10 +13,7 @@ export const UserContext = createContext<[userAuthType, React.Dispatch<any>]>([
   () => null,
 ]);
 
-const reducer = (
-  state: any,
-  { type, payload }: { type: string; payload: any }
-) => {
+const reducer = (state: any, { type, payload }: { type: string; payload: any }) => {
   switch (type) {
     case "LOGIN_SUCCESS":
       !!payload.token && localStorage.setItem("token", payload.token);
@@ -34,9 +31,5 @@ const reducer = (
 
 export const UserProvider = ({ children }: { children: any }) => {
   const [user, dispatchUser] = useReducer(reducer, initialState);
-  return (
-    <UserContext.Provider value={[user, dispatchUser]}>
-      {children}
-    </UserContext.Provider>
-  );
+  return <UserContext.Provider value={[user, dispatchUser]}>{children}</UserContext.Provider>;
 };

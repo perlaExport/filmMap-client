@@ -2,20 +2,14 @@ import React, { useState } from "react";
 import "./Navbar.scss";
 import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 import { NavButton } from "components/general/Button";
-import { Sidebar } from "components/layout";
-import { RegisterForm, LoginForm, ForgotPassword } from "components/forms";
+import Sidebar from "components/layout/Sidebar";
+import { RegisterForm, LoginForm, ForgotPassword, FormSceneNames } from "components/forms";
 import { Link, useHistory } from "react-router-dom";
-import { FormSceneNames } from "components/forms/Iforms";
-
-interface NavbarProps {
-  username: string | undefined;
-}
+import { NavbarProps } from "./";
 
 const Navbar: React.FC<NavbarProps> = ({ username }) => {
   const [sidebarShow, setSidebarShow] = useState<boolean>(false);
-  const [currentSidebarForm, setSidebarForms] = useState<FormSceneNames>(
-    "Login"
-  );
+  const [currentSidebarForm, setSidebarForms] = useState<FormSceneNames>("Login");
 
   const hisotry = useHistory();
 
@@ -49,17 +43,9 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
           classes="user-button"
         />
       </nav>
-      <Sidebar
-        show={sidebarShow}
-        closeHandler={handleToggleSidebarOpen}
-        title={currentSidebarForm}
-      >
-        {currentSidebarForm === "Login" && (
-          <LoginForm changeSceneHandler={changeScene} />
-        )}
-        {currentSidebarForm === "Register" && (
-          <RegisterForm changeSceneHandler={changeScene} />
-        )}
+      <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>
+        {currentSidebarForm === "Login" && <LoginForm changeSceneHandler={changeScene} />}
+        {currentSidebarForm === "Register" && <RegisterForm changeSceneHandler={changeScene} />}
         {currentSidebarForm === "Forgot Password" && (
           <ForgotPassword changeSceneHandler={changeScene} />
         )}

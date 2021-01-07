@@ -1,13 +1,8 @@
 import React from "react";
 import "./Sidebar.scss";
 import { ReactComponent as Arrow } from "assets/images/double-arrow.svg";
-import Backdrop from "../Backdrop/Backdrop";
-
-interface SidebarProps {
-  show: boolean;
-  closeHandler: () => void;
-  title: string;
-}
+import Backdrop from "../Backdrop";
+import { SidebarProps } from "./";
 
 const Sidebar: React.FC<SidebarProps> = ({
   children,

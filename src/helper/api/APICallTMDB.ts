@@ -1,12 +1,7 @@
 import callAPI from "./APICall";
-import { callAPIParams } from "./IAPICall";
+import { callAPIParams } from "./";
 
-const callTMDBAPI = async ({
-  url,
-  method,
-  queryParams,
-  setLoading,
-}: callAPIParams) => {
+const callTMDBAPI = async ({ url, method, queryParams, setLoading }: callAPIParams) => {
   const { REACT_APP_TMDB_URL, REACT_APP_TMDB_KEY } = process.env;
   if (!REACT_APP_TMDB_URL || REACT_APP_TMDB_URL === "")
     return { error: "TMDB url was not provided" };

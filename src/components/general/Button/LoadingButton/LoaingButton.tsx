@@ -13,10 +13,7 @@ const LoaingButton: React.FC<LoadingButtonProps> = ({
     <button
       {...props}
       disabled={props.disabled || isLoading}
-      className={`loading-btn btn-primary submit-btn ${classes} ${
-        isLoading ? "loading" : ""
-      }`}
-    >
+      className={`loading-btn btn-primary submit-btn ${classes} ${isLoading ? "loading" : ""}`}>
       <span>{children}</span>
       <DualRingSpinner />
     </button>

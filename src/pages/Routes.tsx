@@ -18,26 +18,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ auth, ...props }) => {
   return auth !== "failed" ? <Route {...props} /> : <Redirect to="/" />;
 };
 
-const Routes: React.FC<{ authStatus: authenticationStatus }> = ({
-  authStatus,
-}) => {
+const Routes: React.FC<{ authStatus: authenticationStatus }> = ({ authStatus }) => {
   return (
     <Switch>
       <Route exact path="/" component={Home} />
       <Route exact path="/movie" component={SearchedMovies} />
       <Route exact path="/movie/:movieId" component={MovieDetails} />
-      <ProtectedRoute
-        exact
-        auth={authStatus}
-        path="/recommendations"
-        component={Recommendations}
-      />
-      <ProtectedRoute
-        exact
-        auth={authStatus}
-        path="/questionnaire"
-        component={Questionnaire}
-      />
+      <ProtectedRoute exact auth={authStatus} path="/recommendations" component={Recommendations} />
+      <ProtectedRoute exact auth={authStatus} path="/questionnaire" component={Questionnaire} />
       <ProtectedRoute auth={authStatus} path="/profile" component={Profile} />
       {/* <Route render={() => <Redirect to="/" />} /> */}
     </Switch>

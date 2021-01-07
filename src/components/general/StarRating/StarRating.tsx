@@ -3,11 +3,7 @@ import "./StarRating.scss";
 import { ReactComponent as Star } from "assets/images/star-outline.svg";
 import { StarRatingProps } from "./";
 
-const StarRating: React.FC<StarRatingProps> = ({
-  setScore,
-  score,
-  submitRating,
-}) => {
+const StarRating: React.FC<StarRatingProps> = ({ setScore, score, submitRating }) => {
   const [hoverScore, setHoverScore] = useState<number>(-1);
 
   const shouldFill = (index: number) => {
@@ -36,8 +32,7 @@ const StarRating: React.FC<StarRatingProps> = ({
           onMouseLeave={clearStar}
           onMouseEnter={() => hoverStar(i)}
           onClick={() => clickStarHandler(i)}
-          className="star"
-        >
+          className="star">
           <Star className={shouldFill(i)} />
         </span>
       ))}

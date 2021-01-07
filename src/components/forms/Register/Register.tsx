@@ -4,15 +4,13 @@ import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
 import "./Register.scss";
 import { LoadingButton } from "components/general/Button";
-import callAPI from "helper/APICall";
+import callAPI from "helper/api";
 import RegistrationSuccess from "./RegistrationSuccess";
-import { FormProps } from "../Iforms";
+import { FormProps } from "../";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
-  password: Yup.string()
-    .min(5, "must be at least 5 characters")
-    .required("field is required"),
+  password: Yup.string().min(5, "must be at least 5 characters").required("field is required"),
   name: Yup.string().required("field is required"),
   matchingPassword: Yup.string()
     .oneOf([Yup.ref("password")], "password does not match")
@@ -40,7 +38,7 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
     });
     if (status === 200) {
       setRegistartionEmail(data.email);
-    } else if (!!error) setErrors({ email: error });
+    } else if (!!error) setErrors({ email: error.message });
   };
 
   const changeSceneToLogin = () => {
@@ -48,18 +46,11 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
   };
   if (!!registartionEmail) {
     return (
-      <RegistrationSuccess
-        email={registartionEmail}
-        changeFormSceneToLogin={changeSceneToLogin}
-      />
+      <RegistrationSuccess email={registartionEmail} changeFormSceneToLogin={changeSceneToLogin} />
     );
   } else {
     return (
-      <Formik
-        initialValues={fields}
-        validationSchema={validationSchema}
-        onSubmit={handleRegister}
-      >
+      <Formik initialValues={fields} validationSchema={validationSchema} onSubmit={handleRegister}>
         {({ isSubmitting, errors, isValid }) => (
           <Form className="register-form">
             <Field
@@ -94,18 +85,13 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
               disabled={isSubmitting}
               as={Input}
             />
-            <LoadingButton
-              disabled={!isValid}
-              type="submit"
-              isLoading={isSubmitting}
-            >
+            <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
               Register
             </LoadingButton>
             <button
               type="button"
               className="link-element login-nav-link"
-              onClick={changeSceneToLogin}
-            >
+              onClick={changeSceneToLogin}>
               Login
             </button>
           </Form>

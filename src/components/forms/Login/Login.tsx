@@ -5,11 +5,11 @@ import Input from "components/general/Input";
 import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
 import "./Login.scss";
-import callAPI from "helper/APICall";
+import callAPI from "helper/api";
 import { UserContext } from "context/UserContext";
-import { FormProps } from "../Iforms";
-
-import { ReactComponent as GoogleLogo } from "assets/images/google-logo-color.svg";
+import { FormProps } from "../";
+import OAuthLogin from "./OAuthLogin";
+import { processErros } from "helper/formUtils";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -42,36 +42,17 @@ const Login: React.FC<FormProps> = ({ changeSceneHandler }) => {
         });
         changeSceneHandler("Close", 0);
       }
-      let errorMessages: any = {};
-
-      for (const [key] of Object.entries(fields)) {
-        errorMessages[key] = data[key];
-      }
-      setErrors(errorMessages);
+      setErrors(processErros(fields, data));
     } else {
-      let errorMessages: any = {};
-      for (const [key] of Object.entries(fields)) {
-        errorMessages[key] = error[key];
-      }
-      setErrors(errorMessages);
+      setErrors(processErros(fields, error));
     }
-  };
-
-  const redirectToOAuth = () => {
-    const { REACT_APP_SERVER_URL } = process.env;
-    const BASE_URL = REACT_APP_SERVER_URL || "http://localhost:8181";
-    window.location.href = `${BASE_URL}/oauth2/authorize/google`;
   };
 
   const changeToRegister = () => changeSceneHandler("Register", 700);
   const changeToForgotPass = () => changeSceneHandler("Forgot Password", 700);
 
   return (
-    <Formik
-      initialValues={fields}
-      validationSchema={validationSchema}
-      onSubmit={handleLogin}
-    >
+    <Formik initialValues={fields} validationSchema={validationSchema} onSubmit={handleLogin}>
       {({ isSubmitting, errors, isValid }) => (
         <Form className="login-form">
           <Field
@@ -92,34 +73,18 @@ const Login: React.FC<FormProps> = ({ changeSceneHandler }) => {
           />
           <div className="option-group">
             <CheckBox label="remember me" />
-            <button
-              onClick={changeToForgotPass}
-              type="button"
-              className="link-element"
-            >
+            <button onClick={changeToForgotPass} type="button" className="link-element">
               forgot password?
             </button>
           </div>
-          <LoadingButton
-            disabled={!isValid}
-            type="submit"
-            isLoading={isSubmitting}
-          >
+          <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
             Login
           </LoadingButton>
-          <button
-            type="button"
-            onClick={redirectToOAuth}
-            className="oath-options-group"
-          >
-            <GoogleLogo />
-            <span>Login with Google</span>
-          </button>
+          <OAuthLogin />
           <button
             type="button"
             className="link-element register-nav-link"
-            onClick={changeToRegister}
-          >
+            onClick={changeToRegister}>
             Don't have an account ?
           </button>
         </Form>

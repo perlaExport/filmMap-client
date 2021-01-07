@@ -10,8 +10,7 @@ const SuccessCheck: React.FC = () => {
         xmlns="http://www.w3.org/2000/svg"
         width="70"
         height="70"
-        viewBox="0 0 70 70"
-      >
+        viewBox="0 0 70 70">
         <path
           id="successAnimationResult"
           fill="#D8D8D8"

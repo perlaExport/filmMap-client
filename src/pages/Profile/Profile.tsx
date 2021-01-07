@@ -1,7 +1,7 @@
 import React, { useContext } from "react";
 import { UserContext } from "context/UserContext";
 import "./Profile.scss";
-import { LoadingWrapper } from "components/layout";
+import LoadingWrapper from "components/layout/LoadingWrapper";
 import { ReactComponent as LogOutIcon } from "assets/images/exit.svg";
 import { ReactComponent as EditIcon } from "assets/images/edit-user.svg";
 import { IconButton } from "components/general/Button";
@@ -19,18 +19,11 @@ const Profile: React.FC = () => {
   };
 
   return (
-    <LoadingWrapper
-      isLoading={authStatus !== "success"}
-      className="profile-page"
-    >
+    <LoadingWrapper isLoading={authStatus !== "success"} className="profile-page">
       <h2 className="username">{`@${user}`}</h2>
       <div className="user-control-container">
         <IconButton icon={<EditIcon />}>Edit Profile</IconButton>
-        <IconButton
-          onClick={userLogOut}
-          classes="btn-secondary"
-          icon={<LogOutIcon />}
-        >
+        <IconButton onClick={userLogOut} classes="btn-secondary" icon={<LogOutIcon />}>
           Logout
         </IconButton>
       </div>

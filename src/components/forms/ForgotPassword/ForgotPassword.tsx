@@ -3,7 +3,7 @@ import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
-import { FormProps } from "../Iforms";
+import { FormProps } from "../";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -33,8 +33,7 @@ const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
     <Formik
       initialValues={fields}
       validationSchema={validationSchema}
-      onSubmit={handleChangePasswordRequest}
-    >
+      onSubmit={handleChangePasswordRequest}>
       {({ isSubmitting, errors, isValid }) => (
         <Form className="login-form">
           <Field
@@ -45,18 +44,13 @@ const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
             disabled={isSubmitting}
             as={Input}
           />
-          <LoadingButton
-            disabled={!isValid}
-            type="submit"
-            isLoading={isSubmitting}
-          >
+          <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
             Send
           </LoadingButton>
           <button
             type="button"
             className="link-element login-nav-link"
-            onClick={changeSceneToLogin}
-          >
+            onClick={changeSceneToLogin}>
             Login
           </button>
         </Form>

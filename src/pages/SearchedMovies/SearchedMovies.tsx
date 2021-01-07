@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import "./SearchedMovies.scss";
 import MovieCard, { MovieCardProps } from "components/general/MovieCard";
-import callTMDBAPI from "helper/APICallTMDB";
+import { callTMDBAPI } from "helper/api";
 import queryString from "query-string";
-import { LoadingWrapper } from "components/layout";
+import LoadingWrapper from "components/layout/LoadingWrapper";
 import Pagination, { PageProps } from "components/general/Pagination";
 import { MovieResponse, ResultInfo } from "./";
 
@@ -67,9 +67,7 @@ const SearchedMovies: React.FC = () => {
               key={movieId}
               movieId={movieId}
               posterImageURL={
-                !!posterImageURL
-                  ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}`
-                  : ""
+                !!posterImageURL ? `${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterImageURL}` : ""
               }
               title={title}
             />

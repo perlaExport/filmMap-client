@@ -1,12 +1,7 @@
-import GenreList from "./GenreList/GenreList";
-import PosterBackdrop from "./PosterBackdrop/PosterBackdrop";
-import UserMovieManager from "./UserMovieManager/UserMovieManager";
+import GenreList, { GenreProps } from "./GenreList";
+import PosterBackdrop from "./PosterBackdrop";
+import UserMovieManager from "./UserMovieManager";
 import MovieDetails from "./MovieDetails";
-
-export interface GenreProps {
-  id: number;
-  name: string;
-}
 
 export interface MovieProps {
   id: number;
@@ -16,21 +11,7 @@ export interface MovieProps {
   overview: string;
   title: string;
 }
-
-export interface PosterBackdropProps {
-  backdropImageLink: string;
-  posterImageLink: string;
-}
-
-export interface UserMovieManagerProps {
-  setScore: (score: number) => void;
-  score: number;
-  movieDetails: MovieProps;
-  isFavourite?: boolean;
-  isWatchLater?: boolean;
-  toggleAddToWatchLater: (shouldAdd: boolean) => void;
-  toggleAddToFavourite: (shouldAdd: boolean) => void;
-}
+export type favAndWatchlaterType = { favourite: boolean; watchlater: boolean };
 
 export { GenreList, PosterBackdrop, UserMovieManager };
 

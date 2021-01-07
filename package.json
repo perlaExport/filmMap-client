@@ -41,7 +41,7 @@
       "semi": "warn",
       "linebreak-style": [
         "error",
-        "unix"
+        "windows"
       ]
     }
   },

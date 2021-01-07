@@ -1,25 +1,15 @@
 import React from "react";
 import { ReactComponent as DualRingSpinner } from "assets/spinners/DualRing-yellow.svg";
 import "./LoadingWrapper.scss";
+import { LoadingProps } from "./";
 
-interface LoadingProps {
-  isLoading: boolean;
-  className?: string;
-}
-
-const LoadingWrapper: React.FC<LoadingProps> = ({
-  isLoading,
-  className,
-  ...props
-}) => {
+const LoadingWrapper: React.FC<LoadingProps> = ({ isLoading, className, ...props }) => {
   return (
     <div {...props} className="loading-wrapper">
       {isLoading ? (
         <DualRingSpinner />
       ) : (
-        <div className={`loaded-content ${className || ""}`}>
-          {props.children}
-        </div>
+        <div className={`loaded-content ${className || ""}`}>{props.children}</div>
       )}
     </div>
   );
