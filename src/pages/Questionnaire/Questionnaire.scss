@@ -4,6 +4,12 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  .rate-moovie-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
 
   .movie-container {
     margin-top: 1rem;
