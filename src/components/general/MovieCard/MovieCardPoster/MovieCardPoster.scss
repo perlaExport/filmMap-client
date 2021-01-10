@@ -1,0 +1,33 @@
+$poster-height: 20rem;
+$poster-width: 15rem;
+
+.movie-card-poster {
+  position: relative;
+  box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.438);
+  border-radius: 5px;
+  overflow: hidden;
+  .poster-image {
+    object-fit: cover;
+    height: $poster-height;
+    width: $poster-width;
+  }
+  .title-wrapper {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    background-color: #222222;
+    &::before {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100%;
+      top: -5rem;
+      height: 5rem;
+      background: linear-gradient(180deg, rgba(2, 0, 36, 0) 0%, #222222 100%);
+    }
+    .movie-title {
+      color: white;
+      text-align: center;
+    }
+  }
+}
