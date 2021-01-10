@@ -42,7 +42,6 @@ const Login: React.FC<FormProps> = ({ changeSceneHandler }) => {
         });
         changeSceneHandler("Close", 0);
       }
-      setErrors(processErros(fields, data));
     } else {
       setErrors(processErros(fields, error));
     }
