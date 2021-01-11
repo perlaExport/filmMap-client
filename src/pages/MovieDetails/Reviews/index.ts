@@ -1,7 +1,7 @@
 import Reviews from "./Reviews";
 
 export interface ReviewsProps {
-  userReview?: string;
+  userReview: string;
   movieId: number;
 }
 

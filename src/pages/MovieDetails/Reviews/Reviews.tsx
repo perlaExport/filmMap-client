@@ -3,6 +3,7 @@ import Review from "./Review";
 import { ReviewsProps } from "./";
 import callAPI from "helper/api";
 import "./Reviews.scss";
+import CommentInput from "./CommentInput";
 
 export interface ReviewRespoonse {
   user: {
@@ -14,7 +15,6 @@ export interface ReviewRespoonse {
 }
 
 const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
-  const [comment, setComment] = useState<string>(userReview || "");
   const [reviews, setReviews] = useState<ReviewRespoonse[]>([]);
 
   useEffect(() => {
@@ -42,30 +42,9 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
     return () => {};
   }, [movieId]);
 
-  const commentOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setComment(e.target.value);
-  };
-  const submitReview = async () => {
-    const { data, status, error } = await callAPI({
-      url: `/movie/${movieId}/review`,
-      method: "PUT",
-      token: true,
-      payload: {
-        review: comment,
-      },
-    });
-    console.log(data, status, error);
-  };
   return (
     <section className="movie-reviews">
-      <div className="review-input">
-        <button className="link-element">Remove review</button>
-        <button onClick={submitReview} className="btn-primary">
-          Submit
-        </button>
-        {/* <textarea name="" id=""></textarea> */}
-        <input value={comment} type="text" onChange={commentOnChangeHandler} />
-      </div>
+      <CommentInput userReview={userReview} movieId={movieId} />
       <div className="review-container">
         {reviews.map((review) => (
           <Review

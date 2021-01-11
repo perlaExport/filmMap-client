@@ -35,6 +35,8 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
 
   const [score, setScore] = useState<number>(-1);
 
+  const [userReview, setUserReview] = useState<string>("");
+
   useEffect(() => {
     const { movieId } = props.match.params;
     const getMovieDetailsBydId = async () => {
@@ -65,6 +67,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
           favourite: data.favourite,
           watchlater: data.watchLater,
         });
+        setUserReview(data.userReview || "");
         setScore(data.userRate - 1);
       }
     };
@@ -116,7 +119,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
           <p className="movie-overview">{movieDetails.overview}</p>
         </div>
       </section>
-      <Reviews movieId={movieDetails.id} userReview={""} />
+      <Reviews movieId={movieDetails.id} userReview={userReview} />
     </LoadingWrapper>
   );
 };
