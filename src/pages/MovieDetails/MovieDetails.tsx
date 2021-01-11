@@ -5,7 +5,14 @@ import { UserContext } from "context/UserContext";
 import callAPI, { callTMDBAPI } from "helper/api";
 import Image from "components/general/Image";
 import LoadingWrapper from "components/layout/LoadingWrapper";
-import { GenreList, PosterBackdrop, UserMovieManager, MovieProps, favAndWatchlaterType } from "./";
+import {
+  GenreList,
+  PosterBackdrop,
+  UserMovieManager,
+  MovieProps,
+  favAndWatchlaterType,
+  Reviews,
+} from "./";
 
 const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined }>> = (props) => {
   const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
@@ -109,6 +116,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
           <p className="movie-overview">{movieDetails.overview}</p>
         </div>
       </section>
+      <Reviews movieId={movieDetails.id} userReview={""} />
     </LoadingWrapper>
   );
 };
