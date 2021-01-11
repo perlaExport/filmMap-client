@@ -55,12 +55,15 @@ const UserMovieManager: React.FC<UserMovieManagerProps> = ({
   };
 
   const removeMovieRating = async () => {
-    const { status } = await callAPI({
-      url: `/movie/${movieDetails.id}/delete_rate`,
-      method: "DELETE",
-      token: true,
-    });
-    if (status === 200) setScore(-1);
+    const shouldRemove = window.confirm("Are you sure you want to remove your rating?");
+    if (shouldRemove) {
+      const { status } = await callAPI({
+        url: `/movie/${movieDetails.id}/delete_rate`,
+        method: "DELETE",
+        token: true,
+      });
+      if (status === 200) setScore(-1);
+    }
   };
 
   return (
