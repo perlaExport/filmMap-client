@@ -1,0 +1,31 @@
+@import "../../../assets/styles/mediaQueries";
+
+.main-movie-details {
+  .movie-title {
+    height: 190px;
+    font-size: 3rem;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+  }
+  .movie-info {
+    margin-left: 4rem;
+    color: white;
+    @include mq-1 {
+      margin: 0;
+    }
+    .movie-title {
+      display: block;
+      @include mq-1 {
+        display: none;
+      }
+    }
+
+    .movie-overview {
+      margin: 0;
+    }
+  }
+}

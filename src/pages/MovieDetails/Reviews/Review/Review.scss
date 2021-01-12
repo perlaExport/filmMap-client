@@ -1,10 +1,14 @@
 @import "../../../../assets/styles/colors";
+@import "../../../../assets/styles/mediaQueries";
 .review-card {
   background: #0000007a;
   width: 30rem;
   color: white;
   padding: 0.5rem 0.8rem;
   box-sizing: border-box;
+  @include mobile {
+    width: 20rem;
+  }
   header {
     display: flex;
     flex-direction: row;

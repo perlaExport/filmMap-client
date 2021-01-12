@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./CommentInput.scss";
 import { Formik, Field, Form } from "formik";
 import callAPI from "helper/api";
@@ -15,6 +15,8 @@ const validationSchema = Yup.object({
 });
 
 const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
+  const [isReviewed, setIsReviewed] = useState<boolean>(userReview !== "");
+
   const submitReview = async (payload: any, { setSubmitting }: { setSubmitting: any }) => {
     const { data, status, error } = await callAPI({
       url: `/movie/${movieId}/review`,
@@ -25,6 +27,7 @@ const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
         review: payload.comment,
       },
     });
+    if (status === 200 && !isReviewed) setIsReviewed(true);
     console.log(data, status, error);
   };
 
@@ -36,23 +39,26 @@ const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
         method: "DELETE",
         token: true,
       });
+      if (status === 200) setIsReviewed(false);
       console.log(data, status, error);
     }
   };
 
   return (
     <Formik
-      initialValues={{ comment: userReview || "" }}
+      initialValues={{ comment: userReview }}
       validationSchema={validationSchema}
       onSubmit={submitReview}>
       {({ isSubmitting, errors, isValid }) => (
         <Form className="review-input">
           <div className="button-group">
-            <button onClick={removeReview} className="link-element remove-review">
-              Remove review
-            </button>
+            {isReviewed && (
+              <button type="button" onClick={removeReview} className="link-element remove-review">
+                Remove review
+              </button>
+            )}
             <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
-              Submit
+              {isReviewed ? "Update" : "Submit"}
             </LoadingButton>
           </div>
 

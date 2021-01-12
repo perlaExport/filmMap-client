@@ -8,6 +8,9 @@
     margin: 0 auto;
     width: 30rem;
   }
+  @include mobile {
+    width: 20rem;
+  }
   .button-group {
     display: flex;
     flex-direction: row;

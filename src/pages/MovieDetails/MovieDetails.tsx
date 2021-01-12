@@ -6,7 +6,7 @@ import callAPI, { callTMDBAPI } from "helper/api";
 import Image from "components/general/Image";
 import LoadingWrapper from "components/layout/LoadingWrapper";
 import {
-  GenreList,
+  MovieInfo,
   PosterBackdrop,
   UserMovieManager,
   MovieProps,
@@ -35,6 +35,8 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
 
   const [score, setScore] = useState<number>(-1);
 
+  const [isLoading, setLoading] = useState<boolean>(true);
+
   const [userReview, setUserReview] = useState<string>("");
 
   useEffect(() => {
@@ -57,6 +59,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
       }
     };
     const getMovieRating = async () => {
+      setLoading(true);
       const { data, status } = await callAPI({
         url: `/movie/${movieId}`,
         method: "GET",
@@ -69,6 +72,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         });
         setUserReview(data.userReview || "");
         setScore(data.userRate - 1);
+        setLoading(false);
       }
     };
     if (!!movieId && (authStatus === "failed" || authStatus === "success")) {
@@ -101,25 +105,23 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
             src={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${movieDetails.posterPath}`}
             className="movie-poster"
           />
-          {authStatus === "success" && (
+          {authStatus === "success" && !isLoading && (
             <UserMovieManager
               movieDetails={movieDetails}
               isFavourite={isFavandWatchLater.favourite}
+              isWatchLater={isFavandWatchLater.watchlater}
               toggleAddToWatchLater={toggleMovieToWatchLater}
               toggleAddToFavourite={toggleMovieToFavourite}
-              isWatchLater={isFavandWatchLater.watchlater}
               setScore={setScore}
               score={score}
             />
           )}
         </div>
-        <div className="movie-info">
-          <h1 className="movie-title">{movieDetails.title}</h1>
-          <GenreList genres={movieDetails.genres} />
-          <p className="movie-overview">{movieDetails.overview}</p>
-        </div>
+        <MovieInfo movieDetails={movieDetails} />
       </section>
-      <Reviews movieId={movieDetails.id} userReview={userReview} />
+      {authStatus === "success" && !isLoading && (
+        <Reviews movieId={movieDetails.id} userReview={userReview} />
+      )}
     </LoadingWrapper>
   );
 };
