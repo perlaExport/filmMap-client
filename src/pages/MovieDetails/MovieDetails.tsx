@@ -5,7 +5,14 @@ import { UserContext } from "context/UserContext";
 import callAPI, { callTMDBAPI } from "helper/api";
 import Image from "components/general/Image";
 import LoadingWrapper from "components/layout/LoadingWrapper";
-import { GenreList, PosterBackdrop, UserMovieManager, MovieProps, favAndWatchlaterType } from "./";
+import {
+  MovieInfo,
+  PosterBackdrop,
+  UserMovieManager,
+  MovieProps,
+  favAndWatchlaterType,
+  Reviews,
+} from "./";
 
 const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined }>> = (props) => {
   const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
@@ -27,6 +34,10 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
   });
 
   const [score, setScore] = useState<number>(-1);
+
+  const [showReviews, setShowReviews] = useState<boolean>(false);
+
+  const [userReview, setUserReview] = useState<string>("");
 
   useEffect(() => {
     const { movieId } = props.match.params;
@@ -58,7 +69,9 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
           favourite: data.favourite,
           watchlater: data.watchLater,
         });
+        setUserReview(data.userReview || "");
         setScore(data.userRate - 1);
+        setShowReviews(data.userRate > 0);
       }
     };
     if (!!movieId && (authStatus === "failed" || authStatus === "success")) {
@@ -74,6 +87,11 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
   };
   const toggleMovieToWatchLater = (shouldAdd: boolean) => {
     setIsFavAndWatchLater((state) => ({ ...state, watchlater: shouldAdd }));
+  };
+
+  const setScoreHandler = (score: number) => {
+    setShowReviews(score + 1 > 0);
+    setScore(score);
   };
 
   return (
@@ -95,20 +113,17 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
             <UserMovieManager
               movieDetails={movieDetails}
               isFavourite={isFavandWatchLater.favourite}
+              isWatchLater={isFavandWatchLater.watchlater}
               toggleAddToWatchLater={toggleMovieToWatchLater}
               toggleAddToFavourite={toggleMovieToFavourite}
-              isWatchLater={isFavandWatchLater.watchlater}
-              setScore={setScore}
+              setScore={setScoreHandler}
               score={score}
             />
           )}
         </div>
-        <div className="movie-info">
-          <h1 className="movie-title">{movieDetails.title}</h1>
-          <GenreList genres={movieDetails.genres} />
-          <p className="movie-overview">{movieDetails.overview}</p>
-        </div>
+        <MovieInfo movieDetails={movieDetails} />
       </section>
+      <Reviews score={score} movieId={movieDetails.id} userReview={userReview} />
     </LoadingWrapper>
   );
 };

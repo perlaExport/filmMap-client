@@ -1,6 +1,6 @@
 import React from "react";
 import "./GenreList.scss";
-import { GenreProps } from "./";
+import { GenreProps } from ".";
 
 const GenreList: React.FC<{ genres: GenreProps[] }> = ({ genres }) => {
   return (

@@ -1,0 +1,38 @@
+@import "../../../../assets/styles/colors";
+@import "../../../../assets/styles/mediaQueries";
+.review-card {
+  background: #0000007a;
+  width: 30rem;
+  color: white;
+  padding: 0.5rem 0.8rem;
+  box-sizing: border-box;
+  @include mobile {
+    width: 20rem;
+  }
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    .name {
+      font-size: 0.7rem;
+      font-weight: bold;
+      color: $yellow-primary;
+    }
+    .score {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      color: $yellow-primary;
+      svg.star-icon {
+        fill: $yellow-primary;
+        height: 0.7rem;
+        height: 0.7rem;
+        margin-right: 0.2rem;
+      }
+    }
+  }
+  .comment {
+  }
+}
