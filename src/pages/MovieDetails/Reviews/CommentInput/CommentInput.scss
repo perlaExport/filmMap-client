@@ -1,8 +1,13 @@
+@import "../../../../assets/styles/mediaQueries";
 .review-input {
   display: flex;
   flex-direction: column;
-  width: 30rem;
+  // width: 30rem;
   margin-bottom: 1rem;
+  @include mq-2 {
+    margin: 0 auto;
+    width: 30rem;
+  }
   .button-group {
     display: flex;
     flex-direction: row;
@@ -18,11 +23,16 @@
     margin-top: 0.5rem;
     resize: none;
     outline: none;
-    background: #222222;
+    background: #222222dc;
     border: none;
     color: white;
     font-family: "Open Sans", sans-serif;
     padding: 0.4rem 0.6rem;
     box-sizing: border-box;
+    height: 100%;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.514);
+    &::placeholder {
+      font-style: italic;
+    }
   }
 }

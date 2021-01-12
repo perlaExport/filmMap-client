@@ -13,9 +13,6 @@ interface CommentInputPorps {
 const validationSchema = Yup.object({
   comment: Yup.string().required("field is required"),
 });
-const fields = {
-  comment: "",
-};
 
 const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
   const submitReview = async (payload: any, { setSubmitting }: { setSubmitting: any }) => {
@@ -44,7 +41,10 @@ const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
   };
 
   return (
-    <Formik initialValues={fields} validationSchema={validationSchema} onSubmit={submitReview}>
+    <Formik
+      initialValues={{ comment: userReview || "" }}
+      validationSchema={validationSchema}
+      onSubmit={submitReview}>
       {({ isSubmitting, errors, isValid }) => (
         <Form className="review-input">
           <div className="button-group">
@@ -61,6 +61,7 @@ const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
             name="comment"
             type="text"
             disabled={isSubmitting}
+            placeholder="You opinion about the movie..."
             as="textarea"
           />
         </Form>

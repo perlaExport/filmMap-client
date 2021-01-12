@@ -45,6 +45,7 @@ const Questionnaire: React.FC = () => {
   useEffect(() => {
     getRandomMovie();
     return () => {};
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -4,7 +4,7 @@ import { ReviewsProps } from "./";
 import callAPI from "helper/api";
 import "./Reviews.scss";
 import CommentInput from "./CommentInput";
-import Pagination, { PageProps } from "components/general/Pagination";
+import { PageProps } from "components/general/Pagination";
 
 export interface ReviewRespoonse {
   user: {
@@ -27,16 +27,15 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
         token: true,
       });
       if (status === 200) {
-        setReviews(
-          data.reviews.map((review: any) => ({
-            user: {
-              name: review.user.name,
-              id: review.user.id,
-            },
-            comment: review.userReview,
-            score: review.userRate,
-          }))
-        );
+        const newReviews = data.reviews.map((review: any) => ({
+          user: {
+            name: review.user.name,
+            id: review.user.id,
+          },
+          comment: review.userReview,
+          score: review.userRate,
+        }));
+        setReviews((reviewsState) => [...reviewsState, ...newReviews]);
         setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));
       }
       console.log(data, status, error);
@@ -45,29 +44,31 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
     return () => {};
   }, [movieId, page.currentPage]);
 
-  const handleChangePage = (newPage: number) => {
-    setPage({ ...page, currentPage: newPage });
+  const loadMore = () => {
+    setPage((pageState) => ({ ...pageState, currentPage: pageState.currentPage + 1 }));
   };
 
   return (
     <section className="movie-reviews">
       <h2>Reviews</h2>
-      <CommentInput userReview={userReview} movieId={movieId} />
-      <div className="review-container">
-        {reviews.map((review) => (
-          <Review
-            key={review.user.id}
-            name={review.user.name}
-            score={review.score}
-            comment={review.comment}
-          />
-        ))}
+      <div className="review-wrapper">
+        <div className="review-container">
+          {reviews.map((review) => (
+            <Review
+              key={review.user.id}
+              name={review.user.name}
+              score={review.score}
+              comment={review.comment}
+            />
+          ))}
+        </div>
+        {page.currentPage < page.amountOfPages && (
+          <button className="load-more link-element" onClick={loadMore}>
+            Load more
+          </button>
+        )}
       </div>
-      <Pagination
-        currentPage={page.currentPage}
-        handleChange={handleChangePage}
-        amountOfPages={page.amountOfPages}
-      />
+      <CommentInput userReview={userReview} movieId={movieId} />
     </section>
   );
 };
