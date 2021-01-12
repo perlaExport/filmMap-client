@@ -35,8 +35,6 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
 
   const [score, setScore] = useState<number>(-1);
 
-  const [showReviews, setShowReviews] = useState<boolean>(false);
-
   const [userReview, setUserReview] = useState<string>("");
 
   useEffect(() => {
@@ -71,7 +69,6 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         });
         setUserReview(data.userReview || "");
         setScore(data.userRate - 1);
-        setShowReviews(data.userRate > 0);
       }
     };
     if (!!movieId && (authStatus === "failed" || authStatus === "success")) {
@@ -87,11 +84,6 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
   };
   const toggleMovieToWatchLater = (shouldAdd: boolean) => {
     setIsFavAndWatchLater((state) => ({ ...state, watchlater: shouldAdd }));
-  };
-
-  const setScoreHandler = (score: number) => {
-    setShowReviews(score + 1 > 0);
-    setScore(score);
   };
 
   return (
@@ -116,7 +108,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
               isWatchLater={isFavandWatchLater.watchlater}
               toggleAddToWatchLater={toggleMovieToWatchLater}
               toggleAddToFavourite={toggleMovieToFavourite}
-              setScore={setScoreHandler}
+              setScore={setScore}
               score={score}
             />
           )}
