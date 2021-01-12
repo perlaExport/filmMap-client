@@ -15,7 +15,7 @@ export interface ReviewRespoonse {
   score: number;
 }
 
-const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
+const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId, score }) => {
   const [reviews, setReviews] = useState<ReviewRespoonse[]>([]);
   const [page, setPage] = useState<PageProps>({ currentPage: 1, amountOfPages: 1 });
 
@@ -49,7 +49,7 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
   };
 
   return (
-    <section className="movie-reviews">
+    <section className={`movie-reviews ${score > -1 ? "" : "not-rated"}`}>
       <h2>Reviews</h2>
       <div className="review-wrapper">
         <div className="review-container">
@@ -61,6 +61,9 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
               comment={review.comment}
             />
           ))}
+          {reviews.length === 0 && (
+            <span className="no-content-error">There are no reviews for this movie</span>
+          )}
         </div>
         {page.currentPage < page.amountOfPages && (
           <button className="load-more link-element" onClick={loadMore}>
@@ -68,7 +71,7 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
           </button>
         )}
       </div>
-      <CommentInput userReview={userReview} movieId={movieId} />
+      {score > -1 && <CommentInput userReview={userReview} movieId={movieId} />}
     </section>
   );
 };

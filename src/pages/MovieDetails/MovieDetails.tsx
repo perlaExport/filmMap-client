@@ -35,7 +35,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
 
   const [score, setScore] = useState<number>(-1);
 
-  const [isLoading, setLoading] = useState<boolean>(true);
+  const [showReviews, setShowReviews] = useState<boolean>(false);
 
   const [userReview, setUserReview] = useState<string>("");
 
@@ -59,7 +59,6 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
       }
     };
     const getMovieRating = async () => {
-      setLoading(true);
       const { data, status } = await callAPI({
         url: `/movie/${movieId}`,
         method: "GET",
@@ -72,7 +71,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         });
         setUserReview(data.userReview || "");
         setScore(data.userRate - 1);
-        setLoading(false);
+        setShowReviews(data.userRate > 0);
       }
     };
     if (!!movieId && (authStatus === "failed" || authStatus === "success")) {
@@ -90,6 +89,11 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
     setIsFavAndWatchLater((state) => ({ ...state, watchlater: shouldAdd }));
   };
 
+  const setScoreHandler = (score: number) => {
+    setShowReviews(score + 1 > 0);
+    setScore(score);
+  };
+
   return (
     <LoadingWrapper className="movie-details-page" isLoading={movieDetails.title === ""}>
       {movieDetails.backdropPath !== "" && (
@@ -105,23 +109,21 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
             src={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${movieDetails.posterPath}`}
             className="movie-poster"
           />
-          {authStatus === "success" && !isLoading && (
+          {authStatus === "success" && (
             <UserMovieManager
               movieDetails={movieDetails}
               isFavourite={isFavandWatchLater.favourite}
               isWatchLater={isFavandWatchLater.watchlater}
               toggleAddToWatchLater={toggleMovieToWatchLater}
               toggleAddToFavourite={toggleMovieToFavourite}
-              setScore={setScore}
+              setScore={setScoreHandler}
               score={score}
             />
           )}
         </div>
         <MovieInfo movieDetails={movieDetails} />
       </section>
-      {authStatus === "success" && !isLoading && (
-        <Reviews movieId={movieDetails.id} userReview={userReview} />
-      )}
+      <Reviews score={score} movieId={movieDetails.id} userReview={userReview} />
     </LoadingWrapper>
   );
 };
