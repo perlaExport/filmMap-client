@@ -1,22 +1,31 @@
-import React, { useState } from "react";
+import React from "react";
 import "./CommentInput.scss";
+import { Formik, Field, Form } from "formik";
 import callAPI from "helper/api";
+import { LoadingButton } from "components/general/Button";
+import * as Yup from "yup";
 
 interface CommentInputPorps {
   movieId: number;
   userReview: string;
 }
 
-const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
-  const [comment, setComment] = useState<string>(userReview);
+const validationSchema = Yup.object({
+  comment: Yup.string().required("field is required"),
+});
+const fields = {
+  comment: "",
+};
 
-  const submitReview = async () => {
+const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
+  const submitReview = async (payload: any, { setSubmitting }: { setSubmitting: any }) => {
     const { data, status, error } = await callAPI({
       url: `/movie/${movieId}/review`,
       method: "PUT",
       token: true,
+      setLoading: setSubmitting,
       payload: {
-        review: comment,
+        review: payload.comment,
       },
     });
     console.log(data, status, error);
@@ -29,35 +38,34 @@ const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
         url: `/movie/${movieId}/delete_review`,
         method: "DELETE",
         token: true,
-        payload: {
-          review: comment,
-        },
       });
       console.log(data, status, error);
     }
   };
-  const commentOnChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setComment(e.target.value);
-  };
-  return (
-    <div className="review-input">
-      <div className="button-group">
-        <button onClick={removeReview} className="link-element remove-review">
-          Remove review
-        </button>
-        <button onClick={submitReview} className="btn-primary submit-btn">
-          Submit
-        </button>
-      </div>
 
-      {/* <textarea name="" id=""></textarea> */}
-      <input
-        className="comment-input"
-        value={comment}
-        type="text"
-        onChange={commentOnChangeHandler}
-      />
-    </div>
+  return (
+    <Formik initialValues={fields} validationSchema={validationSchema} onSubmit={submitReview}>
+      {({ isSubmitting, errors, isValid }) => (
+        <Form className="review-input">
+          <div className="button-group">
+            <button onClick={removeReview} className="link-element remove-review">
+              Remove review
+            </button>
+            <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
+              Submit
+            </LoadingButton>
+          </div>
+
+          <Field
+            error={errors["comment"]}
+            name="comment"
+            type="text"
+            disabled={isSubmitting}
+            as="textarea"
+          />
+        </Form>
+      )}
+    </Formik>
   );
 };
 

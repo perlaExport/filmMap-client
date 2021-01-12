@@ -4,6 +4,7 @@ import { ReviewsProps } from "./";
 import callAPI from "helper/api";
 import "./Reviews.scss";
 import CommentInput from "./CommentInput";
+import Pagination, { PageProps } from "components/general/Pagination";
 
 export interface ReviewRespoonse {
   user: {
@@ -16,11 +17,12 @@ export interface ReviewRespoonse {
 
 const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
   const [reviews, setReviews] = useState<ReviewRespoonse[]>([]);
+  const [page, setPage] = useState<PageProps>({ currentPage: 1, amountOfPages: 1 });
 
   useEffect(() => {
     const getMovieReviews = async () => {
       const { data, status, error } = await callAPI({
-        url: `/movie/${movieId}/reviews?limit=8&page=0`,
+        url: `/movie/${movieId}/reviews?limit=3&page=${page.currentPage - 1}`,
         method: "GET",
         token: true,
       });
@@ -35,15 +37,21 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
             score: review.userRate,
           }))
         );
+        setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));
       }
       console.log(data, status, error);
     };
     getMovieReviews();
     return () => {};
-  }, [movieId]);
+  }, [movieId, page.currentPage]);
+
+  const handleChangePage = (newPage: number) => {
+    setPage({ ...page, currentPage: newPage });
+  };
 
   return (
     <section className="movie-reviews">
+      <h2>Reviews</h2>
       <CommentInput userReview={userReview} movieId={movieId} />
       <div className="review-container">
         {reviews.map((review) => (
@@ -55,6 +63,11 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId }) => {
           />
         ))}
       </div>
+      <Pagination
+        currentPage={page.currentPage}
+        handleChange={handleChangePage}
+        amountOfPages={page.amountOfPages}
+      />
     </section>
   );
 };
