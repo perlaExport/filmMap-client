@@ -23,7 +23,7 @@ const reducer = (state: any, { type, payload }: { type: string; payload: any }) 
       return { ...state, user: null, authStatus: "failed" };
     case "LOGOUT":
       localStorage.removeItem("token");
-      return { ...state, user: null, authStatus: null };
+      return { ...state, user: null, authStatus: "failed" };
     default:
       return state;
   }

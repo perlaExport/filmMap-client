@@ -4,7 +4,10 @@ import Image from "components/general/Image";
 import { usePalette } from "react-palette";
 import { PosterBackdropProps } from "./";
 
-const PosterBackdrop: React.FC<PosterBackdropProps> = ({ backdropImageLink, posterImageLink }) => {
+const PosterBackdrop: React.FC<PosterBackdropProps> = ({ backdropPath, posterPath }) => {
+  const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
+  const posterImageLink = `${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${posterPath}`;
+  const backdropImageLink = `${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${backdropPath}`;
   const { data, loading } = usePalette(posterImageLink);
   return (
     <div role="presentation" className={`poster-backdrop ${loading ? "hide" : ""}`}>
