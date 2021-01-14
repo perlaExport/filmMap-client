@@ -14,4 +14,14 @@
   .ranomd-movie-link {
     margin-top: 1.5rem;
   }
+  .recommendation-link {
+    text-decoration: none;
+    .recommendation-btn {
+      position: relative;
+      transform: translateY(50%);
+      padding: 0.6rem 0.8rem;
+      border-radius: 50rem;
+      // z-index: 1;
+    }
+  }
 }

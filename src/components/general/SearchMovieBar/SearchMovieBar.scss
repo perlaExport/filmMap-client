@@ -73,11 +73,16 @@ $search-bar-width: 30rem;
 }
 .search-bar-wrapper {
   position: relative;
+  z-index: 10;
+
   .search-results {
     position: absolute;
     width: 100%;
     overflow-y: auto;
     max-height: 10rem;
+    background-color: rgba(34, 34, 34, 0.753);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(2px);
     &::-webkit-scrollbar {
       height: 0.5em;
       width: 8px;
@@ -94,13 +99,13 @@ $search-bar-width: 30rem;
       height: 2rem;
       display: flex;
       place-items: center;
-      background-color: rgba(255, 255, 255, 0.068);
+      background-color: transparent;
       box-sizing: border-box;
       padding: 0.2rem 0.5rem;
       cursor: pointer;
       transition: background-color 0.15s ease-in-out;
       &:hover {
-        background-color: rgba(255, 255, 255, 0.3);
+        background-color: rgba(75, 75, 75, 0.555);
       }
     }
   }
