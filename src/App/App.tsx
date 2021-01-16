@@ -27,7 +27,7 @@ const App: React.FC = () => {
     <div className="App">
       <Navbar username={user} />
       <section className="page-container">
-        <Routes authStatus={authStatus} />
+        <Routes />
       </section>
     </div>
   );
