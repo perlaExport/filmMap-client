@@ -45,7 +45,6 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         method: "GET",
       });
       if (status === 200) {
-        console.log(data);
         setMoviedetails({
           id: data.id,
           posterPath: data.poster_path,
@@ -73,9 +72,9 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         setScore(data.userRate - 1);
       }
     };
-    if (!!movieId && (authStatus === "failed" || authStatus === "success")) {
+    if (!!movieId && authStatus !== null) {
       getMovieDetailsBydId();
-      getMovieRating();
+      if (authStatus === "success") getMovieRating();
     }
 
     return () => {};
@@ -99,7 +98,11 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
       <section className="main-movie-details">
         <div className="poster-wrapper">
           <h1 className="movie-title">{movieDetails.title}</h1>
-          <Poster posterPath={movieDetails.posterPath || ""} />
+          <Poster
+            movieId={movieDetails.id}
+            shouldDisplayMatch={authStatus === "success" && score < 1}
+            posterPath={movieDetails.posterPath || ""}
+          />
           {authStatus === "success" && (
             <UserMovieManager
               movieDetails={movieDetails}

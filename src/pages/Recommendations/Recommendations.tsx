@@ -12,21 +12,20 @@ const Recommendations: React.FC = () => {
 
   useEffect(() => {
     const getMyRatedMovies = async () => {
-      const { data, status } = await callAPI({
-        url: "/movie/favourites?limit=5&page=0",
+      const { data, status, error } = await callAPI({
+        url: "/movie/recommendation",
         method: "GET",
         token: true,
         setLoading,
       });
+      console.log(data, status, error);
       if (status === 200) {
         setMovies(
-          data.movies.map(
-            ({ id, title, imgPath }: { id: number; title: string; imgPath?: string }) => ({
-              movieId: id,
-              title,
-              posterImageURL: imgPath,
-            })
-          )
+          data.map(({ id, title, imgPath }: { id: number; title: string; imgPath?: string }) => ({
+            movieId: id,
+            title,
+            posterImageURL: imgPath,
+          }))
         );
       }
     };

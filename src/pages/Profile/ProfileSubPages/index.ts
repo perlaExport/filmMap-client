@@ -6,7 +6,7 @@ export type movieResponseType = {
   id: number;
   title: string;
   imgPath?: string;
-  rating?: number;
+  userRate?: number;
 };
 
 export { Favourites, WatchLater, MyRatings };
