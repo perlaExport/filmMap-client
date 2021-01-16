@@ -33,7 +33,7 @@ const MyRatings: React.FC = () => {
             movieId: movie.id,
             title: movie.title,
             posterImageURL: movie.imgPath,
-            score: movie.rating,
+            score: movie.userRate,
           }))
         );
         setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));

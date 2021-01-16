@@ -3,11 +3,11 @@ import "./MovieDetails.scss";
 import { RouteComponentProps } from "react-router-dom";
 import { UserContext } from "context/UserContext";
 import callAPI, { callTMDBAPI } from "helper/api";
-import Image from "components/general/Image";
 import LoadingWrapper from "components/layout/LoadingWrapper";
 import {
   MovieInfo,
   PosterBackdrop,
+  Poster,
   UserMovieManager,
   MovieProps,
   favAndWatchlaterType,
@@ -15,8 +15,6 @@ import {
 } from "./";
 
 const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined }>> = (props) => {
-  const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
-
   const [{ authStatus }] = useContext(UserContext);
 
   const [movieDetails, setMoviedetails] = useState<MovieProps>({
@@ -26,6 +24,8 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
     genres: [],
     overview: "",
     title: "",
+    runtime: 0,
+    imdbRating: 0,
   });
 
   const [isFavandWatchLater, setIsFavAndWatchLater] = useState<favAndWatchlaterType>({
@@ -45,14 +45,15 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         method: "GET",
       });
       if (status === 200) {
-        const { id, poster_path, backdrop_path, genres, overview, title } = data;
         setMoviedetails({
-          id,
-          posterPath: poster_path,
-          backdropPath: backdrop_path,
-          genres,
-          overview,
-          title,
+          id: data.id,
+          posterPath: data.poster_path,
+          backdropPath: data.backdrop_path,
+          genres: data.genres,
+          overview: data.overview,
+          title: data.title,
+          runtime: data.runtime,
+          imdbRating: data.vote_average,
         });
       }
     };
@@ -71,9 +72,9 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
         setScore(data.userRate - 1);
       }
     };
-    if (!!movieId && (authStatus === "failed" || authStatus === "success")) {
+    if (!!movieId && authStatus !== null) {
       getMovieDetailsBydId();
-      getMovieRating();
+      if (authStatus === "success") getMovieRating();
     }
 
     return () => {};
@@ -90,16 +91,17 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
     <LoadingWrapper className="movie-details-page" isLoading={movieDetails.title === ""}>
       {movieDetails.backdropPath !== "" && (
         <PosterBackdrop
-          posterImageLink={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${movieDetails.posterPath}`}
-          backdropImageLink={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w1280${movieDetails.backdropPath}`}
+          posterPath={movieDetails.posterPath || ""}
+          backdropPath={movieDetails.backdropPath || ""}
         />
       )}
       <section className="main-movie-details">
         <div className="poster-wrapper">
           <h1 className="movie-title">{movieDetails.title}</h1>
-          <Image
-            src={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${movieDetails.posterPath}`}
-            className="movie-poster"
+          <Poster
+            movieId={movieDetails.id}
+            shouldDisplayMatch={authStatus === "success" && score < 1}
+            posterPath={movieDetails.posterPath || ""}
           />
           {authStatus === "success" && (
             <UserMovieManager
@@ -113,7 +115,11 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
             />
           )}
         </div>
-        <MovieInfo movieDetails={movieDetails} />
+        <MovieInfo
+          movieDetails={movieDetails}
+          runtime={movieDetails.runtime}
+          imdbRating={movieDetails.imdbRating}
+        />
       </section>
       <Reviews score={score} movieId={movieDetails.id} userReview={userReview} />
     </LoadingWrapper>

@@ -1,0 +1,16 @@
+@import "../../../assets/styles/mediaQueries";
+
+$movie-poster-height: 290px;
+$movie-poster-width: 197px;
+
+.movie-details-page {
+  .movie-poster {
+    height: $movie-poster-height;
+    width: $movie-poster-width;
+    object-fit: cover;
+    position: relative;
+    @include mq-1 {
+      display: none;
+    }
+  }
+}

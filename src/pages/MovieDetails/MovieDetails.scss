@@ -68,15 +68,6 @@ $movie-poster-width: 197px;
           display: block;
         }
       }
-      .movie-poster {
-        height: $movie-poster-height;
-        width: $movie-poster-width;
-        object-fit: cover;
-        position: relative;
-        @include mq-1 {
-          display: none;
-        }
-      }
     }
   }
 }
