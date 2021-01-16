@@ -1,0 +1,23 @@
+@import "../../assets/styles/colors";
+.recommended-movies {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  .page-title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: rgb(202, 202, 202);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 1rem;
+    .top {
+      font-size: 2rem;
+      font-weight: bold;
+      color: $yellow-primary;
+    }
+  }
+  .movie-card {
+    margin: 0.2rem 0;
+  }
+}
