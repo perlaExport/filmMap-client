@@ -6,7 +6,7 @@ import { UserContext } from "context/UserContext";
 import callAPI from "helper/api";
 
 const App: React.FC = () => {
-  const [{ user, authStatus }, dispatchUser] = useContext(UserContext);
+  const [{ user }, dispatchUser] = useContext(UserContext);
 
   useEffect(() => {
     const isUserAuthenticated = async () => {

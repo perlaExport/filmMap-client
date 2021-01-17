@@ -1,17 +1,18 @@
 import React, { useContext } from "react";
-import { Switch, Route, Redirect, RouteProps } from "react-router-dom";
+import { Switch, Route, Redirect, RouteProps, RouteComponentProps } from "react-router-dom";
 import queryString from "query-string";
 import { UserContext } from "context/UserContext";
+import callAPI from "helper/api";
+import { authenticationStatus } from "context/UserContext";
 
 // PAGES
 import Home from "./Home";
-import Recommendations from "./Recommendations/Recommendations";
+import Recommendations from "./Recommendations";
 import MovieDetails from "./MovieDetails";
-import Questionnaire from "./Questionnaire/Questionnaire";
-import Profile from "./Profile/Profile";
+import Questionnaire from "./Questionnaire";
+import Profile from "./Profile";
 import SearchedMovies from "./SearchedMovies";
-import { authenticationStatus } from "context/UserContext";
-import callAPI from "helper/api";
+import Error from "./Error";
 
 interface ProtectedRouteProps extends RouteProps {
   auth: authenticationStatus;
@@ -34,7 +35,7 @@ const Routes: React.FC = () => {
     else dispatchUser({ type: "LOGIN_FAIL" });
   };
 
-  const oAuthLoginRedirect = (props: any) => {
+  const oAuthLoginRedirect = (props: RouteComponentProps) => {
     const queryparams = queryString.parse(props.location.search);
     console.log(queryparams);
     const token = queryparams.token || "";
@@ -50,10 +51,11 @@ const Routes: React.FC = () => {
       <Route exact path="/movie" component={SearchedMovies} />
       <Route exact path="/movie/:movieId" component={MovieDetails} />
       <Route exact path="/oauth2/redirect" render={oAuthLoginRedirect} />
+      <Route auth={authStatus} path="/error" component={Error} />
       <ProtectedRoute exact auth={authStatus} path="/recommendations" component={Recommendations} />
       <ProtectedRoute exact auth={authStatus} path="/questionnaire" component={Questionnaire} />
       <ProtectedRoute auth={authStatus} path="/profile" component={Profile} />
-      {/* <Route render={() => <Redirect to="/" />} /> */}
+      <Route render={() => <Redirect to="/" />} />
     </Switch>
   );
 };

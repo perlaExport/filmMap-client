@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import "./MovieDetails.scss";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 import { UserContext } from "context/UserContext";
 import callAPI, { callTMDBAPI } from "helper/api";
 import LoadingWrapper from "components/layout/LoadingWrapper";
@@ -16,6 +16,7 @@ import {
 
 const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined }>> = (props) => {
   const [{ authStatus }] = useContext(UserContext);
+  const history = useHistory();
 
   const [movieDetails, setMoviedetails] = useState<MovieProps>({
     id: 0,
@@ -55,6 +56,8 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
           runtime: data.runtime,
           imdbRating: data.vote_average,
         });
+      } else {
+        history.replace("/error");
       }
     };
     const getMovieRating = async () => {
@@ -78,7 +81,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
     }
 
     return () => {};
-  }, [props.match.params, authStatus]);
+  }, [props.match.params, authStatus, history]);
 
   const toggleMovieToFavourite = (shouldAdd: boolean) => {
     setIsFavAndWatchLater((state) => ({ ...state, favourite: shouldAdd }));
