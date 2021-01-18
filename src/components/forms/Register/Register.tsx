@@ -5,8 +5,9 @@ import Input from "components/general/Input";
 import "./Register.scss";
 import { LoadingButton } from "components/general/Button";
 import callAPI from "helper/api";
-import RegistrationSuccess from "./RegistrationSuccess";
+// import RegistrationSuccess from "./RegistrationSuccess";
 import { FormProps } from "../";
+import SuccessForm from "../SuccessForm/SuccessForm";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -50,7 +51,16 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
   };
   if (!!registartionEmail) {
     return (
-      <RegistrationSuccess email={registartionEmail} changeFormSceneToLogin={changeSceneToLogin} />
+      <SuccessForm
+        message={
+          <>
+            <span className="successfull">Your registration was successful!</span>
+            <span className="instructions">{"Activate your account using the link sent to "}</span>
+            <strong className="email">{`"${registartionEmail}"`}</strong>
+          </>
+        }
+        changeFormSceneToLogin={changeSceneToLogin}
+      />
     );
   } else {
     return (

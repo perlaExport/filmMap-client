@@ -9,8 +9,8 @@ export interface FormProps {
   changeSceneHandler: (type: FormSceneNames, delay: number) => void;
 }
 
-export interface RegistrationSuccessProps {
-  email: string;
+export interface SuccessProps {
+  message: JSX.Element;
   changeFormSceneToLogin: () => void;
 }
 
