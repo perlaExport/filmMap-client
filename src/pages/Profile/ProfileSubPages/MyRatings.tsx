@@ -61,6 +61,7 @@ const MyRatings: React.FC = () => {
             }
           />
         ))}
+        {movies.length < 1 && <div className="empty-list-message">You have no rated movies</div>}
       </LoadingWrapper>
       <Pagination
         currentPage={page.currentPage}

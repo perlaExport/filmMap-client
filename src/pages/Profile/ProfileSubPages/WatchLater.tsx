@@ -70,6 +70,9 @@ const WatchLater: React.FC = () => {
             removeHandler={() => handleRemoveFromFavouriteList(movieId)}
           />
         ))}
+        {movies.length < 1 && (
+          <div className="empty-list-message">Watch later movie list is empty</div>
+        )}
       </LoadingWrapper>
       <Pagination
         currentPage={page.currentPage}

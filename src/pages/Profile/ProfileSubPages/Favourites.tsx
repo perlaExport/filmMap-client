@@ -75,6 +75,9 @@ const Favourites: React.FC = () => {
             removeHandler={() => handleRemoveFromFavouriteList(movieId)}
           />
         ))}
+        {movies.length < 1 && (
+          <div className="empty-list-message">You have no favourite movies</div>
+        )}
       </LoadingWrapper>
       <Pagination
         currentPage={page.currentPage}

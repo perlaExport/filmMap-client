@@ -4,7 +4,7 @@
   z-index: 1;
   display: grid;
   grid-template-columns: 2fr 1fr;
-  margin: 1rem auto;
+  margin: 4rem auto;
   box-sizing: border-box;
   width: 50rem;
   @include mq-2 {
@@ -26,6 +26,7 @@
   h2 {
     color: white;
     margin: 0;
+    margin-bottom: 1rem;
     // grid-column: 1/3;
     text-align: center;
     @include mq-2 {

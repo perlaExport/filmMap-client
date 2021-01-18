@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./Poster.scss";
-import Image from "components/general/Image";
-import { PosterProps } from "./";
+import "./PosterWrapper.scss";
+import Poster from "components/general/Poster";
+import { PosterWrapperProps } from ".";
 import MovieMatchPercentage from "components/general/MovieMatchPercentage";
 import callAPI from "helper/api";
 
-const Poster: React.FC<PosterProps> = ({ posterPath, movieId, shouldDisplayMatch }) => {
-  const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
-
+const PosterWrapper: React.FC<PosterWrapperProps> = ({
+  posterPath,
+  movieId,
+  shouldDisplayMatch,
+}) => {
   const [matchPercentage, setMatchPercentage] = useState<number>(-1);
 
   useEffect(() => {
@@ -27,9 +29,9 @@ const Poster: React.FC<PosterProps> = ({ posterPath, movieId, shouldDisplayMatch
   return (
     <div className="poster-wrapper">
       {matchPercentage > 0 && <MovieMatchPercentage percentage={matchPercentage} />}
-      <Image src={`${REACT_APP_TMDB_IMAGE_BASE_URL}/w185${posterPath}`} className="movie-poster" />
+      <Poster posterPath={posterPath} />
     </div>
   );
 };
 
-export default Poster;
+export default PosterWrapper;

@@ -1,11 +1,24 @@
 $poster-height: 20rem;
 $poster-width: 15rem;
 
+@keyframes movie-swipe {
+  from {
+    opacity: 0;
+    transform: translateX(40%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
 .movie-card-poster {
   position: relative;
   box-shadow: 0 0 4px 1px rgba(0, 0, 0, 0.438);
   border-radius: 5px;
   overflow: hidden;
+  animation: movie-swipe 1s forwards;
+
   .poster-image {
     object-fit: cover;
     height: $poster-height;

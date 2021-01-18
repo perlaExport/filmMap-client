@@ -17,7 +17,43 @@
       color: $yellow-primary;
     }
   }
-  .movie-card {
+  @keyframes movie-appear {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .movie-card.top-movie {
     margin: 0.2rem 0;
+    opacity: 0;
+    &:nth-child(2) {
+      position: relative;
+      z-index: 5;
+      animation: movie-appear 1s forwards;
+    }
+    &:nth-child(3) {
+      position: relative;
+      z-index: 4;
+      animation: movie-appear 1s forwards 0.2s;
+    }
+    &:nth-child(4) {
+      position: relative;
+      z-index: 3;
+      animation: movie-appear 1s forwards 0.4s;
+    }
+    &:nth-child(5) {
+      position: relative;
+      z-index: 2;
+      animation: movie-appear 1s forwards 0.6s;
+    }
+    &:nth-child(6) {
+      position: relative;
+      z-index: 1;
+      animation: movie-appear 1s forwards 0.8s;
+    }
   }
 }

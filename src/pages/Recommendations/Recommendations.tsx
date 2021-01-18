@@ -39,6 +39,7 @@ const Recommendations: React.FC = () => {
       </h2>
       {movies.map(({ movieId, title, posterImageURL }) => (
         <MovieCard
+          classes="top-movie"
           key={movieId}
           movieId={movieId}
           title={title}

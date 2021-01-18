@@ -7,6 +7,7 @@ export interface MovieCardProps {
   movieId: number;
   posterImageURL: string;
   title: string;
+  classes?: string;
 }
 
 export interface MovieCardScoreProps extends MovieCardProps {
