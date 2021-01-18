@@ -12,7 +12,7 @@ const ActivateUser: React.FC<ActivateUserProps> = ({ userId, token }) => {
 
   useEffect(() => {
     const activateUserHandler = async () => {
-      const { data, status, error } = await callAPI({
+      const { status } = await callAPI({
         url: "/register/confirm",
         method: "PUT",
         setLoading,
@@ -21,7 +21,6 @@ const ActivateUser: React.FC<ActivateUserProps> = ({ userId, token }) => {
           token,
         },
       });
-      console.log(data, status, error);
       if (status === 200) {
         setTimeout(() => {
           history.replace("/");

@@ -21,7 +21,7 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId, score }) => {
 
   useEffect(() => {
     const getMovieReviews = async () => {
-      const { data, status, error } = await callAPI({
+      const { data, status } = await callAPI({
         url: `/movie/${movieId}/reviews?limit=3&page=${page.currentPage - 1}`,
         method: "GET",
         token: true,
@@ -38,7 +38,6 @@ const Reviews: React.FC<ReviewsProps> = ({ userReview, movieId, score }) => {
         setReviews((reviewsState) => [...reviewsState, ...newReviews]);
         setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));
       }
-      console.log(data, status, error);
     };
     getMovieReviews();
     return () => {};

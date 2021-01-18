@@ -41,7 +41,7 @@ const Login: React.FC<FormProps> = ({ changeSceneHandler }) => {
         });
         changeSceneHandler("Close", 0);
       }
-    } else if (status === 400) {
+    } else if (status === 400 && !!error.message) {
       window.alert(error.message);
     } else {
       setErrors(processErros(fields, error));

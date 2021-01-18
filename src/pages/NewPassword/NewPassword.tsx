@@ -26,7 +26,7 @@ interface NewPasswordProps {
 const NewPassword: React.FC<NewPasswordProps> = ({ userId, token }) => {
   const [isPasswordChanged, setPasswordChnaged] = useState<boolean>(false);
   const handleChnagePassword = async (payload: any, { setSubmitting }: { setSubmitting: any }) => {
-    const { data, status, error } = await callAPI({
+    const { status } = await callAPI({
       url: "/password/change",
       method: "PUT",
       setLoading: setSubmitting,
@@ -36,7 +36,6 @@ const NewPassword: React.FC<NewPasswordProps> = ({ userId, token }) => {
       },
       payload,
     });
-    console.log(data, status, error);
     if (status === 200) {
       setPasswordChnaged(true);
     }

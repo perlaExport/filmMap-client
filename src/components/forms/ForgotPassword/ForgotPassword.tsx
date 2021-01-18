@@ -5,7 +5,7 @@ import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
 import { FormProps } from "../";
 import callAPI from "helper/api";
-import SuccessForm from "../SuccessForm/SuccessForm";
+import FPSuccess from "./FPSuccess";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -20,7 +20,7 @@ const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
     payload: any,
     { setSubmitting, setErrors }: { setSubmitting: any; setErrors: any }
   ) => {
-    const { data, status, error } = await callAPI({
+    const { status, error } = await callAPI({
       url: "/password/request",
       method: "GET",
       setLoading: setSubmitting,
@@ -33,32 +33,13 @@ const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
     } else if (status === 200) {
       setSuccess(true);
     }
-    console.log(data, status, error);
-    // if(status === 200) {
-
-    // }
-    // setTimeout(() => {
-    //   console.log({ data });
-    //   setErrors({ email: "No account with given email was found" });
-    //   setSubmitting(false);
-    // }, 2000);
   };
 
   const changeSceneToLogin = () => {
     changeSceneHandler("Login", 700);
   };
   if (isSuccess) {
-    return (
-      <SuccessForm
-        message={
-          <>
-            <span className="successfull">Password reset link sent!</span>
-            <span className="instructions">Check your inbox</span>
-          </>
-        }
-        changeFormSceneToLogin={changeSceneToLogin}
-      />
-    );
+    return <FPSuccess changeFormSceneToLogin={changeSceneToLogin} />;
   } else {
     return (
       <Formik

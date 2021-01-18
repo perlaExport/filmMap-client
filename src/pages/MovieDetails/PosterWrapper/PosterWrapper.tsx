@@ -14,12 +14,11 @@ const PosterWrapper: React.FC<PosterWrapperProps> = ({
 
   useEffect(() => {
     const getUserMattchPercentage = async () => {
-      const { data, status, error } = await callAPI({
+      const { data, status } = await callAPI({
         url: `/movie/${movieId}/recommendation`,
         method: "GET",
         token: true,
       });
-      console.log(data, status, error);
       if (status === 200) setMatchPercentage(data);
     };
     if (shouldDisplayMatch) getUserMattchPercentage();

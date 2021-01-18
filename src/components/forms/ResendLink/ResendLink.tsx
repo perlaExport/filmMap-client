@@ -4,7 +4,7 @@ import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
 import callAPI from "helper/api";
-import SuccessForm from "../SuccessForm/SuccessForm";
+import RLSuccess from "./RLSuccess";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -20,7 +20,7 @@ const ResendLink: React.FC = () => {
     payload: any,
     { setSubmitting, setErrors }: { setSubmitting: any; setErrors: any }
   ) => {
-    const { data, status, error } = await callAPI({
+    const { status, error } = await callAPI({
       url: "/register/resend_token",
       method: "GET",
       setLoading: setSubmitting,
@@ -28,7 +28,6 @@ const ResendLink: React.FC = () => {
         email: payload.email,
       },
     });
-    console.log(data, status, error);
     if (status === 404 && !!error.message) {
       setErrors({ email: error.message });
     } else if (status === 200) {
@@ -36,16 +35,7 @@ const ResendLink: React.FC = () => {
     }
   };
   if (isSuccess) {
-    return (
-      <SuccessForm
-        message={
-          <>
-            <span className="successfull">Activation link was resent</span>
-            <span className="instructions">Check your inbox</span>
-          </>
-        }
-      />
-    );
+    return <RLSuccess />;
   } else {
     return (
       <Formik

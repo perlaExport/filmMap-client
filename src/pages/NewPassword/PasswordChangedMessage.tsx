@@ -6,7 +6,7 @@ const PasswordChangedMessage = () => {
   return (
     <div className="password-changed-message">
       <SuccessCheck />
-      <h1>Password successfully chnaged</h1>
+      <h1>Password successfully changed</h1>
     </div>
   );
 };
