@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import "./NewPassword.scss";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
 import callAPI from "helper/api";
+import PasswordChangedMessage from "./PasswordChangedMessage";
 
 const validationSchema = Yup.object({
   password: Yup.string().min(5, "must be at least 5 characters").required("field is required"),
@@ -23,6 +24,7 @@ interface NewPasswordProps {
 }
 
 const NewPassword: React.FC<NewPasswordProps> = ({ userId, token }) => {
+  const [isPasswordChanged, setPasswordChnaged] = useState<boolean>(false);
   const handleChnagePassword = async (payload: any, { setSubmitting }: { setSubmitting: any }) => {
     const { data, status, error } = await callAPI({
       url: "/password/change",
@@ -35,39 +37,46 @@ const NewPassword: React.FC<NewPasswordProps> = ({ userId, token }) => {
       payload,
     });
     console.log(data, status, error);
+    if (status === 200) {
+      setPasswordChnaged(true);
+    }
   };
 
-  return (
-    <Formik
-      initialValues={fields}
-      validationSchema={validationSchema}
-      onSubmit={handleChnagePassword}>
-      {({ isSubmitting, errors, isValid }) => (
-        <Form className="new-password-form">
-          <h1>New password</h1>
-          <Field
-            error={errors["password"]}
-            label="New password"
-            name="password"
-            type="password"
-            disabled={isSubmitting}
-            as={Input}
-          />
-          <Field
-            error={errors["matchingPassword"]}
-            label="Repeat password"
-            name="matchingPassword"
-            type="password"
-            disabled={isSubmitting}
-            as={Input}
-          />
-          <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
-            Update
-          </LoadingButton>
-        </Form>
-      )}
-    </Formik>
-  );
+  if (isPasswordChanged) {
+    return <PasswordChangedMessage />;
+  } else {
+    return (
+      <Formik
+        initialValues={fields}
+        validationSchema={validationSchema}
+        onSubmit={handleChnagePassword}>
+        {({ isSubmitting, errors, isValid }) => (
+          <Form className="new-password-form">
+            <h1>New password</h1>
+            <Field
+              error={errors["password"]}
+              label="New password"
+              name="password"
+              type="password"
+              disabled={isSubmitting}
+              as={Input}
+            />
+            <Field
+              error={errors["matchingPassword"]}
+              label="Repeat password"
+              name="matchingPassword"
+              type="password"
+              disabled={isSubmitting}
+              as={Input}
+            />
+            <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
+              Update
+            </LoadingButton>
+          </Form>
+        )}
+      </Formik>
+    );
+  }
 };
 
 export default NewPassword;

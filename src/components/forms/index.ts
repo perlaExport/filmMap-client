@@ -11,7 +11,7 @@ export interface FormProps {
 
 export interface SuccessProps {
   message: JSX.Element;
-  changeFormSceneToLogin: () => void;
+  changeFormSceneToLogin?: () => void;
 }
 
 export { LoginForm, RegisterForm, ForgotPassword, ResendLink };
