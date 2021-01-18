@@ -13,7 +13,7 @@ const Recommendations: React.FC = () => {
   useEffect(() => {
     const getMyRatedMovies = async () => {
       const { data, status, error } = await callAPI({
-        url: "/movie/recommendation",
+        url: "/movie/recommendation?size=5",
         method: "GET",
         token: true,
         setLoading,

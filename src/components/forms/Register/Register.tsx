@@ -44,6 +44,9 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
   const changeSceneToLogin = () => {
     changeSceneHandler("Login", 700);
   };
+  const changeSceneToResendToken = () => {
+    changeSceneHandler("Resend Link", 700);
+  };
   if (!!registartionEmail) {
     return (
       <RegistrationSuccess email={registartionEmail} changeFormSceneToLogin={changeSceneToLogin} />
@@ -93,6 +96,12 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
               className="link-element login-nav-link"
               onClick={changeSceneToLogin}>
               Login
+            </button>
+            <button
+              type="button"
+              className="link-element login-nav-link"
+              onClick={changeSceneToResendToken}>
+              Resend activation link
             </button>
           </Form>
         )}

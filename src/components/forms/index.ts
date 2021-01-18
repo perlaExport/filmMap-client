@@ -1,8 +1,9 @@
 import LoginForm from "./Login/Login";
 import RegisterForm from "./Register/Register";
 import ForgotPassword from "./ForgotPassword/ForgotPassword";
+import ResendLink from "./ResendLink/ResendLink";
 
-export type FormSceneNames = "Login" | "Register" | "Forgot Password" | "Close";
+export type FormSceneNames = "Login" | "Register" | "Forgot Password" | "Close" | "Resend Link";
 
 export interface FormProps {
   changeSceneHandler: (type: FormSceneNames, delay: number) => void;
@@ -13,4 +14,4 @@ export interface RegistrationSuccessProps {
   changeFormSceneToLogin: () => void;
 }
 
-export { LoginForm, RegisterForm, ForgotPassword };
+export { LoginForm, RegisterForm, ForgotPassword, ResendLink };
