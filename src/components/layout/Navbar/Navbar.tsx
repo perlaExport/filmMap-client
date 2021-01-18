@@ -52,7 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
       <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>
         {currentSidebarForm === "Login" && <LoginForm changeSceneHandler={changeScene} />}
         {currentSidebarForm === "Register" && <RegisterForm changeSceneHandler={changeScene} />}
-        {currentSidebarForm === "Resend Link" && <ResendLink changeSceneHandler={changeScene} />}
+        {currentSidebarForm === "Resend Link" && <ResendLink />}
         {currentSidebarForm === "Forgot Password" && (
           <ForgotPassword changeSceneHandler={changeScene} />
         )}

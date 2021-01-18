@@ -3,7 +3,7 @@ import { MovieCardScore, MovieCardScoreProps } from "components/general/MovieCar
 import Pagination, { PageProps } from "components/general/Pagination";
 import LoadingWrapper from "components/layout/LoadingWrapper";
 import callAPI from "helper/api";
-import { movieResponseType } from "./";
+import { RatedMovieResponseType } from "./";
 
 const MyRatings: React.FC = () => {
   const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
@@ -29,11 +29,11 @@ const MyRatings: React.FC = () => {
       });
       if (status === 200) {
         setMovies(
-          data.movies.map((movie: movieResponseType) => ({
+          data.movies.map(({ movie, userRate }: RatedMovieResponseType) => ({
             movieId: movie.id,
             title: movie.title,
             posterImageURL: movie.imgPath,
-            score: movie.userRate,
+            score: userRate,
           }))
         );
         setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));

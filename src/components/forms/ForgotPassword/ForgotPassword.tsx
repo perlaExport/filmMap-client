@@ -4,6 +4,7 @@ import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
 import { FormProps } from "../";
+import callAPI from "helper/api";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -13,16 +14,27 @@ const fields = {
 };
 
 const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
-  const handleChangePasswordRequest = (
-    data: any,
+  const handleChangePasswordRequest = async (
+    payload: any,
     { setSubmitting, setErrors }: { setSubmitting: any; setErrors: any }
   ) => {
-    setSubmitting(true);
-    setTimeout(() => {
-      console.log({ data });
-      setErrors({ email: "No account with given email was found" });
-      setSubmitting(false);
-    }, 2000);
+    const { data, status, error } = await callAPI({
+      url: "/password/request",
+      method: "GET",
+      setLoading: setSubmitting,
+      queryParams: {
+        email: payload.email,
+      },
+    });
+    console.log(data, status, error);
+    // if(status === 200) {
+
+    // }
+    // setTimeout(() => {
+    //   console.log({ data });
+    //   setErrors({ email: "No account with given email was found" });
+    //   setSubmitting(false);
+    // }, 2000);
   };
 
   const changeSceneToLogin = () => {

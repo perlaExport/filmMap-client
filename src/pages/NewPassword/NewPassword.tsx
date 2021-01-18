@@ -7,13 +7,13 @@ import { LoadingButton } from "components/general/Button";
 import callAPI from "helper/api";
 
 const validationSchema = Yup.object({
-  newPassword: Yup.string().min(5, "must be at least 5 characters").required("field is required"),
+  password: Yup.string().min(5, "must be at least 5 characters").required("field is required"),
   matchingPassword: Yup.string()
     .oneOf([Yup.ref("password")], "password does not match")
     .required("Password confirm is required"),
 });
 const fields = {
-  newPassword: "",
+  password: "",
   matchingPassword: "",
 };
 
@@ -25,9 +25,13 @@ interface NewPasswordProps {
 const NewPassword: React.FC<NewPasswordProps> = ({ userId, token }) => {
   const handleChnagePassword = async (payload: any, { setSubmitting }: { setSubmitting: any }) => {
     const { data, status, error } = await callAPI({
-      url: "/register",
-      method: "POST",
+      url: "/password/change",
+      method: "PUT",
       setLoading: setSubmitting,
+      queryParams: {
+        id: userId,
+        token,
+      },
       payload,
     });
     console.log(data, status, error);
@@ -42,9 +46,9 @@ const NewPassword: React.FC<NewPasswordProps> = ({ userId, token }) => {
         <Form className="new-password-form">
           <h1>New password</h1>
           <Field
-            error={errors["newPassword"]}
+            error={errors["password"]}
             label="New password"
-            name="newPassword"
+            name="password"
             type="password"
             disabled={isSubmitting}
             as={Input}

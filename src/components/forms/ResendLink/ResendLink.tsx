@@ -3,7 +3,6 @@ import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
-import { FormProps } from "../";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -12,7 +11,7 @@ const fields = {
   email: "",
 };
 
-const ResendLink: React.FC<FormProps> = ({ changeSceneHandler }) => {
+const ResendLink: React.FC = () => {
   const handleChangePasswordRequest = (
     data: any,
     { setSubmitting, setErrors }: { setSubmitting: any; setErrors: any }
@@ -23,10 +22,6 @@ const ResendLink: React.FC<FormProps> = ({ changeSceneHandler }) => {
       setErrors({ email: "No account with given email was found" });
       setSubmitting(false);
     }, 2000);
-  };
-
-  const changeSceneToLogin = () => {
-    changeSceneHandler("Login", 700);
   };
 
   return (

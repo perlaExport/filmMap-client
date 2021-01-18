@@ -36,8 +36,9 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
       setLoading: setSubmitting,
       payload,
     });
+    console.log(data, status, error);
     if (status === 200) {
-      setRegistartionEmail(data.email);
+      setRegistartionEmail(payload.email);
     } else if (!!error) setErrors({ email: error.message });
   };
 

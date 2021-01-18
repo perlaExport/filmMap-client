@@ -3,7 +3,7 @@ import { MovieCardDeleteProps, MovieCardDelete } from "components/general/MovieC
 import Pagination, { PageProps } from "components/general/Pagination";
 import LoadingWrapper from "components/layout/LoadingWrapper";
 import callAPI from "helper/api";
-import { movieResponseType } from "./";
+import { MovieResponseType } from "./";
 
 const Favourites: React.FC = () => {
   const { REACT_APP_TMDB_IMAGE_BASE_URL } = process.env;
@@ -29,10 +29,10 @@ const Favourites: React.FC = () => {
       });
       if (status === 200) {
         setMovies(
-          data.movies.map(({ id, title, imgPath }: movieResponseType) => ({
-            movieId: id,
-            title,
-            posterImageURL: imgPath,
+          data.movies.map((movie: MovieResponseType) => ({
+            movieId: movie.id,
+            title: movie.title,
+            posterImageURL: movie.imgPath,
           }))
         );
         setPage((page) => ({ ...page, amountOfPages: data.amountOfPages }));
