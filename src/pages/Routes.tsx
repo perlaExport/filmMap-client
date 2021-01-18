@@ -13,6 +13,8 @@ import Questionnaire from "./Questionnaire";
 import Profile from "./Profile";
 import SearchedMovies from "./SearchedMovies";
 import Error from "./Error";
+import ActivateUser from "./ActivateUser";
+import NewPassword from "./NewPassword";
 
 interface ProtectedRouteProps extends RouteProps {
   auth: authenticationStatus;
@@ -44,6 +46,26 @@ const Routes: React.FC = () => {
     isUserAuthenticated();
     return <Redirect to="/" />;
   };
+  const userActivation = (props: RouteComponentProps) => {
+    const queryparams = queryString.parse(props.location.search);
+    const token = (queryparams.token as string) || "";
+    const userId = (queryparams.userId as string) || "";
+    if (token === "" || userId === "") {
+      return <Redirect to="/" />;
+    } else {
+      return <ActivateUser token={token} userId={userId} />;
+    }
+  };
+  const changePassword = (props: RouteComponentProps) => {
+    const queryparams = queryString.parse(props.location.search);
+    const token = (queryparams.token as string) || "";
+    const userId = (queryparams.userId as string) || "";
+    if (token === "" || userId === "") {
+      return <Redirect to="/" />;
+    } else {
+      return <NewPassword token={token} userId={userId} />;
+    }
+  };
 
   return (
     <Switch>
@@ -51,7 +73,9 @@ const Routes: React.FC = () => {
       <Route exact path="/movie" component={SearchedMovies} />
       <Route exact path="/movie/:movieId" component={MovieDetails} />
       <Route exact path="/oauth2/redirect" render={oAuthLoginRedirect} />
-      <Route auth={authStatus} path="/error" component={Error} />
+      <Route exact path="/user/confirmRegistration" render={userActivation} />
+      <Route exact path="/changePassword" render={changePassword} />
+      <Route exact path="/error" component={Error} />
       <ProtectedRoute exact auth={authStatus} path="/recommendations" component={Recommendations} />
       <ProtectedRoute exact auth={authStatus} path="/questionnaire" component={Questionnaire} />
       <ProtectedRoute auth={authStatus} path="/profile" component={Profile} />
