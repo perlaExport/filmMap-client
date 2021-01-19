@@ -5,7 +5,7 @@ import UserMovieManager from "./UserMovieManager";
 import MovieDetails from "./MovieDetails";
 import Reviews from "./Reviews";
 import MovieInfo from "./MovieInfo";
-import Poster from "./Poster";
+import PosterWrapper from "./PosterWrapper";
 
 export interface MovieProps {
   id: number;
@@ -19,6 +19,6 @@ export interface MovieProps {
 }
 export type favAndWatchlaterType = { favourite: boolean; watchlater: boolean };
 
-export { Poster, MovieInfo, PosterBackdrop, UserMovieManager, Reviews };
+export { PosterWrapper, MovieInfo, PosterBackdrop, UserMovieManager, Reviews };
 
 export default MovieDetails;

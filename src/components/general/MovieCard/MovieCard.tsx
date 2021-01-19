@@ -4,9 +4,9 @@ import Image from "components/general/Image";
 import { Link } from "react-router-dom";
 import { MovieCardProps } from "./";
 
-const MovieCard: React.FC<MovieCardProps> = ({ movieId, posterImageURL, title }) => {
+const MovieCard: React.FC<MovieCardProps> = ({ movieId, posterImageURL, title, classes }) => {
   return (
-    <Link className="movie-card" to={`/movie/${movieId}`}>
+    <Link className={`movie-card ${classes || ""}`} to={`/movie/${movieId}`}>
       <div className="image-container">
         <Image className="poster-image" src={!!posterImageURL ? posterImageURL : ""} />
         <div className="gradient"></div>

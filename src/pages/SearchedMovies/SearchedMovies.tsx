@@ -23,13 +23,12 @@ const SearchedMovies: React.FC = () => {
 
   useEffect(() => {
     const getMatchedMovies = async (query: string) => {
-      const { data, error, status } = await callTMDBAPI({
+      const { data, status } = await callTMDBAPI({
         url: "/search/movie",
         method: "GET",
         queryParams: { query, page: page.currentPage },
         setLoading,
       });
-      console.log(data, error, status);
       if (status === 200) {
         const { results, total_results, total_pages } = data;
         setResultMovies(

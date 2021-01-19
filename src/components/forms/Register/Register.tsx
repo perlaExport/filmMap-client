@@ -5,8 +5,8 @@ import Input from "components/general/Input";
 import "./Register.scss";
 import { LoadingButton } from "components/general/Button";
 import callAPI from "helper/api";
-import RegistrationSuccess from "./RegistrationSuccess";
 import { FormProps } from "../";
+import RSuccess from "./RSuccess";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -30,24 +30,25 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
     payload: any,
     { setSubmitting, setErrors }: { setSubmitting: any; setErrors: any }
   ) => {
-    const { data, status, error } = await callAPI({
+    const { status, error } = await callAPI({
       url: "/register",
       method: "POST",
       setLoading: setSubmitting,
       payload,
     });
     if (status === 200) {
-      setRegistartionEmail(data.email);
+      setRegistartionEmail(payload.email);
     } else if (!!error) setErrors({ email: error.message });
   };
 
   const changeSceneToLogin = () => {
     changeSceneHandler("Login", 700);
   };
+  const changeSceneToResendToken = () => {
+    changeSceneHandler("Resend Link", 700);
+  };
   if (!!registartionEmail) {
-    return (
-      <RegistrationSuccess email={registartionEmail} changeFormSceneToLogin={changeSceneToLogin} />
-    );
+    return <RSuccess email={registartionEmail} changeFormSceneToLogin={changeSceneToLogin} />;
   } else {
     return (
       <Formik initialValues={fields} validationSchema={validationSchema} onSubmit={handleRegister}>
@@ -93,6 +94,12 @@ const Register: React.FC<FormProps> = ({ changeSceneHandler }) => {
               className="link-element login-nav-link"
               onClick={changeSceneToLogin}>
               Login
+            </button>
+            <button
+              type="button"
+              className="link-element login-nav-link"
+              onClick={changeSceneToResendToken}>
+              Resend activation link
             </button>
           </Form>
         )}

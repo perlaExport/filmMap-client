@@ -11,6 +11,9 @@
     align-items: center;
     color: white;
     text-align: center;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
   .movie-info {
     margin-left: 4rem;

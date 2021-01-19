@@ -18,7 +18,7 @@ const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
   const [isReviewed, setIsReviewed] = useState<boolean>(userReview !== "");
 
   const submitReview = async (payload: any, { setSubmitting }: { setSubmitting: any }) => {
-    const { data, status, error } = await callAPI({
+    const { status } = await callAPI({
       url: `/movie/${movieId}/review`,
       method: "PUT",
       token: true,
@@ -28,19 +28,17 @@ const CommentInput: React.FC<CommentInputPorps> = ({ movieId, userReview }) => {
       },
     });
     if (status === 200 && !isReviewed) setIsReviewed(true);
-    console.log(data, status, error);
   };
 
   const removeReview = async () => {
     const shouldRemooveReview = window.confirm("Are you sure you want to remove your review?");
     if (shouldRemooveReview) {
-      const { data, status, error } = await callAPI({
+      const { status } = await callAPI({
         url: `/movie/${movieId}/delete_review`,
         method: "DELETE",
         token: true,
       });
       if (status === 200) setIsReviewed(false);
-      console.log(data, status, error);
     }
   };
 

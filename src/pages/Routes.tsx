@@ -39,7 +39,7 @@ const Routes: React.FC = () => {
 
   const oAuthLoginRedirect = (props: RouteComponentProps) => {
     const queryparams = queryString.parse(props.location.search);
-    console.log(queryparams);
+    if (!!queryparams.error) window.alert(queryparams.error);
     const token = queryparams.token || "";
     if (token !== "") localStorage.setItem("token", token as string);
 
@@ -72,9 +72,9 @@ const Routes: React.FC = () => {
       <Route exact path="/" component={Home} />
       <Route exact path="/movie" component={SearchedMovies} />
       <Route exact path="/movie/:movieId" component={MovieDetails} />
-      <Route exact path="/oauth2/redirect" render={oAuthLoginRedirect} />
+      <Route exact path="/oauth_login" render={oAuthLoginRedirect} />
       <Route exact path="/user/confirmRegistration" render={userActivation} />
-      <Route exact path="/changePassword" render={changePassword} />
+      <Route exact path="/user/resetPassword" render={changePassword} />
       <Route exact path="/error" component={Error} />
       <ProtectedRoute exact auth={authStatus} path="/recommendations" component={Recommendations} />
       <ProtectedRoute exact auth={authStatus} path="/questionnaire" component={Questionnaire} />

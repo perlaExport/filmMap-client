@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
-import CheckBox from "components/general/CheckBox/CheckBox";
 import { LoadingButton } from "components/general/Button";
 import "./Login.scss";
 import callAPI from "helper/api";
@@ -42,6 +41,8 @@ const Login: React.FC<FormProps> = ({ changeSceneHandler }) => {
         });
         changeSceneHandler("Close", 0);
       }
+    } else if (status === 400 && !!error.message) {
+      window.alert(error.message);
     } else {
       setErrors(processErros(fields, error));
     }
@@ -71,7 +72,6 @@ const Login: React.FC<FormProps> = ({ changeSceneHandler }) => {
             as={Input}
           />
           <div className="option-group">
-            <CheckBox label="remember me" />
             <button onClick={changeToForgotPass} type="button" className="link-element">
               forgot password?
             </button>

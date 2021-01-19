@@ -11,27 +11,27 @@ const ActivateUser: React.FC<ActivateUserProps> = ({ userId, token }) => {
   const [isLoading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-      console.log("stop loading");
-      setTimeout(() => {
-        console.log("redirect");
-
-        history.replace("/");
-      }, 3000);
-    }, 3000);
+    const activateUserHandler = async () => {
+      const { status } = await callAPI({
+        url: "/register/confirm",
+        method: "PUT",
+        setLoading,
+        queryParams: {
+          id: userId,
+          token,
+        },
+      });
+      if (status === 200) {
+        setTimeout(() => {
+          history.replace("/");
+        }, 3000);
+      }
+    };
+    activateUserHandler();
 
     return () => {};
-  }, [history]);
+  }, [history, userId, token]);
 
-  const activateUserHandler = async () => {
-    const { data, status, error } = await callAPI({
-      url: "/get_current_user",
-      method: "GET",
-      setLoading,
-    });
-    console.log(data, status, error);
-  };
   return (
     <LoadingWrapper className="activate-user-page" isLoading={isLoading}>
       <SuccessCheck />

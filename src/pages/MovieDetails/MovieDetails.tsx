@@ -7,7 +7,7 @@ import LoadingWrapper from "components/layout/LoadingWrapper";
 import {
   MovieInfo,
   PosterBackdrop,
-  Poster,
+  PosterWrapper,
   UserMovieManager,
   MovieProps,
   favAndWatchlaterType,
@@ -101,7 +101,7 @@ const MovieDetails: React.FC<RouteComponentProps<{ movieId?: string | undefined 
       <section className="main-movie-details">
         <div className="poster-wrapper">
           <h1 className="movie-title">{movieDetails.title}</h1>
-          <Poster
+          <PosterWrapper
             movieId={movieDetails.id}
             shouldDisplayMatch={authStatus === "success" && score < 1}
             posterPath={movieDetails.posterPath || ""}

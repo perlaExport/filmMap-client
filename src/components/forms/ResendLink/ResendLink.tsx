@@ -3,9 +3,8 @@ import * as Yup from "yup";
 import { Formik, Field, Form } from "formik";
 import Input from "components/general/Input";
 import { LoadingButton } from "components/general/Button";
-import { FormProps } from "../";
 import callAPI from "helper/api";
-import FPSuccess from "./FPSuccess";
+import RLSuccess from "./RLSuccess";
 
 const validationSchema = Yup.object({
   email: Yup.string().email().required("field is required"),
@@ -14,14 +13,15 @@ const fields = {
   email: "",
 };
 
-const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
+const ResendLink: React.FC = () => {
   const [isSuccess, setSuccess] = useState<boolean>(false);
+
   const handleChangePasswordRequest = async (
     payload: any,
     { setSubmitting, setErrors }: { setSubmitting: any; setErrors: any }
   ) => {
     const { status, error } = await callAPI({
-      url: "/password/request",
+      url: "/register/resend_token",
       method: "GET",
       setLoading: setSubmitting,
       queryParams: {
@@ -34,12 +34,8 @@ const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
       setSuccess(true);
     }
   };
-
-  const changeSceneToLogin = () => {
-    changeSceneHandler("Login", 700);
-  };
   if (isSuccess) {
-    return <FPSuccess changeFormSceneToLogin={changeSceneToLogin} />;
+    return <RLSuccess />;
   } else {
     return (
       <Formik
@@ -59,12 +55,6 @@ const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
             <LoadingButton disabled={!isValid} type="submit" isLoading={isSubmitting}>
               Send
             </LoadingButton>
-            <button
-              type="button"
-              className="link-element login-nav-link"
-              onClick={changeSceneToLogin}>
-              Login
-            </button>
           </Form>
         )}
       </Formik>
@@ -72,4 +62,4 @@ const ForgotPassword: React.FC<FormProps> = ({ changeSceneHandler }) => {
   }
 };
 
-export default ForgotPassword;
+export default ResendLink;

@@ -3,7 +3,13 @@ import "./Navbar.scss";
 import { ReactComponent as Logo } from "assets/images/filmMap-logo-full.svg";
 import { NavButton } from "components/general/Button";
 import Sidebar from "components/layout/Sidebar";
-import { RegisterForm, LoginForm, ForgotPassword, FormSceneNames } from "components/forms";
+import {
+  RegisterForm,
+  LoginForm,
+  ForgotPassword,
+  FormSceneNames,
+  ResendLink,
+} from "components/forms";
 import { Link, useHistory } from "react-router-dom";
 import { NavbarProps } from "./";
 
@@ -46,6 +52,7 @@ const Navbar: React.FC<NavbarProps> = ({ username }) => {
       <Sidebar show={sidebarShow} closeHandler={handleToggleSidebarOpen} title={currentSidebarForm}>
         {currentSidebarForm === "Login" && <LoginForm changeSceneHandler={changeScene} />}
         {currentSidebarForm === "Register" && <RegisterForm changeSceneHandler={changeScene} />}
+        {currentSidebarForm === "Resend Link" && <ResendLink />}
         {currentSidebarForm === "Forgot Password" && (
           <ForgotPassword changeSceneHandler={changeScene} />
         )}
